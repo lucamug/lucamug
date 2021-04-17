@@ -75,7 +75,11 @@ linkAttrs =
 viewDetails : Project -> Element.Element msg
 viewDetails project =
     column [ width (fill |> maximum 600) ]
-        [ image [ width fill ] { src = imagesLocation ++ project.image, description = project.title }
+        [ if String.isEmpty project.image then
+            none
+
+          else
+            image [ width fill ] { src = imagesLocation ++ project.image, description = project.title }
         , column [ padding 20, spacing 20 ]
             ([]
                 ++ [ paragraph [ Font.size 30, Font.bold ] [ text project.title ] ]
@@ -198,7 +202,34 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Rakuten Sign In"
+    [ { title = "Elm at Rakuten"
+      , review = "Elm at Rakuten"
+      , desc = "The story of the adoption of Elm at rakuten, with likes and dislikes."
+      , url = "https://dev.to/lucamug/elm-6m8"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "elm_at_rakuten.jpg"
+      }
+    , { title = "Elm Cheat Sheet"
+      , review = "Elm Cheat Sheet"
+      , desc = "Learning Elm? Download the Elm Cheat Sheet to support your learning process."
+      , url = "https://twitter.com/luca_mug/status/1366200906606252037"
+      , code = "https://github.com/lucamug/elm-cheat-sheet/"
+      , demo = "https://lucamug.github.io/elm-cheat-sheet/elm-cheat-sheet.color.pdf"
+      , date = ""
+      , image = "elm_cheat_sheet.jpg"
+      }
+    , { title = "Parallax"
+      , review = "Parallax"
+      , desc = "A static page made in Elm for errors, such as 404 Page not Found."
+      , url = "https://login.account.rakuten.com/"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "404_page.jpg"
+      }
+    , { title = "Rakuten Sign In"
       , review = "Rakuten Sign In"
       , desc = "The entire Front-end part of Rakuten Taiwan Sign In and Registration system. I talked about this system at the [2019 Oslo Elm Day conference](https://www.youtube.com/watch?v=yH6o322S8XQ)."
       , url = "https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email#/registration/1"
@@ -225,7 +256,7 @@ items =
       , date = ""
       , image = "rakuten_security.jpg"
       }
-    , { title = "elm-live collaboration"
+    , { title = "Elm-Live Contribution"
       , review = "elm-live"
       , desc = """I enjoyed collaborating with William King to add few feature to elm-live, including
 
@@ -268,14 +299,14 @@ items =
       , date = ""
       , image = "elm_japan.jpg"
       }
-    , { title = "Speaker at the 2019 Oslo Elm Day Conference"
+    , { title = "\"Elm at large (companies)\", Oslo Elm Day 2019"
       , review = "Oslo Elm Day"
       , desc = ""
-      , url = ""
+      , url = "https://www.youtube.com/watch?v=yH6o322S8XQ"
       , code = ""
       , demo = ""
       , date = ""
-      , image = "oslo_conference.jpg"
+      , image = "elm_at_large_companies.jpg"
       }
     , { title = "Elm Resources"
       , review = "Elm Resources"
@@ -328,10 +359,10 @@ items =
       , date = ""
       , image = "time_in_elm.jpg"
       }
-    , { title = "Beginner Tutorials: How to build a game in Elm\u{200A}—\u{200A}Part 3"
-      , review = "Beginner Tutorials: How to build a game in Elm\u{200A}—\u{200A}Part 3"
-      , desc = "Part 3of 12\u{200A}—\u{200A}Add the Pause"
-      , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-3-fe62c51f7510"
+    , { title = "Beginner Tutorials: How to build a game in Elm"
+      , review = "Beginner Tutorials: How to build a game in Elm"
+      , desc = "Part 1 of 12\u{200A}—\u{200A}The Game Loop"
+      , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-5491d6de8f25"
       , code = ""
       , demo = ""
       , date = ""
@@ -341,6 +372,15 @@ items =
       , review = "Beginner Tutorials: How to build a game in Elm\u{200A}—\u{200A}Part 2"
       , desc = "Part 2 of 12\u{200A}—\u{200A}Add Keyboard"
       , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-2-ae26eef8610b"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = ""
+      }
+    , { title = "Beginner Tutorials: How to build a game in Elm\u{200A}—\u{200A}Part 3"
+      , review = "Beginner Tutorials: How to build a game in Elm\u{200A}—\u{200A}Part 3"
+      , desc = "Part 3 of 12\u{200A}—\u{200A}Add the Pause"
+      , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-3-fe62c51f7510"
       , code = ""
       , demo = ""
       , date = ""
@@ -359,15 +399,6 @@ items =
       , review = "Terminal Pixel Art"
       , desc = "If you find yourself often running scripts in the terminal, why not adding some colored pixel art to them?"
       , url = "https://medium.com/@l.mugnaini/terminal-pixel-art-ad386d186dad"
-      , code = ""
-      , demo = ""
-      , date = ""
-      , image = ""
-      }
-    , { title = "Beginner Tutorials: How to build a game in Elm"
-      , review = "Beginner Tutorials: How to build a game in Elm"
-      , desc = "Part 1 of 12\u{200A}—\u{200A}The Game Loop"
-      , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-5491d6de8f25"
       , code = ""
       , demo = ""
       , date = ""

@@ -2,9 +2,9 @@
 
 ## URL
 
-https://wizardly-clarke-07b476.netlify.app/
+Published as [https://lucamug.guupa.com/](https://lucamug.guupa.com/).
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/187d4f7d-bffb-4464-a2a6-95950660c8ad/deploy-status)](https://app.netlify.com/sites/wizardly-clarke-07b476/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/14ad54e4-938e-45c4-9888-4edf3f69ac01/deploy-status)](https://app.netlify.com/sites/condescending-mccarthy-e887b3/deploys)
 
 ## Development
 
