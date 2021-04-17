@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+
+if [ -d "elm-stuff" ]; then
+    rm -rf elm-stuff
+fi
+
+if [ -d "~/.elm/0.19.0/package/*/*/*/*.dat" ]; then
+    rm ~/.elm/0.19.0/package/*/*/*/*.dat
+fi
+

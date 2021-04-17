@@ -1,0 +1,50 @@
+#!/usr/local/bin/node
+const puppeteer = require('puppeteer');
+const fs = require("fs");
+const conf = require(process.cwd() + '/temp/conf.json');
+
+(function() {main();})();
+
+async function main () {
+    try {
+        console.log(`\nBuilding ${conf.urls.length} static pages for ${conf.targetDomain}`);
+        const browser = await puppeteer.launch({ headless: conf.headless });
+        const urlsInBatches = chunkArray(conf.urls, conf.batchesSize);
+        await urlsInBatches.reduce(async (previousBatch, currentBatch, index) => {
+            await previousBatch;
+            console.log(`\nProcessing batch ${index + 1} of ${urlsInBatches.length}...\n`);
+            const currentBatchPromises = currentBatch.map(url => processUrl(url, browser, conf))
+            const result = await Promise.all(currentBatchPromises);
+        }, Promise.resolve());
+        await browser.close();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+async function processUrl (url, browser, conf) {
+    const page = await browser.newPage();
+    await page.setViewport({width: conf.snapshotsWidth, height: conf.snapshotsHeight});
+    await page.goto(`${conf.startingDomain}${url}`, {waitUntil: 'networkidle0'});
+    fs.mkdirSync(`${conf.targetDir}${url}`, { recursive: true });
+    let html = await page.content();
+    html = html.replace('</body>',`${conf.extraHtml}</body>`);
+    console.log(`* ${conf.startingDomain}${url}`);
+    fs.writeFileSync(`${conf.targetDir}${url}/${conf.pageName}`, html);
+    if (conf.snapshots) {
+        await page.screenshot(
+            { path: `${conf.targetDir}${url}/${conf.snapshotsName}`
+            , quality: conf.snapshotsQuality
+            }
+        );
+    }
+    await page.close();
+}
+
+function chunkArray(myArray, chunk_size){
+    var results = [];
+    while (myArray.length) {
+        results.push(myArray.splice(0, chunk_size));
+    }
+    return results;
+}

@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+node_modules/.bin/concurrently "cmd/build/start-server-for-pages-generator" "sleep 5 && cmd/build/build" --kill-others --success=first

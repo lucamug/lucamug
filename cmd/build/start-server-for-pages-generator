@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+node_modules/.bin/elm-live src/Main.elm --pushstate --no-reload --path-to-elm=node_modules/.bin/elm --dir=docs --start-page=index.html --port=8000 -- --output=docs/elm.js --optimize
