@@ -1116,4 +1116,13 @@ items =
       , demo = ""
       , image = "puchi.jpg"
       }
+    , { title = "Perl e Internet"
+      , review = "Perl e Internet"
+      , url = "https://www.libraccio.it/libro/9788838607783/alessandro-bellini-andrea-guidi/perl-e-internet.html"
+      , code = ""
+      , desc = "When Perl was cool, I collaborated to a section of the book \"Perl e Internet\" by Alessandro Bellini."
+      , date = ""
+      , demo = ""
+      , image = "perl_e_internet.jpg"
+      }
     ]
