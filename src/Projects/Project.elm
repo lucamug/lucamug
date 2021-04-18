@@ -190,7 +190,7 @@ viewCard project =
 itemNotFound : Item
 itemNotFound =
     { title = "NOT FOUND"
-    , review = ""
+    , review = "NOT FOUND"
     , desc = ""
     , url = ""
     , code = ""
@@ -202,6 +202,16 @@ itemNotFound =
 
 items : List Item
 items =
+    -- TODO
+    -- , { title = "Elm E-commerce demo"
+    --   , review = "Elm E-commerce demo"
+    --   , url = ""
+    --   , code = ""
+    --   , desc = ""
+    --   , date = ""
+    --   , demo = ""
+    --   , image = ""
+    --   }
     [ { title = "Elm at Rakuten"
       , review = "Elm at Rakuten"
       , desc = "The story of the adoption of Elm at rakuten, with likes and dislikes."
@@ -265,17 +275,6 @@ items =
       , demo = ""
       , image = "elm-release.jpg"
       }
-
-    -- TODO
-    -- , { title = "Elm E-commerce demo"
-    --   , review = ""
-    --   , url = ""
-    --   , code = ""
-    --   , desc = ""
-    --   , date = ""
-    --   , demo = ""
-    --   , image = ""
-    --   }
     , { title = "R10"
       , review = "R10"
       , url = "https://r10.netlify.app/"
@@ -331,7 +330,7 @@ items =
       , image = "ro-box.gif"
       }
     , { title = "Elm-Playground-3D Examples"
-      , review = ""
+      , review = "Elm-Playground-3D Examples"
       , url = "https://elm-playground-3d.netlify.app/"
       , code = "https://github.com/lucamug/elm-playground-3d"
       , desc = ""
@@ -339,17 +338,17 @@ items =
       , demo = ""
       , image = "3d_examples.gif"
       }
-    , { title = "HTTP Trinity"
-      , review = "HTTP Trinity"
-      , url = "https://rakutentech.github.io/http-trinity/"
-      , code = "https://github.com/rakutentech/http-trinity"
-      , desc = ""
-      , date = ""
+    , { title = "Elm Japan 2020"
+      , review = "Elm Japan"
+      , desc = "Lead organizer of the first Elm conference in the Asia-Pacific region"
+      , url = "https://elmjapan.org/"
+      , code = "https://github.com/lucamug/elm-japan"
       , demo = ""
-      , image = "http_trinity.jpg"
+      , date = ""
+      , image = "elm_japan.jpg"
       }
     , { title = "Elm Pages editor"
-      , review = ""
+      , review = "Elm Pages editor"
       , url = "https://lucamug.github.io/elm-pages-editor/withEditorAndDebugger.html"
       , code = "https://github.com/lucamug/elm-pages-editor"
       , desc = ""
@@ -392,24 +391,6 @@ items =
       , demo = ""
       , date = ""
       , image = "404_page.jpg"
-      }
-    , { title = "Rakuten Sign In"
-      , review = "Rakuten Sign In"
-      , desc = "The entire Front-end part of Rakuten Taiwan Sign In and Registration system. I talked about this system at the [2019 Oslo Elm Day conference](https://www.youtube.com/watch?v=yH6o322S8XQ)."
-      , url = "https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email#/registration/1"
-      , code = ""
-      , demo = ""
-      , date = ""
-      , image = "rakuten_signin.jpg"
-      }
-    , { title = "Rakuten Open Source"
-      , review = "Rakuten Open Source"
-      , desc = "The Open Source page of Rakuten got a new re-write in March 2019. It is now completely written in Elm. It combines Rakuten Open Source project coming from 11 different Github accounts. The structure of the app is not an usual Elm structure. It is organized in a way that also engineer that are now familiar with Elm can maitain the website. The main `src` folder contain the configuration and the main views. The website logic (The Elm Architecture) is \"hidden\" in the `internal` folder."
-      , url = "https://rakutentech.github.io/"
-      , code = "https://github.com/rakutentech/rakutentech.github.io"
-      , demo = ""
-      , date = ""
-      , image = "rakuten_open_source.jpg"
       }
     , { title = "Elm vs. Svelte"
       , review = "Elm vs. Svelte"
@@ -456,21 +437,23 @@ items =
       , date = ""
       , image = "rakuten_security.jpg"
       }
-    , { title = "Elm-Live Contribution"
-      , review = "elm-live"
-      , desc = """I enjoyed collaborating with William King to add few feature to elm-live, including
-
-* Errors in console
-* Errors in browser
-* Colored errors
-* Hot reload implementations (Using [elm-hot](https://github.com/klazuka/elm-hot))
-* QRCode for mobile testing ([pending](https://github.com/wking-io/elm-live/issues/204))
-* Link in browser that open IDE directly ([pending](https://github.com/wking-io/elm-live/issues/204))"""
-      , url = "https://www.npmjs.com/package/elm-live"
-      , code = "https://github.com/wking-io/elm-live"
+    , { title = "Rakuten Sign In"
+      , review = "Rakuten Sign In"
+      , desc = "The entire Front-end part of Rakuten Taiwan Sign In and Registration system. I talked about this system at the [2019 Oslo Elm Day conference](https://www.youtube.com/watch?v=yH6o322S8XQ)."
+      , url = "https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email#/registration/1"
+      , code = ""
       , demo = ""
       , date = ""
-      , image = "elm_live.jpg"
+      , image = "rakuten_signin.jpg"
+      }
+    , { title = "Rakuten Open Source"
+      , review = "Rakuten Open Source"
+      , desc = "The Open Source page of Rakuten got a new re-write in March 2019. It is now completely written in Elm. It combines Rakuten Open Source project coming from 11 different Github accounts. The structure of the app is not an usual Elm structure. It is organized in a way that also engineer that are now familiar with Elm can maitain the website. The main `src` folder contain the configuration and the main views. The website logic (The Elm Architecture) is \"hidden\" in the `internal` folder."
+      , url = "https://rakutentech.github.io/"
+      , code = "https://github.com/rakutentech/rakutentech.github.io"
+      , demo = ""
+      , date = ""
+      , image = "rakuten_open_source.jpg"
       }
     , { title = "Simple masonry layout in 50 lines of Elm code"
       , review = "Masonry Layout"
@@ -480,15 +463,6 @@ items =
       , demo = ""
       , date = ""
       , image = "masonry.jpg"
-      }
-    , { title = "Elm Japan 2020"
-      , review = "Elm Japan"
-      , desc = "Lead organizer of the first Elm conference in the Asia-Pacific region"
-      , url = "https://elmjapan.org/"
-      , code = "https://github.com/lucamug/elm-japan"
-      , demo = ""
-      , date = ""
-      , image = "elm_japan.jpg"
       }
     , { title = "\"Elm at large (companies)\", Oslo Elm Day 2019"
       , review = "Oslo Elm Day"
@@ -549,6 +523,15 @@ items =
       , demo = ""
       , date = ""
       , image = "time_in_elm.jpg"
+      }
+    , { title = "HTTP Trinity"
+      , review = "HTTP Trinity"
+      , url = "https://rakutentech.github.io/http-trinity/"
+      , code = "https://github.com/rakutentech/http-trinity"
+      , desc = ""
+      , date = ""
+      , demo = ""
+      , image = "http_trinity.jpg"
       }
     , { title = "Beginner Tutorials: How to build a game in Elm — Part 1"
       , review = "Beginner Tutorials: How to build a game in Elm — Part 1"
@@ -901,6 +884,22 @@ items =
       , date = "Jun 15, 2017"
       , image = "decoding_json.jpg"
       }
+    , { title = "Elm-Live Contribution"
+      , review = "elm-live"
+      , desc = """I enjoyed collaborating with William King to add few feature to elm-live, including
+
+* Errors in console
+* Errors in browser
+* Colored errors
+* Hot reload implementations (Using [elm-hot](https://github.com/klazuka/elm-hot))
+* QRCode for mobile testing ([pending](https://github.com/wking-io/elm-live/issues/204))
+* Link in browser that open IDE directly ([pending](https://github.com/wking-io/elm-live/issues/204))"""
+      , url = "https://www.npmjs.com/package/elm-live"
+      , code = "https://github.com/wking-io/elm-live"
+      , demo = ""
+      , date = ""
+      , image = "elm_live.jpg"
+      }
     , { title = "Carousel plugin in Elm"
       , review = "Carousel plugin in Elm"
       , desc = "This is a simple example of how is possible to implement a third party Carousel plugin in a Single Page Application (SPA) made in Elm."
@@ -946,6 +945,15 @@ items =
       , demo = ""
       , image = "blog_using_google_spreadsheets.jpg"
       }
+    , { title = "Old Elm Japan 2020 website"
+      , review = "Old Elm Japan 2020 website"
+      , url = "https://elm-tokyo-2020.netlify.com"
+      , code = ""
+      , desc = ""
+      , date = ""
+      , demo = ""
+      , image = "elm_japan_2020_old.jpg"
+      }
     , { title = "Bad* Javascript vs Bad* Elm"
       , review = "Bad* Javascript vs Bad* Elm"
       , url = "https://medium.com/@l.mugnaini/bad-javascript-vs-bad-elm-6dc9661d109?source=your_stories_page---------------------------"
@@ -980,7 +988,7 @@ items =
       , desc = "A simple Shopping Cart written while experimenting with Elm"
       , date = "May 3, 2017"
       , demo = ""
-      , image = ""
+      , image = "simple_ecommerce.jpg"
       }
     , { title = "Experimental reuse of code in Elm, Part I — Page with list of products"
       , review = "Experimental reuse of code in Elm, Part I — Page with list of products"
@@ -989,7 +997,7 @@ items =
       , desc = "This is the first port of a series:"
       , date = "Apr 29, 2017"
       , demo = ""
-      , image = ""
+      , image = "reuse_of_code.jpg"
       }
     , { title = "Elm flow in the console"
       , review = "Elm flow in the console"
@@ -998,7 +1006,7 @@ items =
       , desc = "Try this code if you want to see how elm behave in the console:"
       , date = "Mar 28, 2017"
       , demo = ""
-      , image = ""
+      , image = "flow_in_console.jpg"
       }
     , { title = "10 Criteria to Judge a Good Milk Container"
       , review = "10 Criteria to Judge a Good Milk Container"
@@ -1007,7 +1015,7 @@ items =
       , desc = ""
       , date = "Jan 19, 2017"
       , demo = ""
-      , image = ""
+      , image = "milk_container.jpg"
       }
     , { title = "DEC64 — Douglas Crockford’s Decimal Notation"
       , review = "DEC64 — Douglas Crockford’s Decimal Notation"
@@ -1016,7 +1024,7 @@ items =
       , desc = "I know this is a bit old, but today, watching an old Douglas Crockford’s video I was interested in his proposal of a new way of defining a…"
       , date = "Jan 18, 2017"
       , demo = ""
-      , image = ""
+      , image = "dec64.jpg"
       }
     , { title = "Introduction to Functional Programming"
       , review = "Introduction to Functional Programming"
@@ -1025,7 +1033,7 @@ items =
       , desc = "Among several videos that I have been watching about functional programming, I found these two quite interesting and entertaining:"
       , date = "Jan 17, 2017"
       , demo = ""
-      , image = ""
+      , image = "itroduction_fp.jpg"
       }
     , { title = "Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON"
       , review = "Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON"
@@ -1034,7 +1042,7 @@ items =
       , desc = "Would you like to download your multi-sheets-Google-spreadsheet in a simple format like this?"
       , date = "Jan 17, 2017"
       , demo = ""
-      , image = ""
+      , image = "download_spreadsheet.jpg"
       }
     , { title = "Mekke"
       , review = "Mekke"
@@ -1043,7 +1051,7 @@ items =
       , desc = "Reviews of books for children, in Japanese."
       , date = ""
       , demo = ""
-      , image = ""
+      , image = "mekke.jpg"
       }
     , { title = "Elm Starter Example"
       , review = "Elm Starter Example"
@@ -1052,16 +1060,16 @@ items =
       , desc = ""
       , date = ""
       , demo = ""
-      , image = ""
+      , image = "elm_starter_demo.jpg"
       }
-    , { title = "Elm TODO Example"
-      , review = "Elm TODO Example"
+    , { title = "Elm Todos Example"
+      , review = "Elm Todos Example"
       , url = "https://elm-todomvc.guupa.com/"
       , code = ""
       , desc = ""
       , date = ""
       , demo = ""
-      , image = ""
+      , image = "todo.jpg"
       }
     , { title = "Elm SPA Example"
       , review = "Elm SPA Example"
@@ -1070,16 +1078,7 @@ items =
       , desc = ""
       , date = ""
       , demo = ""
-      , image = ""
-      }
-    , { title = "Elm Masonry"
-      , review = "Elm Masonry"
-      , url = "http://elm-masonry.surge.sh/"
-      , code = ""
-      , desc = ""
-      , date = ""
-      , demo = ""
-      , image = ""
+      , image = "spa_example.jpg"
       }
     , { title = "Nyoro-Nyoro Game"
       , review = "Nyoro-Nyoro Game"
@@ -1088,7 +1087,7 @@ items =
       , desc = ""
       , date = ""
       , demo = ""
-      , image = ""
+      , image = "nyoro_nyoro.jpg"
       }
     , { title = "Style Framework"
       , review = "Style Framework"
@@ -1097,7 +1096,7 @@ items =
       , desc = ""
       , date = ""
       , demo = ""
-      , image = ""
+      , image = "style_framework2.jpg"
       }
     , { title = "Geofencing"
       , review = "Geofencing"
@@ -1106,25 +1105,7 @@ items =
       , desc = "Experimental PWA with Geofencing"
       , date = ""
       , demo = ""
-      , image = ""
-      }
-    , { title = "SPA Boilerplate"
-      , review = "SPA Boilerplate"
-      , url = "https://elm-spa-boilerplate.guupa.com"
-      , code = ""
-      , desc = "One of the first SPA in Elm that I have done"
-      , date = ""
-      , demo = ""
-      , image = ""
-      }
-    , { title = "Test page for SEO"
-      , review = "Test page for SEO"
-      , url = "https://elm-spa-seo-testing.guupa.com"
-      , code = "Test page for SEO"
-      , desc = ""
-      , date = ""
-      , demo = ""
-      , image = ""
+      , image = "geofencing.jpg"
       }
     , { title = "Puchi Densha"
       , review = "Puchi Densha"
@@ -1133,15 +1114,6 @@ items =
       , desc = ""
       , date = ""
       , demo = ""
-      , image = ""
-      }
-    , { title = "Old Elm Japan 2020 website"
-      , review = "Old Elm Japan 2020 website"
-      , url = "https://elm-tokyo-2020.netlify.com"
-      , code = ""
-      , desc = ""
-      , date = ""
-      , demo = ""
-      , image = ""
+      , image = "puchi.jpg"
       }
     ]
