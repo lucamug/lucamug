@@ -202,17 +202,16 @@ itemNotFound =
 
 items : List Item
 items =
-    -- TODO
-    -- , { title = "Elm E-commerce demo"
-    --   , review = "Elm E-commerce demo"
-    --   , url = ""
-    --   , code = ""
-    --   , desc = ""
-    --   , date = ""
-    --   , demo = ""
-    --   , image = ""
-    --   }
-    [ { title = "Elm at Rakuten"
+    [ { title = "Elm eCommerce"
+      , review = "Elm eCommerce"
+      , desc = "A simple eCommerce demo application in 2,500 lines of Elm code, all shrank into 40KB of JavaScript, including styling and icons."
+      , url = "https://elm-ecommerce.guupa.com/"
+      , code = "https://github.com/lucamug/elm-ecommerce"
+      , demo = ""
+      , date = ""
+      , image = "elm-ecommerce.jpg"
+      }
+    , { title = "Elm at Rakuten"
       , review = "Elm at Rakuten"
       , desc = "The story of the adoption of Elm at rakuten, with likes and dislikes."
       , url = "https://dev.to/lucamug/elm-6m8"
