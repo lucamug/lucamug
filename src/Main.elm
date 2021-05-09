@@ -27,7 +27,7 @@ import Utils.Utils
 
 conf : Starter.ConfMain.Conf
 conf =
-    { urls = [ "/" ]
+    { urls = [ "/" ] ++ List.map (\item -> urlBuilder (Item.id item)) Item.items
     , assetsToCache = []
     }
 

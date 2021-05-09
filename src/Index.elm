@@ -14,32 +14,6 @@ import Starter.SnippetHtml
 import Starter.SnippetJavascript
 
 
-conf :
-    { author : String
-    , description : String
-    , domain : String
-    , snapshotFileName : String
-    , snapshotHeight : number
-    , snapshotWidth : number1
-    , themeColor : String
-    , title : String
-    , twitterHandle : String
-    , twitterSite : String
-    }
-conf =
-    { title = Item.conf.title
-    , description = Item.conf.description
-    , domain = "https://mekke.guupa.com/"
-    , twitterSite = ""
-    , twitterHandle = ""
-    , themeColor = "#bf0000"
-    , author = "Ritsuko"
-    , snapshotFileName = "snapshot.jpg"
-    , snapshotWidth = 700
-    , snapshotHeight = 350
-    }
-
-
 index : Starter.Flags.Flags -> Html msg
 index flags =
     let
@@ -53,10 +27,10 @@ index flags =
         [ lang "en" ]
         [ head []
             ([]
-                ++ [ title_ [] [ text conf.title ]
+                ++ [ title_ [] [ text flags.nameLong ]
                    , meta [ charset "utf-8" ] []
-                   , meta [ name "author", content conf.author ] []
-                   , meta [ name "description", content conf.description ] []
+                   , meta [ name "author", content flags.author ] []
+                   , meta [ name "description", content flags.description ] []
                    , meta [ name "viewport", content "width=device-width, initial-scale=1, shrink-to-fit=no" ] []
                    , meta [ httpEquiv "x-ua-compatible", content "ie=edge" ] []
                    , link [ rel "icon", href (Starter.Icon.iconFileName relative 64) ] []

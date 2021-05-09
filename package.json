@@ -1,24 +1,23 @@
 {
     "version": "1.0.0",
-    "name": "elm-books-review",
-    "nameLong": "Mekke",
-    "description": "Mekke",
-    "author": "Luca Mugnaini",
-    "twitterSite": "lucamug",
-    "twitterCreator": "lucamug",
-    "homepage": "https://mekke.guupa.com/",
+    "name": "lucamug.guupa.com",
+    "nameLong": "Projects by Lucamug",
+    "description": "Projects by Lucamug",
+    "author": "Lucamug",
+    "twitterCreator": "luca_mug",
+    "homepage": "https://lucamug.guupa.com/",
     "license": "ISC",
     "snapshotWidth": 700,
     "snapshotHeight": 350,
     "themeColor": {
-        "red": 15,
-        "green": 85,
-        "blue": 123
+        "red": 252,
+        "green": 231,
+        "blue": 79
     },
     "main": "index.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/lucamug/elm-books-review"
+        "url": "https://github.com/lucamug/elm-projects.private"
     },
     "scripts": {
         "start": "node ./src-elm-starter/elm-starter start",
