@@ -4910,7 +4910,108 @@ function _Url_percentDecode(string)
 	{
 		return $elm$core$Maybe$Nothing;
 	}
-}var $elm$core$List$cons = _List_cons;
+}
+
+// CREATE
+
+var _Regex_never = /.^/;
+
+var _Regex_fromStringWith = F2(function(options, string)
+{
+	var flags = 'g';
+	if (options.multiline) { flags += 'm'; }
+	if (options.caseInsensitive) { flags += 'i'; }
+
+	try
+	{
+		return $elm$core$Maybe$Just(new RegExp(string, flags));
+	}
+	catch(error)
+	{
+		return $elm$core$Maybe$Nothing;
+	}
+});
+
+
+// USE
+
+var _Regex_contains = F2(function(re, string)
+{
+	return string.match(re) !== null;
+});
+
+
+var _Regex_findAtMost = F3(function(n, re, str)
+{
+	var out = [];
+	var number = 0;
+	var string = str;
+	var lastIndex = re.lastIndex;
+	var prevLastIndex = -1;
+	var result;
+	while (number++ < n && (result = re.exec(string)))
+	{
+		if (prevLastIndex == re.lastIndex) break;
+		var i = result.length - 1;
+		var subs = new Array(i);
+		while (i > 0)
+		{
+			var submatch = result[i];
+			subs[--i] = submatch
+				? $elm$core$Maybe$Just(submatch)
+				: $elm$core$Maybe$Nothing;
+		}
+		out.push(A4($elm$regex$Regex$Match, result[0], result.index, number, _List_fromArray(subs)));
+		prevLastIndex = re.lastIndex;
+	}
+	re.lastIndex = lastIndex;
+	return _List_fromArray(out);
+});
+
+
+var _Regex_replaceAtMost = F4(function(n, re, replacer, string)
+{
+	var count = 0;
+	function jsReplacer(match)
+	{
+		if (count++ >= n)
+		{
+			return match;
+		}
+		var i = arguments.length - 3;
+		var submatches = new Array(i);
+		while (i > 0)
+		{
+			var submatch = arguments[i];
+			submatches[--i] = submatch
+				? $elm$core$Maybe$Just(submatch)
+				: $elm$core$Maybe$Nothing;
+		}
+		return replacer(A4($elm$regex$Regex$Match, match, arguments[arguments.length - 2], count, _List_fromArray(submatches)));
+	}
+	return string.replace(re, jsReplacer);
+});
+
+var _Regex_splitAtMost = F3(function(n, re, str)
+{
+	var string = str;
+	var out = [];
+	var start = re.lastIndex;
+	var restoreLastIndex = re.lastIndex;
+	while (n--)
+	{
+		var result = re.exec(string);
+		if (!result) break;
+		out.push(string.slice(start, result.index));
+		start = re.lastIndex;
+	}
+	out.push(string.slice(start));
+	re.lastIndex = restoreLastIndex;
+	return _List_fromArray(out);
+});
+
+var _Regex_infinity = Infinity;
+var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
 	function (func, baseCase, _v0) {
@@ -10675,13 +10776,13 @@ var $mdgriffith$elm_ui$Element$rgb255 = F3(
 	function (red, green, blue) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
 	});
-var $author$project$Book$Book$conf = {
+var $author$project$Projects$Project$conf = {
 	backgroundColor: A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255),
-	description: 'Ritsu\'s Books Reviews',
+	description: 'Lucamug\'s Projects',
 	fontColor: A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0),
 	spacingSize: 50,
-	title: 'Mekke',
-	urlLabel: 'book'
+	title: 'lucamug',
+	urlLabel: 'project'
 };
 var $elm$url$Url$Parser$Parser = function (a) {
 	return {$: 'Parser', a: a};
@@ -10819,7 +10920,7 @@ var $author$project$Main$routex = $elm$url$Url$Parser$oneOf(
 			$author$project$Main$RouteItem,
 			A2(
 				$elm$url$Url$Parser$slash,
-				$elm$url$Url$Parser$s($author$project$Book$Book$conf.urlLabel),
+				$elm$url$Url$Parser$s($author$project$Projects$Project$conf.urlLabel),
 				$elm$url$Url$Parser$string)),
 			A2($elm$url$Url$Parser$map, $author$project$Main$RouteTop, $elm$url$Url$Parser$top)
 		]));
@@ -11104,8 +11205,8 @@ var $elm_community$list_extra$List$Extra$getAt = F2(
 		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
 			A2($elm$core$List$drop, idx, xs));
 	});
-var $author$project$Book$Book$id = function ($) {
-	return $.title;
+var $author$project$Projects$Project$id = function ($) {
+	return $.review;
 };
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
@@ -11137,1562 +11238,112 @@ var $author$project$Main$idDecoder = function (id) {
 				id,
 				$elm$url$Url$percentDecode(id))));
 };
-var $author$project$Book$Ritsu$books = _List_fromArray(
+var $author$project$Projects$Project$items = _List_fromArray(
 	[
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['学校図書館ブッククラブ(SLBC)選定']),
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 10,
-		firstTimePublishedYear: 1976,
-		illustrator: 'かこさとし',
-		isbn: '9784494009220',
-		note: '',
-		officialPage: 'https://www.doshinsha.co.jp/search/info.php?isbn=9784494009220',
-		pages: 32,
-		picDone: true,
-		publisher: '童心社',
-		readTogetherWith: _List_Nil,
-		review: '体のしくみに興味を持ち始めたこどもに。昭和を感じる絵本だが、こどもが大好きな本のひとつ。\n\n      消化についてわかりやすい絵で描かれ、問い、話しかけながら進んでいく。栄養がなぜ必要なのか、胃、小腸、大腸がどのような働きをするか大まかに理解できる。初版が１９７６年。現在１００刷超えのロングセラー。',
-		similarBooks: _List_fromArray(
-			['9784265913084']),
-		subtitle: 'たべもののたびかこさとしからだの本２',
-		title: 'たべもののたび',
-		translator: '',
-		writer: 'かこさとし'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 15,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定図書', '日本子どもの本研究会選定図書']),
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 2,
-		firstTimePublishedYear: 2011,
-		illustrator: '片野隆司ほか',
-		isbn: '9784893253842',
-		note: '解説を除く',
-		officialPage: 'https://www.hisakata.co.jp/book/detail.asp?b=025384',
-		pages: 28,
-		picDone: true,
-		publisher: 'ひさかたチャイルド',
-		readTogetherWith: _List_Nil,
-		review: 'はちみつってどうやってできるの？みつばちが花のみつをあつめて。。。でもどうやって？そんな疑問に答えてくれる写真絵本。巣箱の中、養蜂家の仕事もよくわかる。字は比較的大きくひらがなのみ。ひらがなが読めるこどもであれば自分で読める。細かい解説の所は大人が説明してあげるとさらに詳しく理解できるようになっている。 ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'はちみつができるまで',
-		translator: '',
-		writer: '藤原誠太'
-	},
-		{
-		adultReadingTimeMinutes: 10,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定基本図書', '日本図書館協議会選定図書']),
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 10,
-		firstTimePublishedYear: 2008,
-		illustrator: '石井 聖岳',
-		isbn: '9784251011114',
-		note: 'https://www.akaneshobo.co.jp/search/info.php?isbn=9784251011114',
-		officialPage: '0',
-		pages: 32,
-		picDone: true,
-		publisher: 'あかね書房',
-		readTogetherWith: _List_Nil,
-		review: 'ハリセンボンの生態についてわかりやすく、面白く書かれている。絵と話のテンポがよくあっていて、読み聞かせ時間は長めだが年長の息子も集中して聞いていた。大人にも面白い絵本。ハリセンボン以外の魚にも触れている点もよい。（例えば、魚の口の形には意味がある→紹介している魚:トビエイ、トラギス、タツノオトシゴなど）他、ハリセンボンの親戚、産卵、食物連鎖、地球温暖化にも触れている。 ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ハリセンボンがふくらんだ',
-		translator: '',
-		writer: '鈴木 克美'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 7,
-		firstTimePublishedYear: 2002,
-		illustrator: '皆越ようせい',
-		isbn: '9784591072981',
-		note: '34ページまでで約3分',
-		officialPage: 'https://www.poplar.co.jp/book/search/result/archive/2181001.html',
-		pages: 35,
-		picDone: true,
-		publisher: 'ポプラ社',
-		readTogetherWith: _List_Nil,
-		review: 'ダンゴムシ博士になれる本！ダンゴムシの生態が非常によく撮られている写真絵本。ふ化、脱皮、死んでしまうと？の説明もわかりやすい。オスとメスの区別が載っているところがこの本のポイント。息子も園庭でお友達にオスとメスの違いを説明していた。字が大きく、文も１ページに１～２行なのでこどもでも読みやすい。 ',
-		similarBooks: _List_fromArray(
-			['9784865491043', '9784265020454']),
-		subtitle: 'ふしぎいっぱい写真絵本',
-		title: 'ダンゴムシみつけたよ',
-		translator: '',
-		writer: '皆越ようせい'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 1993,
-		illustrator: '中島睦子',
-		isbn: '9784834012132',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=3861',
-		pages: 28,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: '知らなかった、こんなことになっていたなんんて！成長過程が面白い。ピーナッツ、なんきんまめ、らっかせいの違い、生のらっかせいを春に土の中にうめるとどうなるか（地面の上と下での様子を絵と簡単な文でわかりやすく）成長過程が説明されている。ほんば、ふたば、はいじくという単語は年長さんには難しいが絵で理解できるようになっている。こどもの反応もとてもよい絵本。 ',
-		similarBooks: _List_Nil,
-		subtitle: 'かがくのとも傑作集',
-		title: 'ピーナッツ なんきんまめ らっかせい',
-		translator: '',
-		writer: 'こうやすすむ'
-	},
-		{
-		adultReadingTimeMinutes: 9,
-		adultReadingTimeSeconds: 30,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 2,
-		firstTimePublishedYear: 2017,
-		illustrator: 'やぎゅう\u3000げんいちろう',
-		isbn: '9784834083217',
-		note: 'いえにおきたいきゅうきゅうセット含む時間',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=1834',
-		pages: 28,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_fromArray(
-			['9784834007299']),
-		review: '表紙に書いてある通り、けがのてあてのお勉強絵本。やけど、きりきず、とげ、ドアにはさんだ、はなぢ、しゃっくり、たんこぶ、はちにさされた、みみにむしがはいった、ねこにひっかかれた、あしがしびれた、いえにおきたいきゅうきゅうセット、最後に大人が読むページとなっている。自分によく起こることだからかこどもに好評で、あしがしびれたのページには共感していた。大人にも最新の処置方法が書かれ勉強になる。比較的薄い本だがとても濃い内容になっている。 ',
-		similarBooks: _List_Nil,
-		subtitle: 'けがのてあてのおべんきょう',
-		title: 'きゅうきゅうばこ 新版',
-		translator: '',
-		writer: 'やまだまこと'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['世界の昔話・民話']),
-		composer: '',
-		firstTimePublishedMonth: 7,
-		firstTimePublishedYear: 1965,
-		illustrator: 'マーシャ・ブラウン',
-		isbn: '9784834000436',
-		note: '教科書で紹介されている本',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=35',
-		pages: 32,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: '3歳ぐらいのときに読んだがそのときの反応はイマイチ。上の子の小学校の図書室で1年生におすすめ棚に入っており、年長で再度読み聞かせをしたところ、以前より反応がよかった。大きいやぎのがらがらどんがトロルをこっぱみじんにするところにドキドキした様子。読み終えたあともどうやって、こっぱみじんに。。とつぶやいていた。ただ年長でもわからない言葉は多い。（質問された言葉：トロル、ひかきぼう、きしんだり、うなったり、がたぴしさせる、しゃがれたがらがらごえ、でんがくざし、こっぱみじん）\n\n      追記：一年生になり、先生に「がらがらどん」読んでもらったよ。と嬉しそうに報告あり。３歳ぐらいでこの本を読み聞かせする方も多いと思うが、年齢が上がっても楽しめる絵本なのだと思う。\n      ',
-		similarBooks: _List_Nil,
-		subtitle: 'ノルウェーの昔話',
-		title: '三びきのやぎのがらがらどん',
-		translator: 'せた ていじ',
-		writer: ''
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['世界の昔話・民話']),
-		composer: 'Y・ノルシュテイン',
-		firstTimePublishedMonth: 11,
-		firstTimePublishedYear: 2003,
-		illustrator: 'F・ヤールブソワ',
-		isbn: '9784834009958',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=504\u00A0\u00A0',
-		pages: 32,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: '絵が紙芝居をみているような素敵な絵。お話はやや単調であるが、絵がよい味をだしているため引き込まれていっていた。\n\n      氷でできた見た目が美しい家に住むきつね、春になり氷がとけて家がなくなった。そこでとなりに住む木の皮のうさぎの家を訪れ、うさぎを追い出し住んでしまう。追い出されたうさぎは動物たちに助けを求める。',
-		similarBooks: _List_fromArray(
-			['9784834007718']),
-		subtitle: 'ロシアの昔話',
-		title: 'きつねとうさぎ',
-		translator: 'こじま ひろこ',
-		writer: ''
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['世界の昔話・民話']),
-		composer: '',
-		firstTimePublishedMonth: 8,
-		firstTimePublishedYear: 1966,
-		illustrator: 'チェレスチーノ・ピヤッチ',
-		isbn: '9784834000917',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=5729',
-		pages: 32,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: '年長さんが言わんとしている内容を感じとることは難しいかもしれない。自然体でいること、変わらない四季の美しさなど忙しい大人の心に響く絵本。お話と絵が非常に合っている。登場人物の表情豊かで色彩感もよい。通常より横長の絵本で字は大きくこどもでも読みやすい。\n\n      二羽の幸せなふくろうがいた。近くの百姓家で飼われている鳥たちはいつも喧嘩。ある時ふくろうは自分たちがどうして幸せなのかを鳥たちに話す。それは常に自然体で流されず、四季の移り変わりを楽しむことであった。',
-		similarBooks: _List_Nil,
-		subtitle: 'オランダ民話',
-		title: 'しあわせなふくろう',
-		translator: 'おおつか\u3000ゆうぞう',
-		writer: 'ホイテーマ'
-	},
-		{
-		adultReadingTimeMinutes: 10,
-		adultReadingTimeSeconds: 15,
-		awards: _List_fromArray(
-			['箕面・世界子どもの本アカデミー賞2014．絵本賞']),
-		categories: _List_fromArray(
-			['世界の昔話・民話']),
-		composer: '',
-		firstTimePublishedMonth: 11,
-		firstTimePublishedYear: 1969,
-		illustrator: '赤羽\u3000末吉',
-		isbn: '9784001105575',
-		note: '教科書で紹介されている本',
-		officialPage: 'https://www.iwanami.co.jp/book/b254832.html',
-		pages: 42,
-		picDone: true,
-		publisher: '岩波書店',
-		readTogetherWith: _List_Nil,
-		review: 'この本読んで！など多数で紹介されている絵本。読み聞かせが１０分を超える長いお話だが、お話が面白く痛快で引き込まれてしまう絵本。息子も面白かったと。年長さんには少し難しい言葉（丸薬、ながすね、けんとうもつかないなど）もあるが、少し説明すればわかる範囲であった。\n\n      こどもが欲しいと願っていた老夫婦がいた。おばあさんは寂しさで池に涙をこぼした。すると、池から白かみの老人が現れ丸薬を９つ渡した。飲んだおばあさんに９人のこどもができ、つけた名前はちからもち、くいしんぼう、はらいっぱい、ぶってくれ、ながすね、さむがりや、あつがりや、切ってくれ、みずくぐり。ある日、王様の宮殿の竜の柱が倒れ、王様は元に戻した者には褒美をとらせるとした。成長したこども達の中からちからもちが柱を元に戻すも王様は信じず。国を取られてしまうと思った王様は、兄弟に次から次に無理難題を言い渡す。\n      ',
-		similarBooks: _List_Nil,
-		subtitle: '中国の民話',
-		title: '王さまと九人のきょうだい',
-		translator: '君島\u3000久子',
-		writer: ''
-	},
-		{
-		adultReadingTimeMinutes: 1,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['サンケイ児童出版文化賞大賞受賞作品', '厚生省中央児童福祉審議会推薦図書']),
-		categories: _List_fromArray(
-			['世界の昔話・民話']),
-		composer: '',
-		firstTimePublishedMonth: 6,
-		firstTimePublishedYear: 1966,
-		illustrator: '佐藤\u3000忠良',
-		isbn: '9784834000627',
-		note: '教科書で紹介されている本',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=51',
-		pages: 28,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: '皆一度は聞いたことがあるロシア民話ではないだろうか。うんとこしょ、どっこいしょのリズミカルな掛け声、佐藤忠良さんの絵が素晴らしいロングセラーの絵本。軽量でページ数も少なく字も大きい。小学１年の教科書にも採用されている。３歳ぐらいで読み聞かせをした方も多いだろうが、小学校入学前に再度読んで触れておくのもよいのではないだろうか。ケイト・グリーナウェイ賞受賞のヘレン・オクセンバリー絵のおおきなおおきなおおきなかぶ（こぐま社）はリズミカルな文ではないが、シュールな絵が面白い。\n\n      追記：一年生になり音読の宿題で読んで見ると、繰り返しの文というのはやはりまだ文字慣れしていない子どもにも読みやすいのだなと改めて思った。',
-		similarBooks: _List_fromArray(
-			['9784772101073']),
-		subtitle: 'ロシア民話',
-		title: 'おおきなかぶ',
-		translator: '内田\u3000莉莎子',
-		writer: 'A・トルストイ再話'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['第10回MOE絵本屋さん大賞2017第１位']),
-		categories: _List_fromArray(
-			['笑える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 11,
-		firstTimePublishedYear: 2016,
-		illustrator: 'ヨシタケシンスケ',
-		isbn: '9784569786063',
-		note: '大型版もあり',
-		officialPage: 'https://www.php.co.jp/books/detail.php?isbn=978-4-569-78606-3',
-		pages: 48,
-		picDone: true,
-		publisher: 'PHP研究所',
-		readTogetherWith: _List_Nil,
-		review: 'かわいいなつみに誰もが癒される。なつみの目のつけどころが面白い。息子はなつみの想像する宇宙人のまねが気に入ったよう。本は折り紙をやや大きくしたぐらいの大きさ、重さも２００ｇ程度で軽い。\n\n      寝る前にパジャマ姿でなつみはいろんな物のまねをして、お母さんがそれが何であるか当てるゲームを始める。ポット、オムライス。。。おかあさんがよくやるゆですぎたブロッコリー。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'なつみはなんにでもなれる',
-		translator: '',
-		writer: 'ヨシタケシンスケ'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定図書']),
-		categories: _List_fromArray(
-			['笑える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 1977,
-		illustrator: '長 新太',
-		isbn: '9784251006707',
-		note: '',
-		officialPage: 'https://www.akaneshobo.co.jp/search/info.php?isbn=9784251006707',
-		pages: 69,
-		picDone: true,
-		publisher: 'あかね書房',
-		readTogetherWith: _List_Nil,
-		review: '絵本ではなく幼年童話なのだが、５分程度で読み終わり、長さんの作品の中でも痛快なためご紹介。親友に昔読んでもらった絵本で面白かったものを聞いたらこの本を紹介されました。笑えるのだが、最後は温かい気持ちになる本。字は非常に大きく、文字数も少ないのでこどもでも読みやすい。児童書移行前にとても良い本。\n\n        ながーいひげをもつライオン。長いひげをへびに食べられたり、長いひげが木にに巻き付いたりと長いひげに苦労させられる。最後にひげを切ってもらう際は空に浮かんでいたことをしみじみ想い出すのであった。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ちょびひげライオン',
-		translator: '',
-		writer: '長 新太'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['けんぶち絵本の里大賞びばからす賞（第２３回)']),
-		categories: _List_fromArray(
-			['笑える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 2012,
-		illustrator: '長谷川 義史',
-		isbn: '9784061325043',
-		note: '',
-		officialPage: 'https://bookclub.kodansha.co.jp/product?item=0000138321',
-		pages: 33,
-		picDone: true,
-		publisher: '講談社',
-		readTogetherWith: _List_fromArray(
-			['9784871100854']),
-		review: ' 母と子のユーモアあふれるやりとりを描いた作品。笑えるし、しんみりもする。最後は笑いで終わる。関西弁で読めたらもっと面白そう。長谷川さんの作品で同じように母と子のやりとりを描いた作品「はい\u3000チーズ」は笑えるだけだが、こちらはストーリー的に涙あり笑いあり。\n\n      お父さんが病気で亡くなり、母と姉の３人家族になる。ミシンの仕事をしているお母さん。なにか買ってと頼むといつも「お母ちゃんがミシンでつくったる。」という返事。そしてできたものはいつも少し変で笑われてしまう。父親参観の手紙を持って帰ってきた日、おとうちゃんはお母ちゃんのミシンでも作れないとこどもに話す。そして迎えた参観日。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'おかあちゃんがつくったる',
-		translator: '',
-		writer: ' 長谷川 義史'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['第4回日本の絵本賞「絵本にっぽん大賞」受賞', '全国学校図書館協議会基本図書', '全国学校図書館協議会選定図書']),
-		categories: _List_fromArray(
-			['笑える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 1980,
-		illustrator: '長\u3000新太',
-		isbn: '9784580813977',
-		note: '教科書で紹介されている本',
-		officialPage: 'https://shinko-bunken.shinko-keirin.co.jp/bunken/book/9784580813977/',
-		pages: 28,
-		picDone: true,
-		publisher: '',
-		readTogetherWith: _List_fromArray(
-			['9784580815513', '9784580815544', '9784580813649', '9784580813359']),
-		review: '一度はタイトルを耳にしたことがある絵本ではないだろうか。長さん独特のユーモアセンス。読み聞かせ中、こどもがたくさんつっこみを入れてきた。\n    \u3000\n     おなかを空かせたブタヤマさんは道であったキャベツくんを食べようとする。キャベツくんが、「ぼくをたべるとこうなるよ。」と話すと空に鼻がキャベツになったブタヤマさんが浮かび、ヘビがたべたら、タヌキがたべたらと次々体の一部がキャベツになった動物が空にうかぶ。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'キャベツくん',
-		translator: '',
-		writer: '長\u3000新太'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['笑える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 6,
-		firstTimePublishedYear: 2017,
-		illustrator: 'たしろ ちさと',
-		isbn: '9784097267188',
-		note: '時間は中の小さなメモ書き除く',
-		officialPage: 'https://www.shogakukan.co.jp/books/09726718',
-		pages: 28,
-		picDone: true,
-		publisher: '小学館',
-		readTogetherWith: _List_Nil,
-		review: 'こどもの大好きなたしろさんの作品。様々な画法で描かれた作品で、物語に自然に引き込まれる。そこまで恐竜に詳しくない息子であったが、とても楽しんでいた。オーディションにやってくる恐竜の特徴をよくとらえていて面白い。司会のフクイベナートルの言葉及び表情がさらに笑いを誘う。恐竜ごとにメモがあり、全長、簡単な特徴が書かれている。機会があればぜひ福井県立恐竜博物館を訪れてほしい。博物館自体も素晴らしいが、田代さんの描くフクイベナトールが忠実で驚かされた。\n\n        劇団ベナートルの新しい劇団員を選ぶためのきょうりゅうオーディション。やってきたのは、ブラキオサウルス、トリケラトプス、プテラノドン、プシッタコサウルス、パラサウロロフス、ステゴサウルス、ティラノサウルス。トリケラトプスはフリルがひっかかり入れず慌てたり。。。。最後はみんな合格！一緒にやろう。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'きょうりゅうオーディション',
-		translator: '',
-		writer: 'たしろ ちさと'
-	},
-		{
-		adultReadingTimeMinutes: 2,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['命（生と死）について考える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 3,
-		firstTimePublishedYear: 2004,
-		illustrator: 'ヘルメ・ハイネ',
-		isbn: '9784198618445',
-		note: '',
-		officialPage: 'https://www.tokuma.jp/book/b502903.html',
-		pages: 24,
-		picDone: true,
-		publisher: '徳間書店',
-		readTogetherWith: _List_Nil,
-		review: '現代ドイツ絵本作家が描く心に響く絵本。年長の息子には親の私ほど響かなかったようだが、定期的に読んであげたいと思った絵本（小三の上の子には響いていた）。読みながら映画インサイドヘッドを思い出した。読み終えた後、自分は一人じゃない、自分を大切にしようと思える。生まれてから死んでいくまでの頭、心、体の働きをユーモアのある絵と優しい語り口で伝えている。\n\n      きみがうまれた日、三人のともだちがやってくる。アタマはかせ、ハートおばさん、ふとっちょのいぶくろおじさん。三人は君にずーっとついてきて、君が死ぬまで働く。三人は仲の良い友達だけど、喧嘩もする。三人がだんまりをきめこむと病気になってしまう。ハートおばさんの仕事はいろんな気持ちの世話。落ち込んでよれよれなら、キチンとアイロンをかけてくれる。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'きみがしらないひみつの三人',
-		translator: '天沼\u3000春樹',
-		writer: 'ヘルメ・ハイネ'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 15,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定', '日本図書館協会選定']),
-		categories: _List_fromArray(
-			['命（生と死）について考える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 11,
-		firstTimePublishedYear: 1988,
-		illustrator: 'ハンス・ウィルヘルム',
-		isbn: '9784566002760',
-		note: '教科書で紹介されている本',
-		officialPage: '0',
-		pages: 32,
-		picDone: true,
-		publisher: '評論社',
-		readTogetherWith: _List_Nil,
-		review: '上の子の教科書にでていて、再度読んでみたくて手にとった絵本。短いお話だが心にグッとくる。こどもより親の心に大きく響くのではないだろうか。命、そして言葉で伝えることの大切さも考えさせられる。字が大きく、文も短めでこどもひとりでも読みやすい。\n\n      エルフィー（犬）とぼくは一緒に大きくなった。年月が経ち、エルフィーは歳をとり散歩も嫌がり階段も登れなくなった。ある朝目を覚ますとエルフィーは死んでいた。深い悲しみが訪れたが、ぼくの気持ちは楽だった。なぜ？それは。。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ずーっとずっとだいすきだよ',
-		translator: '久山\u3000太市',
-		writer: 'ハンス・ウィルヘルム'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定', '日本図書館協会選定', 'よい絵本２７回']),
-		categories: _List_fromArray(
-			['命（生と死）について考える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 10,
-		firstTimePublishedYear: 1986,
-		illustrator: 'スーザン・バーレイ',
-		isbn: '9784566002647',
-		note: '',
-		officialPage: '',
-		pages: 26,
-		picDone: true,
-		publisher: '評論社',
-		readTogetherWith: _List_fromArray(
-			['9784566003996']),
-		review: '描写も美しく感動を与える作品。本のカバーに友人同士のあり方、互いに心や技を伝えていくことの大切さ、人間の生き方を静かに語りかけていると書いてあったが、まさしくその通りの本だった。年長の息子は話の内容を理解できたようだが、深い理解ではないためか涙はなし。小３の娘は涙を流して聞いていた。\n\n      皆に頼りにされていたアナグマは、自分の死がそう遠くないことを知っていた。皆には自分がトンネルのむこうへいっても悲しまないよう伝えた。そして、ある日アナグマは。。。。\u3000友人たちはアナグマから悲しいまないように言われていたが、難しかった。悲しみにくれる友人たちは、アナグマとの思い出を語りはじめ、アナグマが自分たちに素晴らしい知恵や工夫を残してくれたことに気付いていく。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'わすれられないおくりもの',
-		translator: '小川 仁央',
-		writer: 'スーザン・バーレイ'
-	},
-		{
-		adultReadingTimeMinutes: 2,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['実体験でありそうな絵本']),
-		composer: '',
-		firstTimePublishedMonth: 5,
-		firstTimePublishedYear: 2013,
-		illustrator: '長谷川\u3000義史',
-		isbn: '9784871100854',
-		note: '',
-		officialPage: 'https://ehonkan.co.jp/ehon/085/',
-		pages: 24,
-		picDone: true,
-		publisher: '絵本館',
-		readTogetherWith: _List_fromArray(
-			['9784061325043']),
-		review: 'はいチーズだけど、カメラで写真を撮る話ではない！暗い表紙とは異なり笑えるお話。大阪弁が効いていて面白い。男の子の表情を見ているだけでも面白い。小３の娘も笑っていた絵本。友達がもっているものをうらやましくなる時、あるよね。でも、手にしてみるとそうでもなかったり。こどもも共感できるお話。\n\n      お友達がいつも食べているチーズを一度でいいから食べてみたい。主人公５歳のよしふみ君のそんな気持ちから物語は始まる。食べたい！お母さんにそんなまずいものをと言われるが、どうしても。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'はいチーズ',
-		translator: '',
-		writer: '長谷川\u3000義史'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['実体験にありそうな絵本']),
-		composer: '',
-		firstTimePublishedMonth: 5,
-		firstTimePublishedYear: 1994,
-		illustrator: 'ペギー・ラスマン',
-		isbn: '9784198601034',
-		note: '',
-		officialPage: 'https://www.tokuma.jp/book/b503024.html',
-		pages: 32,
-		picDone: true,
-		publisher: '徳間書店',
-		readTogetherWith: _List_Nil,
-		review: '母親の私もこれに近いフレーズをこどもに言ったことあるかも、と読み進めて思ってしまった。いじめられっ子がいじめっ子を作戦をたてて反撃するお話。その背景がまた現実によくありがちでこどもたちも共感できる作品。\n\n        ママとママが仲良しで、いじめっこのブッチーはママに連れられやってくる。そして、ママはお部屋で遊んでいらっしゃいと。ママにブッチーと遊びたくないと言うが、ママはいろんな人とお友達にならなきゃダメって。ブッチーママは二人が仲良しと勘違い。そしてある日ブッチーが家に泊まることに！その日が来るまでのドキドキときたら。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'いじわるブッチー',
-		translator: 'ひがしはるみ',
-		writer: 'バーバラ・ボットナー'
-	},
-		{
-		adultReadingTimeMinutes: 2,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['実体験にありそうな絵本']),
-		composer: '',
-		firstTimePublishedMonth: 11,
-		firstTimePublishedYear: 1988,
-		illustrator: 'ハンス・ウィルヘルム',
-		isbn: '9784566002777',
-		note: '',
-		officialPage: '0',
-		pages: 31,
-		picDone: true,
-		publisher: '評論社',
-		readTogetherWith: _List_fromArray(
-			['9784834015799']),
-		review: '小さい兄弟がいればこんな感じの事はあるよね。怒りすぎたな、なんでそんなに怒っていたのかなという気持ちもよくある。心の葛藤、許す心がよく伝わる作品。字が大きくこどもひとりでも読みやすいが、是非お母さんが読んであげてほしい絵本。カバー裏面の作者のお母方への言葉も心に響く。忘れること、許すことを自然におこなえる大切さが大事であること、成長期のこどもが相手を許す勇気をもつため、お母さんのはげましが何よりも必要なことであると。\n\n        妹と僕はたいていは仲良し。ある日、妹はぼくのカメに運動が必要だと言って、勝手に池に放した。ぼくは心底怒り狂った。妹が謝っても怒りはおさまらない。妹を懲らしめる方法を考えたり、ベットに横になるも寝れない。ワーワーわめき枕をぶっ叩いたら、すーっとした。そして、いい方法が浮かんだ。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ぼくたちまたなかよしさ！',
-		translator: '久山 太市',
-		writer: 'ハンス・ウィルヘルム'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定']),
-		categories: _List_fromArray(
-			['実体験にありそうな絵本']),
-		composer: '',
-		firstTimePublishedMonth: 10,
-		firstTimePublishedYear: 1989,
-		illustrator: 'ウィリアム・スタイグ',
-		isbn: '9784915632440',
-		note: '',
-		officialPage: 'http://www.rankasha.co.jp/book/steig/index.html#43',
-		pages: 32,
-		picDone: true,
-		publisher: 'らんか社',
-		readTogetherWith: _List_Nil,
-		review: ' ちょっとした事ですねてしまって素直になれなくて、引くに引けなくなってどうしていいか分からなくなることもある。さて、どうしたものか。。。主人公スピンキーの表情がとても豊かに表現されている作品。終わり方も味があってよい。アメリカでよく知られている絵本。読んで６分ほどとやや長めだったので、息子は表面を理解したぐらいだったかもしれない。小３の娘は非常に面白かったという感想だった。\n\n         家族が自分のことをわかってくれないと怒っているスピンキー。誰が機嫌をとっても直らない。「スピンキーだいすき！」とピエロが来て、アイスを取り出しても（笑）。ずーっと頑張っていたけど、謝るのは嫌。そして、思いついた方法はみんなをおどかす事！ ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'いやだいやだのスピンキー',
-		translator: 'おがわ えつこ',
-		writer: 'ウィリアム・スタイグ'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['第11回MOE絵本屋さん大賞2018', '第29回けんぶち絵本の里大賞']),
-		categories: _List_fromArray(
-			['実体験にありそうな絵本']),
-		composer: '',
-		firstTimePublishedMonth: 6,
-		firstTimePublishedYear: 2018,
-		illustrator: 'ヨシタケシンスケ',
-		isbn: '9784569787787',
-		note: '大型版もあり',
-		officialPage: 'https://www.php.co.jp/books/detail.php?isbn=978-4-569-78778-7',
-		pages: 48,
-		picDone: true,
-		publisher: 'PHP研究所',
-		readTogetherWith: _List_fromArray(
-			['978-4893096098']),
-		review: '女の子をお持ちのお母さんにお勧めできるかは微妙。でも、男の子だったら！まぁ、こういう事あるよねと。こどもは案の定とても楽しそうに共感しながら最後まで聞いていた。そして息子のコメントが「ぼくのおじいちゃんもこうなの？」（笑）。\n\n       ぼくはおしっこちょっぴりもれたろう。おしっこをするまえかしたあとに、ちょっぴりもれちゃうから、いつもお母さんにおこられる。でも、いいじゃない、ちょっぴりなんだから。そこから街へでて自分と同じようなことで困っている人を探し始める。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'おしっこちょっぴりもれたろう',
-		translator: '',
-		writer: 'ヨシタケシンスケ'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定']),
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 8,
-		firstTimePublishedYear: 1994,
-		illustrator: '降矢 なな',
-		isbn: '9784834012422',
-		note: '教科書に紹介されている本',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=601',
-		pages: 32,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_fromArray(
-			['978-4-8340-1017-6']),
-		review: '読んでいてテンポがとても心地よい絵本。「あったとさ あったとさ ひろいのっぱらどまんなか きょだいな ～ あったとさ こどもが100にん やってきて」 大人の私の頭にもフレーズが残り、こどもも頭からはなれない日々が続いた。想像を膨らませページをめくる楽しみがある絵本。息子は巨大なトイレットペーパーがでてきて、皆がおしりをふくページがお気に入り。小学一年生の教科書でも紹介されている絵本。ひらがな、カタカナが読めればくりかえしのフレーズが多いので、こどもひとりでも読みやすい。きょだいなものが次々広い野原に現れ、こども達100人どうしたかという楽しいお話。',
-		similarBooks: _List_Nil,
-		subtitle: 'こどものとも絵本',
-		title: 'きょだいな きょだいな',
-		translator: '',
-		writer: '長谷川 摂子'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['日本図書館協会選定図書']),
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 6,
-		firstTimePublishedYear: 1996,
-		illustrator: '末崎茂樹',
-		isbn: '9784893255891',
-		note: 'しかけ絵本、シリーズで読みたい絵本',
-		officialPage: 'https://www.hisakata.co.jp/book/detail.asp?b=025589',
-		pages: 40,
-		picDone: true,
-		publisher: '',
-		readTogetherWith: _List_fromArray(
-			['978-4893258939', '978-4-89325-605-8']),
-		review: 'こどもが大好きなわんぱくだんシリーズの絵本。かいていたんけんは特にお気に入りで何度も読んだ。わんぱくだんの冒険物語にこどもも大人もぐっと引き込まれていく。年長さんぐらいにいいのかなと思っていたが、小学校の図書室でこのシリーズが２年生にオススメの棚に入っていた。幅広い年齢で楽しめる絵本だと思う。小３の娘もこのシリーズが大好きだ。\n\n         プールあそびをしていたわんぱくだんの仲良し三人組。「せーのっ」で潜りっこするとそこは海の中。そして、海で出会ったイルカとともにドルフィンランドへ（仕掛で見開き楽しいドルフィンランドの世界が描かれている）。イルカは海の底から巨大渦巻が出ていて、海の水がなくなってしまうのではないか心配していた。くみはイルカがくれた髪飾りで渦巻の穴をふさぐことを思いつく。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'わんぱくだんのかいていたんけん',
-		translator: '',
-		writer: 'ゆきのゆみこ・上野与志'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定', '日本図書館協会選定']),
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 12,
-		firstTimePublishedYear: 1994,
-		illustrator: '長野 ヒデ子',
-		isbn: '9784494005611',
-		note: '',
-		officialPage: 'https://www.doshinsha.co.jp/search/info.php?isbn=9784494005611',
-		pages: 32,
-		picDone: true,
-		publisher: '童心社',
-		readTogetherWith: _List_fromArray(
-			['978-4-494-00606-9']),
-		review: 'ズッコケ三人組の作者が書いた、こどもが自分の身に本当にあったらいいのになと思えるファンダジー絵本。読み聞かせ時間は比較的短め。息子が好きな「おしいれのぼうけん」のようなハラハラドキドキ感はないが、親子で楽しめる心地よい作品。\n\n          ふとんにもぐるのが大好きなけんちゃん。夜、ふとんの中をもぐっていると。。。ふとんの中から出れない！どんどんもぐって出口にたどりつくと、そこはたくさんの布団でできたふとん山がある野原。布団をもぐってきたこども達でいっぱい。皆ふとん山で大暴れ。。。。帰る時間になり、みんな自分の布団に戻っていく。布団を間違えてもぐったけんちゃん。翌朝目が覚めると。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ふとんやまトンネル',
-		translator: '',
-		writer: '那須 正幹'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 1,
-		firstTimePublishedYear: 2008,
-		illustrator: '',
-		isbn: '9784582833720',
-		note: '品切れ中が多いが、図書館にあれば是非借りたい',
-		officialPage: 'https://www.heibonsha.co.jp/book/b162559.html',
-		pages: 32,
-		picDone: true,
-		publisher: '平凡社',
-		readTogetherWith: _List_Nil,
-		review: '絵が優しいタッチで可愛らしく、どちらかといえば女の子うけする絵本。朝起きて頭にヘラジカのツノがはえていたら？よく倒れてしまうママも面白い。臨機応変にいろいろ楽しめたらいいなと思わせる作品。コールデコット受賞作家が描くユーモラスでゆかいな絵本。字も大きく、文字数も少なめで子ども一人でも読みやすい。\n\n      イモジェンが目を覚ますと頭の上にヘラジカのツノがはえていた。お医者さんに見てもらうがどこにも異常なし。ママの心配をよそにイモジェンは不便なことはあるけど、楽しみながら過ごす。長かった一日が終わり翌朝目を覚ますとツノは消え、かわりに。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'まあ、なんてこと！',
-		translator: '藤本朝巳',
-		writer: 'ディビット・スモール'
-	},
-		{
-		adultReadingTimeMinutes: 8,
-		adultReadingTimeSeconds: 30,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 10,
-		firstTimePublishedYear: 1972,
-		illustrator: 'むらかみ つとむ',
-		isbn: '9784033301808',
-		note: '',
-		officialPage: '978-4580813946',
-		pages: 32,
-		picDone: true,
-		publisher: '偕成社',
-		readTogetherWith: _List_fromArray(
-			['978-4-03-330150-1', '978-4580813946']),
-		review: 'すばらしいファンタジーの世界、非常に心に残る作品。年長さんの読み聞かせには長めの絵本だが、読み聞かせ後、息子からは「面白かった。」とのコメントをもらった。自分の宝物をそっと大事にしまっておきたい気持ち、そんな主人公に共感したのではないだろうか。\n\n      かおるが見つけた片足のみの小さな黄色いながぐつ。赤ちゃんのかな？かおるはそれが日に日に大きくなっていく事に気が付く。自分の足が入る大きさになり、足を入れると体半分だけ消えた。どんどん大きくなり物置小屋に隠した。と、そこへ友達が来たので長靴のなかに入って全身を消してニヤニヤした。が、次の日は逆に小さくなっていた。小指サイズになったころ、木の箱に入れ机の引き出しにしまった。',
-		similarBooks: _List_Nil,
-		subtitle: '創作えほん',
-		title: 'ふしぎなふしぎなながぐつ',
-		translator: '',
-		writer: 'さとう さとる'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['カート・マシュラー賞(’８３年度)', 'ケイト・グリーナウェイ賞(’８４年度)', '全国学校図書館協議会選定図書']),
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 12,
-		firstTimePublishedYear: 1985,
-		illustrator: 'アントニー・ブラウン',
-		isbn: '9784251005120',
-		note: '2019年新版は絵が異なる',
-		officialPage: 'https://www.akaneshobo.co.jp/search/info.php?isbn=9784251005410',
-		pages: 32,
-		picDone: true,
-		publisher: 'あかね書房',
-		readTogetherWith: _List_Nil,
-		review: '自分の大好きな動物、でも一度もみたことがない動物が自分の前に突然あらわれたら？そして夢のような時間を一緒にすごすことができたら？ファンタジーな部分と主人公ハナが置かれた家庭環境が複雑に絡む作品。読み終えた後は心がほんわか心が温かくなる。年長さんに細かいところの理解は難しいかもしれない。親にもおすすめできる絵本。\n\n      ハナはゴリラが大好き。でも、まだ一度も生きているゴリラを見たことがない。お父さんはいつも、忙しく疲れていて構ってくれない。お誕生日のプレゼントはゴリラにしてと言っておいた。お誕生日前夜、真夜中に目を覚ますと箱を見つけた。開けると中はただのおもちゃのゴリラだった。ハナはおもちゃのゴリラを放り投げまた眠りについた。そして、目を覚ますと目の前に生きているゴリラが！ハナとゴリラは真夜中に出かけ、いろんなことを楽しんだ。',
-		similarBooks: _List_fromArray(
-			['978-4251005410']),
-		subtitle: '',
-		title: 'すきです\u3000ゴリラ',
-		translator: '山下\u3000明生',
-		writer: 'アントニー・ブラウン'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 11,
-		firstTimePublishedYear: 2004,
-		illustrator: 'どい かや',
-		isbn: '9784752002857',
-		note: 'チリとチリリシリーズ',
-		officialPage: 'http://www.alicekan.com/books/978-4-7520-0285-7.html',
-		pages: 32,
-		picDone: true,
-		publisher: 'アリス館',
-		readTogetherWith: _List_fromArray(
-			['978-4752002444', '978-4752006473']),
-		review: '女の子におすすめの絵本。海の色合いが素晴らしい！海の生き物たち、あわパフェ巻貝風、ソーダゼリーしんじゅクリームのせなどスウィーツの透き通るような色も美しい。宝物の部屋の輝き、女の子が絵を存分に楽しめる絵本。メルヘン好き、絵を描くのが大好きな小３の娘もイチオシ。余談になるが、「世界の本好きたちが教えてくれた人生を変えた本と本屋さん」ジェーン・マウント著の子どもが夢中になる絵本のページでどいかやさんの「チリとチリリ」が日本人著者で唯一載っていた。\n\n      チリとチリリが自転車で洞窟へ。入っていくとそこは海の中。海藻の入口をくぐると様々な貝殻のソファーがあり、美味しそうな美しいデザートが運ばれてくる。なみのあわパフェ、うみのソーダゼリー。。。そして岩の中ではお魚のダンスショー。さらに深く進むと光る入り口が。。。。',
-		similarBooks: _List_Nil,
-		subtitle: 'うみのはなし',
-		title: 'チリとチリリ',
-		translator: '',
-		writer: 'どい かや'
-	},
-		{
-		adultReadingTimeMinutes: 10,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 3,
-		firstTimePublishedYear: 2004,
-		illustrator: 'ハン・ビョンホ',
-		isbn: '9784901006675',
-		note: '品切れも多い本',
-		officialPage: '',
-		pages: 35,
-		picDone: true,
-		publisher: 'アートン',
-		readTogetherWith: _List_Nil,
-		review: 'ちょっと長そうだしと実は読み聞かせをためらっていた絵本。トッケビ（日本でいうところの鬼、悪魔）が主人公の大事にしている牛のおなかに２か月置いてほしいと頼む奇想天外なストーリー。読みながら自分も先が気になった。読み聞かせ時間は１０分と長かったが話に引き込まれ、息子は面白かったねと最後に感想を述べた。近代韓国の代表作家が子ども達のために書いた唯一の童話。淡い絵も素敵だ。\n\n      トルセはある日、仲間とはぐれしっぽを怪我したトッケビにあう。そして、トッケビはトルセの大切にしている牛のおなかに２か月居させてほしいと頼む。願いを聞いてくれたら牛の力を１０倍にしてくれると。そして、トルセは考えた末了承する。牛の力は本当に１０倍になった。２か月後、出てくるはずのトッケビは太り過ぎ牛の口から出れなくなった。トッケビは出してくれたら牛の力を１００倍にしてくれると言うのだった。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'うしとトッケビ',
-		translator: 'おおたけ\u3000きよみ',
-		writer: 'イ・サン'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定図書', '日本図書館協会選定図書', '厚生省中央児童福祉審議議会推薦図書', '全国学校図書館協議会基本図書', 'よい絵本選定図書']),
-		categories: _List_fromArray(
-			['力を合わせる絵本']),
-		composer: '',
-		firstTimePublishedMonth: 8,
-		firstTimePublishedYear: 1975,
-		illustrator: '長新太',
-		isbn: '9784580813939',
-		note: '教科書で紹介されている絵本',
-		officialPage: 'https://shinko-bunken.shinko-keirin.co.jp/bunken/book/9784580813939/',
-		pages: 30,
-		picDone: true,
-		publisher: '文研出版',
-		readTogetherWith: _List_Nil,
-		review: '灰谷健次郎さんと長新太さんというビックなコラボ。深い穴に落ちた犬（ろくべえ）を助けるため、こども達が知恵を出し助ける様を描いた絵本。犬を励ましハラハラドキドキの展開だが、最後に笑顔になれる作品。大人にもこどもにも面白い作品。 ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ろくべえまってろよ',
-		translator: '',
-		writer: '灰谷健次郎'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['力を合わせる絵本']),
-		composer: '',
-		firstTimePublishedMonth: 10,
-		firstTimePublishedYear: 2003,
-		illustrator: 'はた こうしろう',
-		isbn: '9784834006391',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=330',
-		pages: 36,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_fromArray(
-			['9784062102933']),
-		review: '生死を分けるような場面で二人きり。敵だと思っていた相手は味方になり、いつしか敵は敵でなくなる。鮮やかな色彩、斬新な技法で描かれ、マンガのコマのようなページもあり新鮮。二匹のやりとり、表情も面白い。\n\n      きつねにおいかけられたうさぎ、うさぎをおいかけるきつね、二匹は一本の丸太の橋の上に。そして土手の両端がくずれ丸太はシーソーに。動けず二人だけの夜、二人はまるで友達のように話をする。そして翌朝。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '日本傑作絵本シリーズ',
-		title: 'ゆらゆらばしのうえで',
-		translator: '',
-		writer: 'きむら ゆういち'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定', '日本図書館協会選定', '厚生省中央児童福祉審議会推薦文化財', '第15回産経児童出版文化賞']),
-		categories: _List_fromArray(
-			['力を合わせる絵本']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 1969,
-		illustrator: '馬場 のぼる',
-		isbn: '9784772100045',
-		note: '教科書で紹介されている絵本',
-		officialPage: 'http://www.kogumasha.co.jp/product/308/',
-		pages: 40,
-		picDone: true,
-		publisher: 'こぐま社',
-		readTogetherWith: _List_fromArray(
-			['978-4772180078']),
-		review: 'おなかを空かせた１１匹の猫たちがおなかを満たすため知恵をしぼり、作戦をたて、体当たりで怪魚を捕まえる様子をコミカルに描いた作品。最後は意外な展開。知恵を出し合うこと、助け合うことの大切さを自然に感じられる絵本。娘が小２の学芸会で演じた作品で、息子がシリーズで読みたいと言った絵本のひとつ。１９６７年初版のロングセラー。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: '１１ぴきのねこ',
-		translator: '',
-		writer: '馬場 のぼる'
-	},
-		{
-		adultReadingTimeMinutes: 2,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['コールデコット賞', 'ドイツ児童文学賞', 'サンケイ児童出版文化賞', '国際絵本ビエンナーレ金のリンゴ賞 第１回', '日本図書館協会選定', '全国学校図書館協議会選定『よい絵本』']),
-		categories: _List_fromArray(
-			['力を合わせる絵本']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 1969,
-		illustrator: 'レオ・レオニ',
-		isbn: '9784769020011',
-		note: '教科書で紹介されている絵本',
-		officialPage: 'http://www.kogakusha.com/book/187/',
-		pages: 30,
-		picDone: true,
-		publisher: '好学社',
-		readTogetherWith: _List_fromArray(
-			['978-4769020042']),
-		review: '勇気を出して、皆で力を合わせることの素晴らしさを教えると同様、様々な比喩表現（にじいろのゼリーのようなくらげ、水中ブルドーザーみたいないせえび、ドロップみたいな\u3000いわからはえているこんぶやわかめ\u3000など）が想像の世界を広げる。世代を超えるロングセラー作品。\n\n      小さな赤い魚の兄弟たち、その中に一匹だけ黒い魚のスイミー。ある日おなかをすかせたマグロにスイミー以外皆食べられた。スイミーは孤独になるも海の素晴らしいものに触れ元気を取り戻す。そして、岩陰に隠れているスイミーそっくりの魚の兄弟たちを見つける。',
-		similarBooks: _List_Nil,
-		subtitle: 'ちいさなかしこいさかなのはなし',
-		title: 'スイミー',
-		translator: '谷川 俊太郎',
-		writer: 'レオ・レオニ'
-	},
-		{
-		adultReadingTimeMinutes: 6,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['第16回日本絵本賞', '全国学校図書館協議会選定 第27回よい絵本']),
-		categories: _List_fromArray(
-			['力を合わせる絵本']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 2010,
-		illustrator: 'たしろちさと',
-		isbn: '9784593505180',
-		note: '',
-		officialPage: 'https://www.holp-pub.co.jp/book/b485999.html',
-		pages: 36,
-		picDone: true,
-		publisher: 'ほるぷ出版',
-		readTogetherWith: _List_fromArray(
-			['978-4593505487', '978-4593504930']),
-		review: '娘が小学校３年の時、読み聞かせボランティアの方から読んで頂きファンになり、再度家族で読んで家族全員でファンになった絵本。おとなりさんが猫を飼い始め、新しく自分たちの住む家を探すの５匹にねずみたち。しかし、いいところが見つからず自分たちで家を作ることに。そして結末は。。。読み終えて、絵本界の新星が現れたと思った。お話も面白いのだけれど、絵が、構図が、色が細部にもこだわった素晴らしい作品。ねずみたちのアイディアいっぱいの家に心躍らされる。',
-		similarBooks: _List_Nil,
-		subtitle: '５ひきのすてきなねずみの',
-		title: 'ひっこしだいさくせん',
-		translator: '',
-		writer: 'たしろちさと'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['アメリカPrents\' choice Award']),
-		categories: _List_fromArray(
-			['自分は自分']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 2013,
-		illustrator: 'セルジオ・ルッツィア',
-		isbn: '9784062830720',
-		note: '',
-		officialPage: 'https://bookclub.kodansha.co.jp/product?item=0000208589',
-		pages: 36,
-		picDone: true,
-		publisher: '講談社',
-		readTogetherWith: _List_fromArray(
-			['978-4895728416']),
-		review: '人によって好きなものは違う。自分にとって大切なものとは、宝物とは何か。優しく温かみのある色合いの絵とともに優しく教えてくれる。\n\n      モリネズミのピウスは歩きながら宝物を拾い集め、それらをならべた「ときめきのへや」をつくる。たくさんの人が宝物をみせてもらおうとやってきて賞賛する。が、ただひとつだけ皆に「なぜこれが？」と言われてしまう宝物があり、ピウス大切なものだったが捨ててしまう。捨ててしまった後はピウスの心にぽっかり穴が開き、どの宝をみても楽しくなく皆にすべてをあげてしまう。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ときめきのへや',
-		translator: '福本 友美子',
-		writer: 'セルジオ・ルッツィア'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自分は自分']),
-		composer: '',
-		firstTimePublishedMonth: 0,
-		firstTimePublishedYear: 1975,
-		illustrator: 'レオ＝レオニ',
-		isbn: '9784769020042',
-		note: '',
-		officialPage: 'http://www.kogakusha.com/book/%E3%81%95%E3%81%8B%E3%81%AA%E3%81%AF%E3%81%95%E3%81%8B%E3%81%AA/',
-		pages: 32,
-		picDone: true,
-		publisher: '好学社',
-		readTogetherWith: _List_Nil,
-		review: '上の子が「スイミー」を国語の教科書で習っていた時、数あるレオ＝レオニさんの作品で担任の先生イチオシの絵本だった。教訓染みていないところもよいし、かえるの話でさかなが想像する鳥、牝牛、人間が面白くまた色鮮やかに描かれている。こどもも大好きな作品。\n\n      一匹のおたまじゃくしとこざかなはとても仲良しだった。おたまじゃくしが形を変え大人になっていく姿を見て驚くさかな。ついにおたまじゃくしはかえるとなり陸へ。かえるは池に戻り、さかなに自分が見た世界のことを話す。ある日、さかなは決心し自分も岸へとびあがった。',
-		similarBooks: _List_Nil,
-		subtitle: 'かえるのまねをしたさかなのはなし',
-		title: 'さかなはさかな',
-		translator: '谷川俊太郎',
-		writer: 'レオ＝レオニ'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 30,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自分は自分']),
-		composer: '',
-		firstTimePublishedMonth: 12,
-		firstTimePublishedYear: 2017,
-		illustrator: 'たしろちさと',
-		isbn: '9784593563272',
-		note: 'メニューを含めた時間',
-		officialPage: 'https://www.holp-pub.co.jp/book/b485360.html',
-		pages: 32,
-		picDone: true,
-		publisher: 'ほるぷ出版',
-		readTogetherWith: _List_Nil,
-		review: '毎日同じ時間に起きて寝て、何にも左右されない生活。お客様のために美味しい料理を提供することへのこだわり、誰かのために一生懸命になる主人公イタメーニョさんの姿が美しい。お客さんが料理を食べたときのリアクション、メニューも面白い。温かみのある色彩がさらに料理を美味しく見せる。どのくらいのこだわりかといえば、りんごジュースはりんごの木から。魚のポワレはもちろん魚釣りから。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'せかいいちまじめなレストラン',
-		translator: '',
-		writer: 'たしろちさと'
-	},
-		{
-		adultReadingTimeMinutes: 9,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['全国学校図書館協議会・選定図書', '日本図書館協会選定図書', '中央児童福祉審議会・推薦文化財']),
-		categories: _List_fromArray(
-			['自分は自分']),
-		composer: '',
-		firstTimePublishedMonth: 2,
-		firstTimePublishedYear: 1970,
-		illustrator: 'H・A・レイ',
-		isbn: '9784033276106',
-		note: '',
-		officialPage: 'https://www.kaiseisha.co.jp/books/9784033276106',
-		pages: 32,
-		picDone: true,
-		publisher: '偕成社',
-		readTogetherWith: _List_Nil,
-		review: '1994年に改訂版が発売。挿絵はおさるのジョージのイラストレーター。ハンディキャップについて考えるきっかけになる絵本。人と違ってもどうにかなる、困難があってもあきらあきらめない事の大切さを教えてくれる。また、親を愛する子どもの心に胸が熱くなる。字も小さめで字数も多く長編（９分程度）だが、先が気になり長く感じない。こどもも大好きな絵本。\n\n      おなかにポケットがないカンガルーのケイティかあさん、小さい坊やのフレディをどこへも連れて行けず泣いている。こどものフレディも同じく。お母さんの泣き顔を見るのが大嫌いなフレディは他の動物を見てあれこれ方法を考え試す。ある日二人は物知りフクロウから町でポケットが売っていると聞き、町でポケットのたくさんついたエプロンに出会うのだった。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ポケットのないカンガルー',
-		translator: '西内ミナミ',
-		writer: 'エミイ・ペイン'
-	},
-		{
-		adultReadingTimeMinutes: 9,
-		adultReadingTimeSeconds: 15,
-		awards: _List_fromArray(
-			['第4回 街の本屋さんが選んだ絵本大賞 第2位', '第2回 長野県絵本大賞 コンテンポラリー部門 大賞']),
-		categories: _List_fromArray(
-			['自分は自分']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 2014,
-		illustrator: 'ヨシタケシンスケ',
-		isbn: '9784893095916',
-		note: '',
-		officialPage: 'https://www.bronze.co.jp/books/post-97/',
-		pages: 32,
-		picDone: true,
-		publisher: 'ブロンズ新社',
-		readTogetherWith: _List_fromArray(
-			['9784893096173']),
-		review: '個性を自分なりに追及する。自分を外から内からいろんな角度から観察。すきなこと、きらいなこと、できること、できないこと、自分の周り、人からみた自分。。。読み終えてこどもたちも自分はどうだろうと想像してみるのではないだろうか。個性について考えるきっかけとなる本。人間はひとりひとり形の違う木のようなもので、「しゅるい」は生まれつきで選べないけど、それをどうやって育てて飾りつけするかは自分で決めれる、というおばあちゃんの言葉も心に響く。\n\n      やりたくないことだらけでげんなりしていたぼくは「ぼくのニセモノをつくってそいつにぜんぶやってもらおう！」と思ってロボットを一体買った。ぼくがニセモノさくせんについて説明すると、ロボは「あなたのことをくわしくおしえてください！」という。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ぼくのニセモノをつくるには',
-		translator: '',
-		writer: 'ヨシタケシンスケ'
-	},
-		{
-		adultReadingTimeMinutes: 7,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['第５１回 新風賞 受賞', '第９回 MOE絵本屋さん大賞 第２位', '第５回 静岡書店大賞児童書新作部門 第２位', '2016年 とっとり秋の読書大賞２０１６', '第1回 小学生がえらぶ！”こどもの本”総選挙ランキングベスト７', '第2回 小学生がえらぶ！”こどもの本”総選挙ランキングベスト15']),
-		categories: _List_fromArray(
-			['命（生と死）について考える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 2016,
-		illustrator: 'ヨシタケシンスケ',
-		isbn: '9784893096173',
-		note: '',
-		officialPage: 'https://www.bronze.co.jp/books/post-125/',
-		pages: 32,
-		picDone: true,
-		publisher: 'ブロンズ新社',
-		readTogetherWith: _List_fromArray(
-			['9784893095916']),
-		review: '死んだらどうなるの？、地獄ってどんなところ？そんな疑問が出始めた息子に選んだ絵本。「こんな天国にいけたらいいなぁ」これが読み終えた時の息子の感想だった。天国と地獄、神様など独特の世界観で描いており、重くなりがちなテーマだが、優しくユーモアも交え今を生きることの大切さも語りかけている。大人にも面白い絵本。\n\n      おじいちゃんが死んだ。そうじをしていたら「このあと\u3000どうしちゃおう」と書かれたノートが出てきた。自分が将来死んだらどうなりたいか、どうしてほしいかいっぱい書いてあった。。。。おじいちゃんは死ぬのが楽しみだったんだろうか、いや逆だったのかも。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'このあと どうしちゃおう',
-		translator: '',
-		writer: 'ヨシタケシンスケ'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 0,
-		awards: _List_fromArray(
-			['第45回講談社出版文化賞\u3000絵本賞']),
-		categories: _List_fromArray(
-			['命（生と死）について考える絵本']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 2013,
-		illustrator: 'ミロコマチコ',
-		isbn: '9784893095756',
-		note: '',
-		officialPage: 'https://www.bronze.co.jp/books/post-85/',
-		pages: 32,
-		picDone: true,
-		publisher: 'ブロンズ新社',
-		readTogetherWith: _List_Nil,
-		review: '作者の死んでしまった飼い猫（てつぞう）に対する深い愛が伝わる作品。てつぞうの死後、新しい猫を迎え入れその猫たちの様子をてつぞうに話しかけるように語っている。表現も面白く重い感じはない。読み終え温かい気持ちになれる。表紙はビビットな黄色と猫。中も大胆な構図と鮮やかな色使いで描かれている。',
-		similarBooks: _List_fromArray(
-			['9784566002760']),
-		subtitle: '',
-		title: 'てつぞうはね',
-		translator: '',
-		writer: 'ミロコマチコ'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 45,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定', '厚生省中央児童福祉審議会特別推薦', '大阪市立図書館選定', '第15回緑蔭図書', '第16回よい絵本', '日本子どもの本研究会選定']),
-		categories: _List_fromArray(
-			['自立・挑戦']),
-		composer: '',
-		firstTimePublishedMonth: 8,
-		firstTimePublishedYear: 1981,
-		illustrator: 'マーガレット・ブロイ・グレアム',
-		isbn: '9784892740169',
-		note: '',
-		officialPage: 'http://penguin-sha.co.jp/syousai_hatiueha.html',
-		pages: 36,
-		picDone: true,
-		publisher: 'ペンギン社',
-		readTogetherWith: _List_fromArray(
-			['9784834000207']),
-		review: '日本に住む子ども達には中々ないアイディアかもしれない。ユニークな発想、自立、責任、見守る親、いろいろな意味でいい刺激もらえ、そばに置いておきたい絵本のひとつ。１９８１年初版のやや古い作品だが、絵やお話に古さは感じられない。絵は青、黄色、緑の少ない色使いで構成され、それがまた植物の緑をより感じさせる。\n\n      夏休みはどこにも出かけないので好きなことをしていいと言われたトミーは、近所の植木を１日２セントで預かることにした。家の至る所に鉢植えが置かれ、ピクニックやジャングルで映画でも見ているような気分も味わえた。ある晩大きくなりすぎた植物で家が壊れる夢を見たトミーは、図書館で本を見つけ、調べ、剪定する。そして切り落とした枝は小さな鉢に植えた。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'はちうえはぼくにまかせて',
-		translator: '森 比左志',
-		writer: 'ジーン・ジオン'
-	},
-		{
-		adultReadingTimeMinutes: 1,
-		adultReadingTimeSeconds: 30,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自立・挑戦']),
-		composer: '',
-		firstTimePublishedMonth: 2,
-		firstTimePublishedYear: 2013,
-		illustrator: '佐々木マキ',
-		isbn: '9784871100816',
-		note: '',
-		officialPage: 'https://ehonkan.co.jp/ehon/081/',
-		pages: 0,
-		picDone: true,
-		publisher: '絵本館',
-		readTogetherWith: _List_fromArray(
-			['9784871101127', '9784569585970']),
-		review: '軽井沢の絵本美術館に展示されていて、気になって読んだ絵本。飛行機の部品、構造が細部までよく描かれていて隅々まで見入ってしまう。最後に自作の飛行機で世界をまわるのだが、その世界の景色も圧巻だ。文は１ページに１～２行なのでこどもが自分ではじめて読む絵本にもよいと思う。ぶたのたね、ねむねむいねずみシリーズとは全く異なる作品。男の子に是非見せてあげたい絵本。1975年に「こどものとも第231号」（福音館書店）として最初に発行され、こちらは表紙も新たに復刊。\n      ぼくがなにをつくっているか\u3000きみはわかるかい\u3000とうさんもかあさんもしらないんだ\u3000ひこーきだよ\u3000ほんとうに\u3000そらをとぶひこーきだよ。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ぼくがとぶ',
-		translator: '',
-		writer: '佐々木マキ'
-	},
-		{
-		adultReadingTimeMinutes: 14,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['全国学校図書館協議会・選定図書', '国際アンデルセン賞・作家賞']),
-		categories: _List_fromArray(
-			['自立・挑戦']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 1976,
-		illustrator: 'ヴィークランド',
-		isbn: '9784033270401',
-		note: '',
-		officialPage: 'https://www.kaiseisha.co.jp/books/9784033270401',
-		pages: 32,
-		picDone: true,
-		publisher: '偕成社',
-		readTogetherWith: _List_Nil,
-		review: 'お兄ちゃん、お姉ちゃんができるなら自分も！大人に無理だと思われても子どもは挑戦したくなるものだ。そして、子どもは親の知らない間に成長している。そんなことに気づかされる絵本だ。怖いより挑戦したい気持ちが勝ったロッタちゃん。ぬいぐるみ「ハムセ」へのはなしかけもおもしろい。文字が多く１５分と長めだが、続きが気になり途中でやめられなかった。絵は全体にかわいらしく、春の花吹雪の風景も素敵だ。映画「ロッタちゃんと赤いじてんしゃ」のもとになった絵本。\n\n      お兄ちゃん、お姉ちゃんが自転車に乗るのをうらやましく思っていたロッタちゃん（５才）。ロッタちゃんはまだ三輪車。５才の誕生日に自転車が来るだろうと待つも来ず。となりのおばさんの家から自転車を盗むことを考えつく。盗むことは成功したが、自転車は大きく乗りこなせるわけもなく坂で転倒。泣いているとお父さんが。。。。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ロッタちゃんとじてんしゃ',
-		translator: 'やまむろ しずか',
-		writer: 'リンドグレーン'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 45,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自立・挑戦']),
-		composer: '',
-		firstTimePublishedMonth: 3,
-		firstTimePublishedYear: 1993,
-		illustrator: '降矢なな',
-		isbn: '9784834011937',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=581',
-		pages: 32,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_fromArray(
-			['9784834015799']),
-		review: '親に相手にされなくても自分の欲しいものをあきらめず、最後までやりぬく。現代ではこうはいかないかもしれないが、こども心にがんばれ！と応援したくなる作品だ。「ようひんてん」、「だいはちぐるま」という言葉は聞いたことがないこどももいるのではないだろうか。１９８６年「こどものとも」として発刊。\n\n      さむがりやのとかげの子ちょろりんは洋品店で春の原っぱ色のセーターを見つけどうしても欲しくなる。お母さんやお父さんに相談するも相手にされず、自分のお金では足りない。そこでおじいちゃんの仕事を一晩手伝い足りないお金をもらうことにした。眠くても寒さで指が動かなくなっても頑張ったちょろりんはお金を受け取り、洋品店へ。しかし、それは。。。。',
-		similarBooks: _List_fromArray(
-			['9784892740169']),
-		subtitle: 'こどものとも傑作集',
-		title: 'ちょろりんのすてきなセーター',
-		translator: '',
-		writer: '降矢なな'
-	},
-		{
-		adultReadingTimeMinutes: 7,
-		adultReadingTimeSeconds: 15,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定(必読図書)', 'ブラチスラバ世界絵本原画展グランプリ']),
-		categories: _List_fromArray(
-			['ファンタジー絵本']),
-		composer: '',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 1966,
-		illustrator: '瀬川康男',
-		isbn: '9784834000689',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=56',
-		pages: 28,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: 'お話も絵も素晴らしい非常にオススメの一冊。人の温かさ、昔の人の暮らしを垣間見れる作品となっている。絵は白黒→カラー→白黒という順になっており斬新。顔の表情がよく描かれており、感情がとてもよく伝わってくる（特に海の水を初めて舐めた人の表情）。７分程だが全く飽きず、最後まで引きつけられた。子どもにも好評であった。\n\n      山の奥の奥の村の昔昔の話。母に頼まれ誕生日のご馳走のたけのこを取りに行った、たろ。たろがたけのこに上着をかけるとたけのこはぐんぐん伸び、慌てて飛びついたたろも一緒に上へ上へ。なかなか帰って来ないたろを心配した母は、ぐーんと伸びたたけのこを見つけ、村人を呼び皆で切り倒した。皆たけのこに沿って走り着いた先は海だった。皆、初めて見る海だった。迷子になると行って行かなかった海だった。',
-		similarBooks: _List_Nil,
-		subtitle: 'こどものとも傑作集',
-		title: 'ふしぎなたけのこ',
-		translator: '',
-		writer: '松野正子'
-	},
-		{
-		adultReadingTimeMinutes: 6,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['全国学校図書館協議会・選定図書（2014）', '日本図書館協会選定図書（2014）', 'weekly reader(アメリカ)推薦図書に１５年間選出']),
-		categories: _List_fromArray(
-			['実体験にありそうな絵本']),
-		composer: '',
-		firstTimePublishedMonth: 7,
-		firstTimePublishedYear: 2014,
-		illustrator: 'ドリス・バーン',
-		isbn: '9784033483009',
-		note: '',
-		officialPage: 'https://www.kaiseisha.co.jp/books/9784033483009',
-		pages: 48,
-		picDone: true,
-		publisher: '偕成社',
-		readTogetherWith: _List_Nil,
-		review: 'うちに似ているなぁ、子どもの行動も母親の行動も（笑）。ダンボール箱は子どもの想像力を掻き立てるものなのだろう。うちの場合はクリスティーナほどの想像力はないが、それでも宅急便で使用されたダンボールはよく捨てないでと言われる。ソファーを買ったときの特大サイズのダンボール箱は、船やクッションを持ち込み小さな部屋として使用されていた。すぐ片付けようとする母親の姿が自分と重なり笑えてしまった。子どもの想像力をかきたてる傑作と評され、アメリカの多くの教科書に掲載されているのも納得だ。\n\n      クリスティーナはいろんなものを集めていた（空き缶、壊れた食器。。。）。何よりも好きなものは箱で、それは大きければ大きいいほどワクワクした。ある日家に新しい冷蔵庫届き、その大きな空き箱をもらう。お城を作り、壊れると秘密基地、また壊れるとレーシングカー、また壊れると。。。と次々にアイディアを出していく。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'クリスティーナとおおきなはこ',
-		translator: 'おびか ゆうこ',
-		writer: 'パトリシア・リー・ゴーチ'
-	},
-		{
-		adultReadingTimeMinutes: 5,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['世界の昔話・民話']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 2015,
-		illustrator: 'モハメッド・チャリンダ',
-		isbn: '9784591144718',
-		note: '',
-		officialPage: 'https://www.poplar.co.jp/book/search/result/archive/2730047.html',
-		pages: 43,
-		picDone: true,
-		publisher: 'ポプラ社',
-		readTogetherWith: _List_fromArray(
-			['9784861930669']),
-		review: 'お話も絵も楽しめる絵本。主人公がしんぞうとひげという驚きの発想。ティンガティンガ絵画の大御所アーティストに作者がお願いし、描いてもらったそうだ。日本の子ども達にタンザニアの事をいっぱい知ってもらいたいという気持ちでタンザニアの名産物、豊かな自然、人々の生活道具、その様子が背景に描かれている。後書きは大人にぜひ読んで欲しいし、子どもにも伝えてあげたい。アフリカ（リベリア）民話の「ほーら、これでいい！」も体のパーツが分かれてと斬新だが、個人的にはこちらのおちの方が好きだ。\n      貧乏でお腹を空かせたしんぞうとひげはお互い２１日間何も食べずにいた。２２日目ばったり出会った二人、ひげはしんぞうを食べようとし、しんぞうは逃げ人間に食べてもらい左胸の中に隠れる。',
-		similarBooks: _List_Nil,
-		subtitle: 'ポプラせかいの絵本',
-		title: 'しんぞうとひげ',
-		translator: '',
-		writer: 'しまおか ゆみこ再話'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '今泉吉典',
-		firstTimePublishedMonth: 3,
-		firstTimePublishedYear: 1972,
-		illustrator: '籔内正幸',
-		isbn: '9784834003154',
-		note: '',
-		officialPage: 'https://www.fukuinkan.co.jp/book/?id=183',
-		pages: 24,
-		picDone: true,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: '「かがくがすきになる絵本１００」、「新\u3000どの本よもうかな（１・２年）」でも紹介されていた絵本。しっぽだけ見えていて、なんのしっぽでしょうとこども達に質問し、次のページに答えと役割が出ている。ページをめくる楽しみがある絵本。くもざる、いぬ、うし、りす、カンガルー、きつね、イルカ、がらがらへび、カナダヤマアラシ、トカゲのしっぽが紹介されている。ページ数は少なめだけど内容は濃い。',
-		similarBooks: _List_Nil,
-		subtitle: 'かがくのとも傑作集',
-		title: 'しっぽのはたらき',
-		translator: '',
-		writer: '川田健'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 15,
-		awards: _List_fromArray(
-			['全国学校図書館協議会選定図書', '日本図書館協会選定図書', '日本子どもの本研究会選定図書']),
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '精糖工業会\u3000日本塩工業会',
-		firstTimePublishedMonth: 1,
-		firstTimePublishedYear: 2015,
-		illustrator: '写真\u3000古島万理子',
-		isbn: '9784865490220',
-		note: '',
-		officialPage: 'https://www.hisakata.co.jp/book/detail.asp?b=049022',
-		pages: 28,
-		picDone: true,
-		publisher: 'ひさかたチャイルド',
-		readTogetherWith: _List_Nil,
-		review: '身近にある砂糖と塩。でも、これがどうやってできるのか。どんな性質をもっているのか知らないこども達はウチの子もそうだが多い。甘い、しょっぱい以外の性質を写真でわかりやすく説明している。例えば、お湯にたくさん入れると？一粒を大きくしてみると？生まれた場所は？そこからどうやって？\u3000砂糖と塩の種類と料理も紹介されている。最後に砂糖と塩を実際に作ってみよう！と自宅での作り方も紹介されている。大人にも子どもにも楽しい科学絵本だ。',
-		similarBooks: _List_Nil,
-		subtitle: 'しぜんにタッチ！',
-		title: 'さとうとしお',
-		translator: '',
-		writer: ''
-	},
-		{
-		adultReadingTimeMinutes: 0,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: 'ボコヤマクリタ',
-		firstTimePublishedMonth: 9,
-		firstTimePublishedYear: 2018,
-		illustrator: '写真\u3000武田晋一',
-		isbn: '9784265043743',
-		note: '',
-		officialPage: 'https://www.iwasakishoten.co.jp/book/b373079.html',
-		pages: 32,
-		picDone: true,
-		publisher: '岩崎書店',
-		readTogetherWith: _List_Nil,
-		review: '息子は石集めが好きだ。色が綺麗な石、変わった模様の石、面白いかたちの石など見つければすぐポケットへ。そんな男の子にオススメなのがこの本だ。この本を読み終え自分の宝物の石を出してきて、この石はマグマからできた石なんだね、これは、泥からかな。これはきっと生き物からと次々に調べていた。はじめに月、月の石が紹介され、それから地球にある石が紹介されているのも地球のドラマを感じて面白い。写真が大きく、説明が短めで年長でもわかりやすい。最後に付いている解説は小学校高学年向け。大人にも面白い科学絵本。',
-		similarBooks: _List_Nil,
-		subtitle: 'ちしきのぽけっと',
-		title: '石はなにからできている？',
-		translator: '',
-		writer: '西村寿雄'
-	},
-		{
-		adultReadingTimeMinutes: 3,
-		adultReadingTimeSeconds: 30,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '高橋秀男',
-		firstTimePublishedMonth: 6,
-		firstTimePublishedYear: 2011,
-		illustrator: '荒井真紀',
-		isbn: '9784323072715',
-		note: '',
-		officialPage: 'https://www.kinnohoshi.co.jp/search/info.php?isbn=9784323072715',
-		pages: 32,
-		picDone: true,
-		publisher: '金の星社',
-		readTogetherWith: _List_fromArray(
-			['978432307272', '9784323072739']),
-		review: '小学校入学前に読んでおこうかなと思ったのが、きっかけだった。種をまくところから朝顔が種をつけるまでを忠実に描いている。アート作品を見ているような素晴らしい絵本。ふたばやほんばの葉の違い、つるの伸び方もよくわかる。茎やつるの細かい毛、種一つ一つも丁寧に描かれている。\n      \n      追記：小学校に入学しすぐにアサガオセットが配布された。コロナの影響で分散登校だったため、アサガオは家で栽培。時々、アサガオの観察日記が宿題として出ていた。息子の絵はふたばの特徴も全くない絵だった。絵が苦手な息子がふたばやほんばの絵を描くのにこの絵本はもとても役に立った。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'あさがお',
-		translator: '',
-		writer: '荒井真紀'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 30,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '高橋秀男',
-		firstTimePublishedMonth: 6,
-		firstTimePublishedYear: 2013,
-		illustrator: '荒井真紀',
-		isbn: '9784323072722',
-		note: '',
-		officialPage: 'https://www.kinnohoshi.co.jp/search/info.php?isbn=9784323072722',
-		pages: 32,
-		picDone: true,
-		publisher: '金の星社',
-		readTogetherWith: _List_fromArray(
-			['9784323072715', '9784323072739']),
-		review: '荒井さんが国立科学博物館主催のボタニカルアート展に佳作、入賞を繰り返すのも納得。「あさがお」も素晴らしかったが、「ひまわり」は圧巻だった。ひまわりの種を蒔くところから始まり、ひまわりの一生を描いた作品。ふたばや本葉の形も、茎が太陽を追いかけ向きを変えるところも朝、昼、晩と分けて分かりやすく描かれている。花の断面図、花を分解した絵、二種類の花が集まってできているところなど素晴らしい細密画だ。大人にも面白く手元に置いておきたい絵本だ。他、「たんぽぽ」は絵本原画の国際コンクール「ブラティスラヴァ世界絵本原画展（BIB2017）」で金のりんご賞受賞。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ひまわり',
-		translator: '',
-		writer: '荒井真紀'
-	},
-		{
-		adultReadingTimeMinutes: 4,
-		adultReadingTimeSeconds: 30,
-		awards: _List_fromArray(
-			['2016年読書感想文 課題図書']),
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 4,
-		firstTimePublishedYear: 2015,
-		illustrator: '島田たく',
-		isbn: '9784591144701',
-		note: '',
-		officialPage: 'https://www.poplar.co.jp/book/search/result/archive/2181026.html',
-		pages: 36,
-		picDone: true,
-		publisher: 'ポプラ社',
-		readTogetherWith: _List_Nil,
-		review: '身近な虫、アリがこんなにも色々な役割をしていたとは！正直驚いた。生きていく上で身近な虫も互いに助け合っていることがこどもながら理解できたようだ。アリからエサをもらうむし、アリをたべるむし、アリにかくれるむし、アリとたすけあうむしが紹介されている。大人の女性には正直見ていて気持ち悪い部分もあるかもしれないが、こどもの反応はとても良かった。カタカナが読めれば字も大きいのでこども一人でも読みやすい。最後のアリの紹介、アリとくらすむしを探そうページも面白い。',
-		similarBooks: _List_Nil,
-		subtitle: 'ふしぎいっぱい写真絵本',
-		title: 'アリとくらすむし',
-		translator: '',
-		writer: '島田たく'
-	},
-		{
-		adultReadingTimeMinutes: 8,
-		adultReadingTimeSeconds: 15,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '西澤真樹子',
-		firstTimePublishedMonth: 2,
-		firstTimePublishedYear: 2008,
-		illustrator: '写真\u3000大西成明',
-		isbn: '9784752003809',
-		note: '',
-		officialPage: 'http://www.alicekan.com/books/978-4-7520-0380-9.html',
-		pages: 40,
-		picDone: true,
-		publisher: 'アリス館',
-		readTogetherWith: _List_Nil,
-		review: 'どこかで紹介されていて図書館で借りた絵本。図書館で人気だったようで手元に届くまでかなり長いこと待った。骨の写真（骨格標本）なので、怖がりの息子にはどうかなと思ったが特に何もなく読み聞かせできた。どうやったらこんな写真が撮れるの？この写真絵本を読んだ後、新たな知識を身につけたことは確かだ。息子に聞かれた言葉『ろっこつ』、『どうたい』、『サイチョウ』、『東南アジア』って？、『インド』ってどこ？。知らない言葉も多かった。動物の骨格写真、どうしてそのような骨格なのか、その特徴を簡単に説明している。紹介されている動物はヘビ、カメ、ウサギ、リス、キツネ、サイチョウ。。。。コウモリ、イルカ、サルと多め。ウサギの耳に骨がない。ヒトのおちんちんにも骨がないなど新たな発見だったようだ。個人的には骨格＋実際の写真も横に載せて欲しかった（息子のよく知らない動物は結局別の本で見せたので）。３３ページから４０ページはマキコ隊長のホネ研究室と題し高学年向けの深くほり込んだ解説となっている。',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: 'ホネホネたんけんたい',
-		translator: '',
-		writer: '松田素子'
-	},
-		{
-		adultReadingTimeMinutes: 0,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['自然科学絵本']),
-		composer: '',
-		firstTimePublishedMonth: 0,
-		firstTimePublishedYear: 0,
-		illustrator: '',
-		isbn: '9784834083361',
-		note: '',
-		officialPage: '',
-		pages: 0,
-		picDone: false,
-		publisher: '福音館書店',
-		readTogetherWith: _List_Nil,
-		review: ' ',
-		similarBooks: _List_Nil,
-		subtitle: 'かがくのとも絵本',
-		title: 'このあいだになにがあった？',
-		translator: '',
-		writer: '佐藤雅彦'
-	},
-		{
-		adultReadingTimeMinutes: 0,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['']),
-		composer: '',
-		firstTimePublishedMonth: 0,
-		firstTimePublishedYear: 0,
-		illustrator: '',
-		isbn: '',
-		note: '',
-		officialPage: '',
-		pages: 0,
-		picDone: false,
-		publisher: '',
-		readTogetherWith: _List_Nil,
-		review: ' ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: '',
-		translator: '',
-		writer: ''
-	},
-		{
-		adultReadingTimeMinutes: 0,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['']),
-		composer: '',
-		firstTimePublishedMonth: 0,
-		firstTimePublishedYear: 0,
-		illustrator: '',
-		isbn: '',
-		note: '',
-		officialPage: '',
-		pages: 0,
-		picDone: false,
-		publisher: '',
-		readTogetherWith: _List_Nil,
-		review: ' ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: '',
-		translator: '',
-		writer: ''
-	},
-		{
-		adultReadingTimeMinutes: 0,
-		adultReadingTimeSeconds: 0,
-		awards: _List_Nil,
-		categories: _List_fromArray(
-			['']),
-		composer: '',
-		firstTimePublishedMonth: 0,
-		firstTimePublishedYear: 0,
-		illustrator: '',
-		isbn: '',
-		note: '',
-		officialPage: '',
-		pages: 0,
-		picDone: false,
-		publisher: '',
-		readTogetherWith: _List_Nil,
-		review: ' ',
-		similarBooks: _List_Nil,
-		subtitle: '',
-		title: '',
-		translator: '',
-		writer: ''
-	}
+		{code: '', date: '', demo: '', desc: 'A simple goal, three different experiences. What happen when we try to leverage the type systems of JavaScript, TypeScript, and Elm?', image: 'elm-ecommerce.jpg', review: 'From dynamic to static typing in three steps', title: 'From dynamic to static typing in three steps', url: 'https://dev.to/lucamug/three-steps-4n7'},
+		{code: 'https://github.com/lucamug/elm-exercises', date: '', demo: '', desc: 'A system to create Elm exercises leveraging the Ellie platform.', image: 'elm_exercises.png', review: 'Elm Exercises', title: 'Elm Exercises', url: 'https://ellie-app.com/dZLQZGDGgNsa1'},
+		{code: 'https://github.com/lucamug/elm-ecommerce', date: '', demo: '', desc: 'A simple eCommerce demo application in 2,500 lines of Elm code, all shrank into 40KB of JavaScript, including styling and icons.', image: 'elm-ecommerce.jpg', review: 'Elm eCommerce', title: 'Elm eCommerce', url: 'https://elm-ecommerce.guupa.com/'},
+		{code: '', date: '', demo: '', desc: 'The story of the adoption of Elm at rakuten, with likes and dislikes.', image: 'elm_at_rakuten.jpg', review: 'Elm at Rakuten', title: 'Elm at Rakuten', url: 'https://dev.to/lucamug/elm-6m8'},
+		{code: 'https://github.com/lucamug/elm-cheat-sheet/', date: '', demo: 'https://lucamug.github.io/elm-cheat-sheet/elm-cheat-sheet.color.pdf', desc: 'Learning Elm? Download the Elm Cheat Sheet to support your learning process.', image: 'elm_cheat_sheet.jpg', review: 'Elm Cheat Sheet', title: 'Elm Cheat Sheet', url: 'https://twitter.com/luca_mug/status/1366200906606252037'},
+		{code: 'https://github.com/lucamug/elm-physics-example', date: '', demo: '', desc: 'Playing with Elm physics', image: 'elm-physics-example.gif', review: 'Elm physics Example', title: 'Elm physics Example', url: 'https://elm-physics-example.guupa.com/'},
+		{code: '', date: '', demo: '', desc: 'Penrose Triangle Illustration for \"Elm at Rakuten\" article', image: 'penrose_triangle.jpg', review: 'Penrose Triangle', title: 'Penrose Triangle', url: 'https://ellie-app.com/bZVgZf8GJvja1'},
+		{code: 'https://github.com/lucamug/mario/blob/master/src/Main.elm', date: '', demo: '', desc: 'Mario demo for the \"Elm at Rakuten\" article', image: 'mario.gif', review: 'Mario demo', title: 'Mario demo', url: 'https://lucamug.github.io/mario/'},
+		{code: '', date: '', demo: '', desc: 'Illustration for \"Elm at Rakuten\" article', image: 'appeal_to_popularity.jpg', review: 'Appeal to popularity', title: 'Appeal to popularity', url: 'https://ellie-app.com/bY2R6xF5mWda1'},
+		{code: 'https://github.com/lucamug/elm-release', date: '', demo: '', desc: 'A Proof of Work application to release things in production.', image: 'elm-release.jpg', review: 'Safe, Stress Free and Repeatable Releases', title: 'Safe, Stress Free and Repeatable Releases', url: 'https://elm-release.surge.sh'},
+		{code: '', date: '', demo: '', desc: 'R10 is a library of interactive building blocks written in Elm and elm-ui that we use at Rakuten for creating user interfaces.', image: 'r10.jpg', review: 'R10', title: 'R10', url: 'https://r10.netlify.app/'},
+		{code: '', date: '', demo: '', desc: 'A collection of cool 3D stuff made 100% in Elm.', image: '3d_graphics.gif', review: '3D Graphics in the Browser with Elm', title: '3D Graphics in the Browser with Elm', url: 'https://dev.to/lucamug/3d-graphics-in-the-browser-with-elm-4oh3'},
+		{code: '', date: '', demo: '', desc: '', image: 'elm_starter.jpg', review: '\"elm-starter\", a tool for the Modern Web', title: '\"elm-starter\", a tool for the Modern Web', url: 'https://dev.to/lucamug/elm-starter-a-tool-for-the-modern-web-53b1'},
+		{code: '', date: '', demo: '', desc: 'An attempt to measure how good are front-end frameworks in dealing with simple errors.', image: 'resilience.png', review: 'Resilience to errors in front-end frameworks', title: 'Resilience to errors in front-end frameworks', url: 'https://dev.to/lucamug/resilience-to-errors-of-front-end-frameworks-3hej'},
+		{code: '', date: '', demo: '', desc: '', image: 'kaiten_sushi.jpg', review: '🍣 Kaiten Sushi 🍣 Approaches to Web Animations', title: '🍣 Kaiten Sushi 🍣 Approaches to Web Animations', url: 'https://dev.to/lucamug/kaiten-sushi-approaches-to-web-animations-306k'},
+		{code: '', date: '', demo: '', desc: '', image: 'ro-box.gif', review: 'Ro-BOX', title: 'Ro-BOX', url: 'https://ro-box.netlify.app/'},
+		{code: 'https://github.com/lucamug/elm-playground-3d', date: '', demo: '', desc: '', image: '3d_examples.gif', review: 'Elm-Playground-3D Examples', title: 'Elm-Playground-3D Examples', url: 'https://elm-playground-3d.netlify.app/'},
+		{code: 'https://github.com/lucamug/elm-japan', date: '', demo: '', desc: 'Lead organizer of the first Elm conference in the Asia-Pacific region', image: 'elm_japan.jpg', review: 'Elm Japan', title: 'Elm Japan 2020', url: 'https://elmjapan.org/'},
+		{code: 'https://github.com/lucamug/elm-pages-editor', date: '', demo: '', desc: '', image: 'page_editor.jpg', review: 'Elm Pages editor', title: 'Elm Pages editor', url: 'https://lucamug.github.io/elm-pages-editor/withEditorAndDebugger.html'},
+		{code: 'https://github.com/lucamug/coach-a-test', date: '', demo: '', desc: '', image: 'doodle_weather.jpg', review: 'Doodle Weather', title: 'Doodle Weather', url: 'https://www.youtube.com/watch?v=oxVYKm47DNE'},
+		{code: '', date: '', demo: '', desc: '', image: 'snackbar.jpg', review: 'Elm Beginners Tutorial: How to make animated snackbars with zero CSS', title: 'Elm Beginners Tutorial: How to make animated snackbars with zero CSS', url: 'https://dev.to/lucamug/elm-beginners-tutorial-how-to-make-animated-snackbars-with-zero-css-12g1'},
+		{code: '', date: '', demo: '', desc: '', image: 'masonry2.gif', review: 'Type Driven Development: Simple masonry layout in 50 lines of Elm code', title: 'Type Driven Development: Simple masonry layout in 50 lines of Elm code', url: 'https://dev.to/lucamug/type-driven-development-simple-masonry-layout-in-50-lines-of-elm-code-44n0'},
+		{code: '', date: '', demo: '', desc: 'A static page made in Elm for errors, such as 404 Page not Found.', image: '404_page.jpg', review: 'Parallax', title: 'Parallax', url: 'https://login.account.rakuten.com/'},
+		{code: '', date: '', demo: '', desc: 'A biased and superficial comparison between two frameworks that compile to Javascript', image: 'elm_vs_svelte-80.jpg', review: 'Elm vs. Svelte', title: 'Elm vs. Svelte', url: 'https://medium.com/@l.mugnaini/elm-vs-svelte-d8e6f0abf667'},
+		{code: '', date: '', demo: '', desc: '', image: 'elm_vs_vue.png', review: 'Elm vs. Vue', title: 'Elm vs. Vue', url: 'https://dev.to/lucamug/elm-vs-vue-2jok'},
+		{code: '', date: '', demo: '', desc: '', image: 'elm_vs_js.png', review: 'Elm vs. Javascript: Side by Side Code Comparison', title: 'Elm vs. Javascript: Side by Side Code Comparison', url: 'https://dev.to/lucamug/javascript-elm-side-by-side-code-comparison-4372'},
+		{code: '', date: '', demo: '', desc: 'Things that can go wrong without a strictly typed language\u200A—\u200APart II, a.k.a. “Los tipos son buena gente”', image: 'elm_vs_react.jpg', review: 'Elm vs. React', title: 'Elm vs. React', url: 'https://medium.com/@l.mugnaini/things-that-can-go-wrong-without-a-strictly-typed-language-part-ii-8b239a85f35a'},
+		{code: '', date: '', demo: '', desc: 'A single Elm page that works also without Javascript and is SEO friendly.', image: 'rakuten_security.jpg', review: 'Rakuten Security', title: 'Rakuten Security', url: 'https://static.id.rakuten.co.jp/static/about_security/jpn/'},
+		{code: '', date: '', demo: '', desc: 'The entire Front-end part of Rakuten Taiwan Sign In and Registration system. I talked about this system at the [2019 Oslo Elm Day conference](https://www.youtube.com/watch?v=yH6o322S8XQ).', image: 'rakuten_signin.jpg', review: 'Rakuten Sign In', title: 'Rakuten Sign In', url: 'https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email#/registration/1'},
+		{code: 'https://github.com/rakutentech/rakutentech.github.io', date: '', demo: '', desc: 'The Open Source page of Rakuten got a new re-write in March 2019. It is now completely written in Elm. It combines Rakuten Open Source project coming from 11 different Github accounts. The structure of the app is not an usual Elm structure. It is organized in a way that also engineer that are now familiar with Elm can maitain the website. The main `src` folder contain the configuration and the main views. The website logic (The Elm Architecture) is \"hidden\" in the `internal` folder.', image: 'rakuten_open_source.jpg', review: 'Rakuten Open Source', title: 'Rakuten Open Source', url: 'https://rakutentech.github.io/'},
+		{code: '', date: '', demo: '', desc: 'A Masonry layout is a way to fit together elements of possibly different sizes without gaps.', image: 'masonry.jpg', review: 'Masonry Layout', title: 'Simple masonry layout in 50 lines of Elm code', url: 'https://medium.com/@l.mugnaini/simple-masonry-layout-in-50-lines-of-elm-code-304ea9e9475c'},
+		{code: '', date: '', demo: '', desc: '', image: 'elm_at_large_companies.jpg', review: 'Oslo Elm Day', title: '\"Elm at large (companies)\", Oslo Elm Day 2019', url: 'https://www.youtube.com/watch?v=yH6o322S8XQ'},
+		{code: 'https://github.com/lucamug/elm-resources', date: '', demo: '', desc: 'Resources about Elm', image: 'elm_resources.jpg', review: 'Elm Resources', title: 'Elm Resources', url: 'https://elm-resources.guupa.com/'},
+		{code: '', date: '', demo: '', desc: 'Talking about Front-end and Elm is always fun. Some of the most recent events:\n\n* [Fighting Front-End Fatigue: Introduction to Elm | Workshop](https://www.meetup.com/CodeChrysalis/events/268496917/)\n* [Elm at large (companies)](https://webhack.connpass.com/event/122871/)\n* [Elm, a delightful language for reliable webapps](https://webhack.connpass.com/event/112206/)\n* [Iro iro: One year of Elm in 50 slides](https://elm-jp.connpass.com/event/156016/)\n* [Front-end Innovation: Fast and Curious](https://tech.rakuten.co.jp/sessions/front-end-innovation-fast-and-curious/)', image: 'events.jpg', review: 'Events and Workshops', title: 'Events', url: ''},
+		{code: '', date: '', demo: '', desc: 'An introduction to a simple Elm library to build animated three dimensional models', image: '3d_svg.gif', review: '3D SVG', title: 'Basic 3D rendering in SVG: elm-playground-3d', url: 'https://medium.com/@l.mugnaini/basic-3d-rendering-in-svg-elm-playground-3d-d1e8846cd06e'},
+		{code: '', date: '', demo: '', desc: 'This is a tutorial on how to build a mildly complex web layout without any knowledge of CSS (and also any knowledge of Javascript and HTML…', image: 'layour_without_css.jpg', review: 'How to build a responsive layout without a single CSS line*', title: 'How to build a responsive layout without a single CSS line*', url: 'https://medium.com/@l.mugnaini/how-to-build-a-responsive-layout-without-a-single-css-line-afbdfe89bb6d'},
+		{code: '', date: '', demo: '', desc: 'Handling time in Elm seems to be a scaring thing for beginners.', image: 'time_in_elm.jpg', review: 'Time in Elm', title: 'Time in Elm', url: 'https://medium.com/@l.mugnaini/time-in-elm-42f08b8973f3'},
+		{code: 'https://github.com/rakutentech/http-trinity', date: '', demo: '', desc: '', image: 'http_trinity.jpg', review: 'HTTP Trinity', title: 'HTTP Trinity', url: 'https://rakutentech.github.io/http-trinity/'},
+		{code: '', date: '', demo: '', desc: 'Part 1 of 12 — The Game Loop', image: 'game_in_elm.jpg', review: 'Beginner Tutorials: How to build a game in Elm — Part 1', title: 'Beginner Tutorials: How to build a game in Elm — Part 1', url: 'https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-5491d6de8f25'},
+		{code: '', date: '', demo: '', desc: 'Part 2 of 12 — Add Keyboard', image: 'game_in_elm.jpg', review: 'Beginner Tutorials: How to build a game in Elm — Part 2', title: 'Beginner Tutorials: How to build a game in Elm — Part 2', url: 'https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-2-ae26eef8610b'},
+		{code: '', date: '', demo: '', desc: 'Part 3 of 12 — Add the Pause', image: 'game_in_elm.jpg', review: 'Beginner Tutorials: How to build a game in Elm — Part 3', title: 'Beginner Tutorials: How to build a game in Elm — Part 3', url: 'https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-3-fe62c51f7510'},
+		{code: '', date: '', demo: '', desc: 'Note: This is a step by step tutorial about hosting an Elm application on glitch.com but most of the concepts are applicable to other…', image: 'glitch.jpg', review: 'Tutorial: Real Time Collaboration and Free Hosting with glitch.com', title: 'Tutorial: Real Time Collaboration and Free Hosting with glitch.com', url: 'https://medium.com/@l.mugnaini/tutorial-real-time-collaboration-and-free-hosting-with-glitch-com-307b0c7398c6'},
+		{code: '', date: '', demo: '', desc: 'If you find yourself often running scripts in the terminal, why not adding some colored pixel art to them?', image: 'pixel_art.jpg', review: 'Terminal Pixel Art', title: 'Terminal Pixel Art', url: 'https://medium.com/@l.mugnaini/terminal-pixel-art-ad386d186dad'},
+		{code: '', date: '', demo: '', desc: 'What happen when an Elm developer write a Vue application', image: 'wrong_without_types.jpg', review: 'Things that can go wrong without a strictly typed language\u200A—\u200APart I', title: 'Things that can go wrong without a strictly typed language\u200A—\u200APart I', url: 'https://itnext.io/things-that-can-go-wrong-without-a-strictly-typed-language-d91d418a53a1'},
+		{code: '', date: '', demo: '', desc: 'I wanted to have a simple way to test all possible scenario of an http responses. There are tools like Mountebank but it is an extra thing…', image: 'mocking_api.jpg', review: 'Mocking APIs from inside Elm', title: 'Mocking APIs from inside Elm', url: 'https://medium.com/@l.mugnaini/mocking-apis-from-inside-elm-5efda32ee9fe'},
+		{code: '', date: '', demo: '', desc: 'In Functional Programming we build programs only using functions. These functions, for simplicity, can return only one value.', image: 'monads_without_monads.jpg', review: 'Monads without talking about Monads, in Elm', title: 'Monads without talking about Monads, in Elm', url: 'https://medium.com/@l.mugnaini/monads-without-talking-about-monads-in-elm-4b9b6ffd5ad5'},
+		{code: '', date: '', demo: '', desc: 'The “game loop” of Elm', image: 'tea.gif', review: 'The Elm Architecture (TEA) animation', title: 'The Elm Architecture (TEA) animation', url: 'https://medium.com/@l.mugnaini/the-elm-architecture-tea-animation-3efc555e8faf'},
+		{code: '', date: '', demo: '', desc: 'Elm Version', image: 'monads_in_picture.jpg', review: 'Functors, Applicatives, And Monads In Pictures (In Elm)', title: 'Functors, Applicatives, And Monads In Pictures (In Elm)', url: 'https://medium.com/@l.mugnaini/functors-applicatives-and-monads-in-pictures-784c2b5786f7'},
+		{code: '', date: '', demo: '', desc: '', image: 'style_framework.jpg', review: 'Proposal for a Style Framework in Elm', title: 'Proposal for a Style Framework in Elm', url: 'https://medium.com/@l.mugnaini/proposal-for-a-style-framework-in-elm-f5a1919ab425'},
+		{code: '', date: '', demo: '', desc: '', image: 'media_queries_in_elm.jpg', review: 'Media queries in Elm', title: 'Media queries in Elm', url: 'https://medium.com/@l.mugnaini/media-queries-in-elm-7b8f75cabc72'},
+		{code: '', date: '', demo: '', desc: '', image: 'unbreakable_json.jpg', review: 'Unbreakable JSON', title: 'Unbreakable JSON', url: 'https://medium.com/@l.mugnaini/unbreakable-json-95637300176c'},
+		{code: '', date: '', demo: '', desc: '', image: 'tangram.gif', review: 'Undo and Redo using browsers history - Tangram', title: 'Undo and Redo using browsers history - Tangram', url: 'https://medium.com/@l.mugnaini/undo-and-redo-using-browsers-history-1f1f963bf722'},
+		{code: '', date: '', demo: '', desc: 'Do you remember when I told you that separating layout from style was a good thing? Well, forget about it!', image: 'man_jump_from_space.jpg', review: 'CSS Nirvana', title: 'CSS Nirvana', url: 'https://medium.com/front-end-weekly/css-nirvana-a92ba04cca06'},
+		{code: '', date: '', demo: '', desc: 'Before artificial intelligence is taking over our Front-end jobs (here and here) let’s think some way to make our life less miserables.', image: 'future_frontend.gif', review: 'Is the future of Front-end development without HTML, CSS and Javascript?', title: 'Is the future of Front-end development without HTML, CSS and Javascript?', url: 'https://medium.com/@l.mugnaini/is-the-future-of-front-end-development-without-html-css-and-javascript-e7bb0877980e'},
+		{code: '', date: '', demo: '', desc: '', image: 'spa_boilerplate.jpg', review: 'Single Page Application Boilerplate for Elm', title: 'Single Page Application Boilerplate for Elm', url: 'https://medium.com/@l.mugnaini/single-page-application-boilerplate-for-elm-160bb5f3eec2'},
+		{code: '', date: '', demo: '', desc: '', image: 'zero_maintenance.jpg', review: 'Zero-maintenance Always-up-to-date Living Style Guide in Elm!', title: 'Zero-maintenance Always-up-to-date Living Style Guide in Elm!', url: 'https://medium.com/@l.mugnaini/zero-maintenance-always-up-to-date-living-style-guide-in-elm-dbf236d07522'},
+		{code: '', date: '', demo: '', desc: '', image: 'living_guide.jpg', review: 'Living Website Style Guide and Documentation in Elm', title: 'Living Website Style Guide and Documentation in Elm', url: 'https://medium.com/@l.mugnaini/living-website-style-guide-and-documentation-in-elm-2f99b6d61da9'},
+		{code: '', date: '', demo: '', desc: '', image: 'autocomplete.jpg', review: 'Autocomplete widget in Elm', title: 'Autocomplete widget in Elm', url: 'https://medium.com/@l.mugnaini/autocomplete-widget-in-elm-4927b8e275db'},
+		{code: '', date: '', demo: '', desc: 'Part 3 — Spinner, Floating Labels, Checkboxes, Date Picker, Autocomplete', image: 'forms_in_elm.jpg', review: 'Forms in Elm — Validation, Tutorial and Examples — Part 3', title: 'Forms in Elm — Validation, Tutorial and Examples — Part 3', url: 'https://medium.com/@l.mugnaini/forms-in-elm-validation-tutorial-and-examples-part-3-5f66f9c87679'},
+		{code: '', date: '', demo: '', desc: 'Part 2 — Removing <form>, on-the-fly validation, Focus detection, Show/Hide the password', image: 'forms_in_elm.jpg', review: 'Forms in Elm — Validation, Tutorial and Examples — Part 2', title: 'Forms in Elm — Validation, Tutorial and Examples — Part 2', url: 'https://medium.com/@l.mugnaini/forms-in-elm-validation-tutorial-and-examples-part-2-1b978437b5db'},
+		{code: '', date: '', demo: '', desc: 'Sometime Elm’s newcomers complain about the complexity and the large amount of boilerplate needed to create forms.', image: 'forms_in_elm.jpg', review: 'Forms in Elm —Validation, Tutorial and Examples — Part 1', title: 'Forms in Elm —Validation, Tutorial and Examples — Part 1', url: 'https://medium.com/@l.mugnaini/i-believe-css-is-more-about-separation-of-presentation-and-content-42bd0435005'},
+		{code: '', date: '', demo: '', desc: 'Aggregated documentation of Elm Commands and Subscription', image: 'commands_and_subscriptions.jpg', review: 'Commands and Subscriptions in Elm', title: 'Commands and Subscriptions in Elm', url: 'https://medium.com/@l.mugnaini/commands-and-subscriptions-in-elm-9ff506e75d2d'},
+		{code: '', date: '', demo: '', desc: 'There are concepts in Elm, as in other Functional Languages, that are simple, fun and elegant at the same time.', image: 'maybe_and_result.jpg', review: 'Brief beginners guide to Maybe and Result types in Elm', title: 'Brief beginners guide to Maybe and Result types in Elm', url: 'https://medium.com/@l.mugnaini/brief-beginners-guide-to-maybe-and-result-types-in-elm-7649d2c3b970'},
+		{code: '', date: '', demo: '', desc: 'I wanted to replay the user interaction with an Elm app, including the scrolling of the pages.', image: 'record_and_replay.jpg', review: 'Record and replay individual visitor interaction with Elm', title: 'Record and replay individual visitor interaction with Elm', url: 'https://medium.com/@l.mugnaini/record-and-replay-individual-visitor-interaction-with-elm-625814965508'},
+		{code: '', date: '', demo: '', desc: 'I am intrigued with the concept of separating Layout and Style. Usually layout is defined using a mixture of html and css while style is…', image: 'separation_of_layout_and_style.jpg', review: 'Separation of Layout and Style in Elm', title: 'Separation of Layout and Style in Elm', url: 'https://medium.com/@l.mugnaini/separation-of-layout-and-style-in-elm-882a3cbe1e7f'},
+		{code: '', date: '', demo: '', desc: 'I share here my personal notes that I took from Slack Elm https://elmlang.slack.com', image: 'elm_slack.jpg', review: 'Lessons learned about Elm from Slack', title: 'Lessons learned about Elm from Slack', url: 'https://medium.com/@l.mugnaini/lessons-learned-about-elm-from-slack-1d807d5d3627'},
+		{code: '', date: '', demo: '', desc: 'Simple experiment for Images Zooming', image: 'images_zoom.jpg', review: 'Images Zoom in Elm', title: 'Images Zoom in Elm', url: 'https://medium.com/@l.mugnaini/images-zoom-in-elm-ffb8c27b305e'},
+		{code: '', date: '', demo: '', desc: '', image: 'faceted_variants.jpg', review: 'Faceted Variants in Elm', title: 'Faceted Variants in Elm', url: 'https://medium.com/@l.mugnaini/faceted-variants-in-elm-c38b4d661355'},
+		{code: '', date: '', demo: '', desc: 'I run some test to understand how Google Search Engine handle a Single Page Application. I built the website for running the test in Elm…', image: 'spa_and_seo.jpg', review: 'SPA and SEO: Google (Googlebot) properly renders Single Page Application and execute Ajax calls', title: 'SPA and SEO: Google (Googlebot) properly renders Single Page Application and execute Ajax calls', url: 'https://medium.com/@l.mugnaini/spa-and-seo-is-googlebot-able-to-render-a-single-page-application-1f74e706ab11'},
+		{code: '', date: '', demo: '', desc: '', image: 'recursion.jpg', review: 'Tutorial — Permutations and Recursions in Elm', title: 'Tutorial — Permutations and Recursions in Elm', url: 'https://medium.com/@l.mugnaini/tutorial-permutations-and-recursions-in-elm-ad15e2288567'},
+		{code: '', date: '', demo: '', desc: '', image: 'scroll_and_resize.jpg', review: 'Scroll and Resize events in Elm', title: 'Scroll and Resize events in Elm', url: 'https://medium.com/@l.mugnaini/scroll-and-resize-events-in-elm-ac4f0589f42'},
+		{code: '', date: '', demo: '', desc: 'I know that the good Evan is going to release soon the version 0.19 that probably will implement the server side rendering.', image: 'server_side_rendering.jpg', review: 'Server Side Rendering with Elm', title: 'Server Side Rendering with Elm', url: 'https://medium.com/@l.mugnaini/server-side-rendering-with-elm-9064170eb3cf'},
+		{code: '', date: '', demo: '', desc: 'In the process of getting familiar with Data Structures in Elm I started to compile a table to compare all different types: Record, List…', image: 'data_structures.jpg', review: 'Data Structures in Elm', title: 'Data Structures in Elm', url: 'https://medium.com/@l.mugnaini/data-structures-in-elm-3dd609be1fa3'},
+		{code: '', date: 'Jul 12, 2017', demo: '', desc: 'A simple script to visualise some events in Elm', image: 'events_testing.jpg', review: 'Elm Events Testing', title: 'Elm Events Testing', url: 'https://medium.com/@l.mugnaini/elm-events-testing-a812dfbcb21'},
+		{code: 'https://github.com/lucamug/mobile-parallax-scrolling', date: 'Jul 2, 2017', demo: 'https://lucamug.github.io/mobile-parallax-scrolling/mobile-parallax-scrolling.html', desc: '', image: 'mobile_parallax_scrolling.jpg', review: 'Mobile Parallax Scrolling', title: 'Mobile Parallax Scrolling', url: 'https://medium.com/@l.mugnaini/mobile-parallax-scrolling-523c23f248c9'},
+		{code: 'https://github.com/lucamug/kana-overlapping', date: 'Jun 16, 2017', demo: 'https://lucamug.github.io/kana-overlapping/', desc: '', image: 'kana_overlapping.jpg', review: 'Kana Overlapping', title: 'Kana Overlapping', url: 'https://codeburst.io/kana-overlapping-8a89d23109ec?source=your_stories_page---------------------------'},
+		{code: '', date: 'Jun 15, 2017', demo: 'https://lucamug.github.io/elm-meta-json-decoder/', desc: '', image: 'decoding_json.jpg', review: 'Decoding Json that contain Json using Elm', title: 'Decoding Json that contain Json using Elm', url: 'https://medium.com/@l.mugnaini/decoding-json-that-contain-json-using-elm-be66d0dec0ff?source=your_stories_page---------------------------'},
+		{code: 'https://github.com/wking-io/elm-live', date: '', demo: '', desc: 'I enjoyed collaborating with William King to add few feature to elm-live, including\n\n* Errors in console\n* Errors in browser\n* Colored errors\n* Hot reload implementations (Using [elm-hot](https://github.com/klazuka/elm-hot))\n* QRCode for mobile testing ([pending](https://github.com/wking-io/elm-live/issues/204))\n* Link in browser that open IDE directly ([pending](https://github.com/wking-io/elm-live/issues/204))', image: 'elm_live.jpg', review: 'elm-live', title: 'Elm-Live Contribution', url: 'https://www.npmjs.com/package/elm-live'},
+		{code: '', date: 'Jun 4, 2017', demo: '', desc: 'This is a simple example of how is possible to implement a third party Carousel plugin in a Single Page Application (SPA) made in Elm.', image: 'carousel.jpg', review: 'Carousel plugin in Elm', title: 'Carousel plugin in Elm', url: 'https://medium.com/@l.mugnaini/carousel-plugin-in-elm-46e89272b185?source=your_stories_page---------------------------'},
+		{code: '', date: 'May 29, 2017', demo: '', desc: 'I need to introduce Elm to some colleague and I was looking for a presentation that I could recycle. A while ago I remember seeing and…', image: 'elm_presentation.jpg', review: 'A ready-to-use Elm Presentation to impress your colleagues', title: 'A ready-to-use Elm Presentation to impress your colleagues', url: 'https://medium.com/@l.mugnaini/a-ready-to-use-elm-presentation-to-impress-your-colleagues-ee71cac8fe14?source=your_stories_page---------------------------'},
+		{code: 'https://github.com/lucamug/simple-neural-network-in-javascript', date: 'May 25, 2017', demo: '', desc: 'This is a port from Python to Javascript of the neural network implementation to describe the inner workings of backpropagation. This is…', image: 'neural_network_in_javascript.jpg', review: 'A Neural Network in 11 lines of Javascript', title: 'A Neural Network in 11 lines of Javascript', url: 'https://aboveintelligent.com/a-neural-network-in-11-lines-of-javascript-d58b38330178?source=your_stories_page---------------------------'},
+		{code: '', date: 'on May 15, 2017', demo: '', desc: 'I wanted to prepare the API specification for the backend developers in the most efficient way possible. Elm code is quite self…', image: 'self_documenting_api.jpg', review: 'Self documenting API specifications', title: 'Self documenting API specifications', url: 'https://medium.com/@l.mugnaini/self-documenting-api-specifications-41be58ec64a1?source=your_stories_page---------------------------'},
+		{code: '', date: 'May 9, 2017', demo: '', desc: 'This tool automatically download data from Google Drive and generate all the posts of the Blog.', image: 'blog_using_google_spreadsheets.jpg', review: 'A tool to generate and maintain a blog using Google spreadsheets', title: 'A tool to generate and maintain a blog using Google spreadsheets', url: 'https://medium.com/@l.mugnaini/a-tool-to-generate-and-maintain-a-blog-using-google-spreadsheets-a38367a94323?source=your_stories_page---------------------------'},
+		{code: '', date: '', demo: '', desc: '', image: 'elm_japan_2020_old.jpg', review: 'Old Elm Japan 2020 website', title: 'Old Elm Japan 2020 website', url: 'https://elm-tokyo-2020.netlify.com'},
+		{code: '', date: 'May 9, 2017', demo: '', desc: '*Bad in the sense that i wrote it, ignoring the most basic good practices', image: 'bad_javascript_vs_bad_elm.jpg', review: 'Bad* Javascript vs Bad* Elm', title: 'Bad* Javascript vs Bad* Elm', url: 'https://medium.com/@l.mugnaini/bad-javascript-vs-bad-elm-6dc9661d109?source=your_stories_page---------------------------'},
+		{code: '', date: 'May 6, 2017', demo: '', desc: 'Experimenting with recycling Elm code transforming it in a module', image: 'counters_bonanza.jpg', review: 'Experimental reuse of code in Elm, Part III — Counters Bonanza', title: 'Experimental reuse of code in Elm, Part III — Counters Bonanza', url: 'https://medium.com/@l.mugnaini/counters-bonanza-5e67855c0b83?source=your_stories_page---------------------------'},
+		{code: '', date: 'May 6, 2017', demo: '', desc: 'This is the second part of a series:', image: 'the_counter.jpg', review: 'Experimental reuse of code in Elm, Part II — The counter', title: 'Experimental reuse of code in Elm, Part II — The counter', url: 'https://medium.com/@l.mugnaini/recycling-elm-code-transforming-it-in-a-module-4946d5ccd3cd?source=your_stories_page---------------------------'},
+		{code: '', date: 'May 3, 2017', demo: '', desc: 'A simple Shopping Cart written while experimenting with Elm', image: 'simple_ecommerce.jpg', review: 'Simple Ecommerce Shopping Cart written in Elm', title: 'Simple Ecommerce Shopping Cart written in Elm', url: 'https://medium.com/@l.mugnaini/simple-e-commerce-shopping-cart-written-in-elm-7fe31c6bf13d?source=your_stories_page---------------------------'},
+		{code: '', date: 'Apr 29, 2017', demo: '', desc: 'This is the first port of a series:', image: 'reuse_of_code.jpg', review: 'Experimental reuse of code in Elm, Part I — Page with list of products', title: 'Experimental reuse of code in Elm, Part I — Page with list of products', url: 'https://medium.com/@l.mugnaini/tutorial-how-to-recycle-in-elm-89b13b6c0bab?source=your_stories_page---------------------------'},
+		{code: '', date: 'Mar 28, 2017', demo: '', desc: 'Try this code if you want to see how elm behave in the console:', image: 'flow_in_console.jpg', review: 'Elm flow in the console', title: 'Elm flow in the console', url: 'https://medium.com/@l.mugnaini/elm-flow-in-the-console-16e6ceb4ce90?source=your_stories_page---------------------------'},
+		{code: '', date: 'Jan 19, 2017', demo: '', desc: '', image: 'milk_container.jpg', review: '10 Criteria to Judge a Good Milk Container', title: '10 Criteria to Judge a Good Milk Container', url: 'https://medium.com/@l.mugnaini/10-criteria-to-judge-a-good-milk-container-52a94d3d8202?source=your_stories_page---------------------------'},
+		{code: '', date: 'Jan 18, 2017', demo: '', desc: 'I know this is a bit old, but today, watching an old Douglas Crockford’s video I was interested in his proposal of a new way of defining a…', image: 'dec64.jpg', review: 'DEC64 — Douglas Crockford’s Decimal Notation', title: 'DEC64 — Douglas Crockford’s Decimal Notation', url: 'https://medium.com/@l.mugnaini/dec64-douglas-crockfords-decimal-notation-b25f19348d63?source=your_stories_page---------------------------'},
+		{code: '', date: 'Jan 17, 2017', demo: '', desc: 'Among several videos that I have been watching about functional programming, I found these two quite interesting and entertaining:', image: 'itroduction_fp.jpg', review: 'Introduction to Functional Programming', title: 'Introduction to Functional Programming', url: 'https://medium.com/@l.mugnaini/introduction-to-functional-programming-49c9e5c31df4?source=your_stories_page---------------------------'},
+		{code: '', date: 'Jan 17, 2017', demo: '', desc: 'Would you like to download your multi-sheets-Google-spreadsheet in a simple format like this?', image: 'download_spreadsheet.jpg', review: 'Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON', title: 'Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON', url: 'https://medium.com/@l.mugnaini/a-small-script-to-download-a-google-spreadsheet-with-multiple-worksheet-in-javascript-dafb14c65bae?source=your_stories_page---------------------------'},
+		{code: '', date: '', demo: '', desc: 'Reviews of books for children, in Japanese.', image: 'mekke.jpg', review: 'Mekke', title: 'Mekke', url: 'https://mekke.guupa.com/'},
+		{code: '', date: '', demo: '', desc: '', image: 'elm_starter_demo.jpg', review: 'Elm Starter Example', title: 'Elm Starter Example', url: 'https://elm-starter.guupa.com/'},
+		{code: '', date: '', demo: '', desc: '', image: 'todo.jpg', review: 'Elm Todos Example', title: 'Elm Todos Example', url: 'https://elm-todomvc.guupa.com/'},
+		{code: '', date: '', demo: '', desc: '', image: 'spa_example.jpg', review: 'Elm SPA Example', title: 'Elm SPA Example', url: 'https://elm-spa-example.guupa.com/'},
+		{code: '', date: '', demo: '', desc: '', image: 'nyoro_nyoro.jpg', review: 'Nyoro-Nyoro Game', title: 'Nyoro-Nyoro Game', url: 'https://nyny.surge.sh/'},
+		{code: '', date: '', demo: '', desc: '', image: 'style_framework2.jpg', review: 'Style Framework', title: 'Style Framework', url: 'https://lucamug.github.io/style-framework/'},
+		{code: '', date: '', demo: '', desc: 'Experimental PWA with Geofencing', image: 'geofencing.jpg', review: 'Geofencing', title: 'Geofencing', url: 'https://romantic-tereshkova-b938b5.netlify.app/'},
+		{code: '', date: '', demo: '', desc: '', image: 'puchi.jpg', review: 'Puchi Densha', title: 'Puchi Densha', url: 'https://puchi.guupa.com'},
+		{code: '', date: '', demo: '', desc: 'When Perl was cool, I collaborated to a section of the book \"Perl e Internet\" by Alessandro Bellini.', image: 'perl_e_internet.jpg', review: 'Perl e Internet', title: 'Perl e Internet', url: 'https://www.libraccio.it/libro/9788838607783/alessandro-bellini-andrea-guidi/perl-e-internet.html'}
 	]);
-var $author$project$Book$Book$items = $author$project$Book$Ritsu$books;
 var $author$project$Main$idToMaybeItem = function (id) {
 	var decodedId = $author$project$Main$idDecoder(id);
 	return $elm$core$List$head(
@@ -12701,16 +11352,16 @@ var $author$project$Main$idToMaybeItem = function (id) {
 			function (item) {
 				return _Utils_eq(
 					$elm$core$String$toLower(
-						$author$project$Book$Book$id(item)),
+						$author$project$Projects$Project$id(item)),
 					decodedId);
 			},
-			$author$project$Book$Book$items));
+			$author$project$Projects$Project$items));
 };
-var $author$project$Book$Book$itemNotFound = {adultReadingTimeMinutes: 0, adultReadingTimeSeconds: 0, awards: _List_Nil, categories: _List_Nil, composer: '', firstTimePublishedMonth: 0, firstTimePublishedYear: 0, illustrator: '', isbn: '', note: '', officialPage: '', pages: 0, picDone: false, publisher: '', readTogetherWith: _List_Nil, review: '', similarBooks: _List_Nil, subtitle: '', title: 'Not Found', translator: '', writer: ''};
+var $author$project$Projects$Project$itemNotFound = {code: '', date: '', demo: '', desc: '', image: '', review: 'NOT FOUND', title: 'NOT FOUND', url: ''};
 var $author$project$Main$idToItem = function (id) {
 	return A2(
 		$elm$core$Maybe$withDefault,
-		$author$project$Book$Book$itemNotFound,
+		$author$project$Projects$Project$itemNotFound,
 		$author$project$Main$idToMaybeItem(id));
 };
 var $elm$core$Maybe$map = F2(
@@ -12753,26 +11404,26 @@ var $author$project$Main$urlBuilder = function (id) {
 			$elm$url$Url$Builder$absolute,
 			_List_fromArray(
 				[
-					$author$project$Book$Book$conf.urlLabel,
+					$author$project$Projects$Project$conf.urlLabel,
 					$author$project$Main$idEncoder(id)
 				]),
 			_List_Nil));
 };
 var $author$project$Main$previousNext = function (id) {
 	var item = $author$project$Main$idToItem(id);
-	var presentIndex = A2($elm_community$list_extra$List$Extra$elemIndex, item, $author$project$Book$Book$items);
+	var presentIndex = A2($elm_community$list_extra$List$Extra$elemIndex, item, $author$project$Projects$Project$items);
 	var next = function () {
 		if (presentIndex.$ === 'Just') {
 			var index = presentIndex.a;
 			return (_Utils_cmp(
 				index,
-				$elm$core$List$length($author$project$Book$Book$items)) < 0) ? A2(
+				$elm$core$List$length($author$project$Projects$Project$items)) < 0) ? A2(
 				$elm$core$Maybe$map,
 				$author$project$Main$urlBuilder,
 				A2(
 					$elm$core$Maybe$map,
-					$author$project$Book$Book$id,
-					A2($elm_community$list_extra$List$Extra$getAt, index + 1, $author$project$Book$Book$items))) : $elm$core$Maybe$Nothing;
+					$author$project$Projects$Project$id,
+					A2($elm_community$list_extra$List$Extra$getAt, index + 1, $author$project$Projects$Project$items))) : $elm$core$Maybe$Nothing;
 		} else {
 			return $elm$core$Maybe$Nothing;
 		}
@@ -12785,8 +11436,8 @@ var $author$project$Main$previousNext = function (id) {
 				$author$project$Main$urlBuilder,
 				A2(
 					$elm$core$Maybe$map,
-					$author$project$Book$Book$id,
-					A2($elm_community$list_extra$List$Extra$getAt, index - 1, $author$project$Book$Book$items))) : $elm$core$Maybe$Nothing;
+					$author$project$Projects$Project$id,
+					A2($elm_community$list_extra$List$Extra$getAt, index - 1, $author$project$Projects$Project$items))) : $elm$core$Maybe$Nothing;
 		} else {
 			return $elm$core$Maybe$Nothing;
 		}
@@ -18731,8 +17382,8 @@ var $mdgriffith$elm_ui$Internal$Model$Bottom = {$: 'Bottom'};
 var $mdgriffith$elm_ui$Element$alignBottom = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Bottom);
 var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
 var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
-var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
-var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
+var $mdgriffith$elm_ui$Internal$Flag$fontAlignment = $mdgriffith$elm_ui$Internal$Flag$flag(12);
+var $mdgriffith$elm_ui$Element$Font$center = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textCenter);
 var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -18763,60 +17414,52 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
-var $elm$html$Html$Attributes$src = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'src',
-		_VirtualDom_noJavaScriptOrHtmlUri(url));
+var $mdgriffith$elm_ui$Internal$Flag$bgGradient = $mdgriffith$elm_ui$Internal$Flag$flag(10);
+var $mdgriffith$elm_ui$Element$Background$gradient = function (_v0) {
+	var angle = _v0.angle;
+	var steps = _v0.steps;
+	if (!steps.b) {
+		return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
+	} else {
+		if (!steps.b.b) {
+			var clr = steps.a;
+			return A2(
+				$mdgriffith$elm_ui$Internal$Model$StyleClass,
+				$mdgriffith$elm_ui$Internal$Flag$bgColor,
+				A3(
+					$mdgriffith$elm_ui$Internal$Model$Colored,
+					'bg-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
+					'background-color',
+					clr));
+		} else {
+			return A2(
+				$mdgriffith$elm_ui$Internal$Model$StyleClass,
+				$mdgriffith$elm_ui$Internal$Flag$bgGradient,
+				A3(
+					$mdgriffith$elm_ui$Internal$Model$Single,
+					'bg-grad-' + A2(
+						$elm$core$String$join,
+						'-',
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Internal$Model$floatClass(angle),
+							A2($elm$core$List$map, $mdgriffith$elm_ui$Internal$Model$formatColorClass, steps))),
+					'background-image',
+					'linear-gradient(' + (A2(
+						$elm$core$String$join,
+						', ',
+						A2(
+							$elm$core$List$cons,
+							$elm$core$String$fromFloat(angle) + 'rad',
+							A2($elm$core$List$map, $mdgriffith$elm_ui$Internal$Model$formatColor, steps))) + ')')));
+		}
+	}
 };
-var $mdgriffith$elm_ui$Element$image = F2(
-	function (attrs, _v0) {
-		var src = _v0.src;
-		var description = _v0.description;
-		var imageAttributes = A2(
-			$elm$core$List$filter,
-			function (a) {
-				switch (a.$) {
-					case 'Width':
-						return true;
-					case 'Height':
-						return true;
-					default:
-						return false;
-				}
-			},
-			attrs);
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asEl,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.imageContainer),
-				attrs),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[
-						A4(
-						$mdgriffith$elm_ui$Internal$Model$element,
-						$mdgriffith$elm_ui$Internal$Model$asEl,
-						$mdgriffith$elm_ui$Internal$Model$NodeName('img'),
-						_Utils_ap(
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Internal$Model$Attr(
-									$elm$html$Html$Attributes$src(src)),
-									$mdgriffith$elm_ui$Internal$Model$Attr(
-									$elm$html$Html$Attributes$alt(description))
-								]),
-							imageAttributes),
-						$mdgriffith$elm_ui$Internal$Model$Unkeyed(_List_Nil))
-					])));
-	});
-var $author$project$Book$View$imageSrc = function (book) {
-	return '/books/' + (book.isbn + '.jpg');
+var $mdgriffith$elm_ui$Element$Background$image = function (src) {
+	return $mdgriffith$elm_ui$Internal$Model$Attr(
+		A2($elm$virtual_dom$VirtualDom$style, 'background', 'url(\"' + (src + '\") center / cover no-repeat')));
 };
+var $author$project$Projects$Project$imagesLocation = '/images/';
 var $mdgriffith$elm_ui$Internal$Model$PaddingStyle = F5(
 	function (a, b, c, d, e) {
 		return {$: 'PaddingStyle', a: a, b: b, c: c, d: d, e: e};
@@ -18873,37 +17516,38 @@ var $mdgriffith$elm_ui$Element$paragraph = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $author$project$Book$View$primaryColor = A3($mdgriffith$elm_ui$Element$rgb, 0.2, 0.6, 0.4);
-var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
 var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
-var $author$project$Book$View$card = F2(
-	function (index, book) {
-		return A2(
+var $author$project$Projects$Project$viewCard = function (project) {
+	return A2(
+		$mdgriffith$elm_ui$Element$el,
+		_Utils_ap(
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			$elm$core$String$isEmpty(project.image) ? _List_Nil : _List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Background$image(
+					_Utils_ap($author$project$Projects$Project$imagesLocation, project.image))
+				])),
+		A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$spacing(20),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(400)),
-					$mdgriffith$elm_ui$Element$padding(20),
-					$mdgriffith$elm_ui$Element$clip,
-					$mdgriffith$elm_ui$Element$inFront(
-					A2(
-						$mdgriffith$elm_ui$Element$image,
-						_List_fromArray(
+					A2($mdgriffith$elm_ui$Element$minimum, 150, $mdgriffith$elm_ui$Element$fill)),
+					$mdgriffith$elm_ui$Element$Background$gradient(
+					{
+						angle: 0,
+						steps: _List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$alignBottom
-							]),
-						{
-							description: '',
-							src: $author$project$Book$View$imageSrc(book)
-						}))
+								A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.5),
+								A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0)
+							])
+					})
 				]),
 			_List_fromArray(
 				[
@@ -18911,25 +17555,21 @@ var $author$project$Book$View$card = F2(
 					$mdgriffith$elm_ui$Element$paragraph,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(20),
+							$mdgriffith$elm_ui$Element$padding(15),
+							$mdgriffith$elm_ui$Element$Font$center,
 							$mdgriffith$elm_ui$Element$Font$bold,
-							$mdgriffith$elm_ui$Element$Font$color($author$project$Book$View$primaryColor)
+							$mdgriffith$elm_ui$Element$Font$size(20),
+							$mdgriffith$elm_ui$Element$Font$color(
+							A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1)),
+							$mdgriffith$elm_ui$Element$alignBottom
 						]),
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text(book.title)
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(book.review)
+							$mdgriffith$elm_ui$Element$text(project.title)
 						]))
-				]));
-	});
-var $author$project$Book$Book$viewCard = $author$project$Book$View$card;
-var $author$project$Book$Book$cardWrapper = F4(
+				])));
+};
+var $author$project$Projects$Project$cardWrapper = F4(
 	function (linkInternal, index, item, url) {
 		return A2(
 			$mdgriffith$elm_ui$Element$el,
@@ -18952,7 +17592,7 @@ var $author$project$Book$Book$cardWrapper = F4(
 							$mdgriffith$elm_ui$Element$Border$color(
 							A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.1)),
 							$mdgriffith$elm_ui$Element$Background$color(
-							A3($mdgriffith$elm_ui$Element$rgb, 0.8, 1, 0.8)),
+							A3($mdgriffith$elm_ui$Element$rgb, 0.3, 0.5, 0.3)),
 							$mdgriffith$elm_ui$Element$moveUp(10)
 						]))
 				]),
@@ -18966,7 +17606,7 @@ var $author$project$Book$Book$cardWrapper = F4(
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 					]),
 				{
-					label: A2($author$project$Book$Book$viewCard, index, item),
+					label: $author$project$Projects$Project$viewCard(item),
 					url: url
 				}));
 	});
@@ -19042,30 +17682,255 @@ var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
 			families));
 };
+var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
+var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
+var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
+var $elm$svg$Svg$desc = $elm$svg$Svg$trustedNode('desc');
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
+var $elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
+var $elm$svg$Svg$Attributes$preserveAspectRatio = _VirtualDom_attribute('preserveAspectRatio');
+var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
+var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$svg$Svg$title = $elm$svg$Svg$trustedNode('title');
+var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$xmlSpace = A2(_VirtualDom_attributeNS, 'http://www.w3.org/XML/1998/namespace', 'xml:space');
+var $author$project$Utils$Utils$wrapperWithViewbox_ = F3(
+	function (viewbox, size, listSvg) {
+		return A2(
+			$elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$xmlSpace('http://www.w3.org/2000/svg'),
+					$elm$svg$Svg$Attributes$preserveAspectRatio('xMinYMin slice'),
+					$elm$svg$Svg$Attributes$viewBox(viewbox),
+					$elm$svg$Svg$Attributes$height(
+					$elm$core$String$fromInt(size)),
+					A2($elm$html$Html$Attributes$attribute, 'role', 'img'),
+					A2($elm$html$Html$Attributes$attribute, 'aria-labelledby', 'catTitle catDesc')
+				]),
+			_Utils_ap(
+				_List_fromArray(
+					[
+						A2(
+						$elm$svg$Svg$title,
+						_List_fromArray(
+							[
+								$elm$svg$Svg$Attributes$id('catTitle')
+							]),
+						_List_fromArray(
+							[
+								$elm$svg$Svg$text('xxx1')
+							])),
+						A2(
+						$elm$svg$Svg$desc,
+						_List_fromArray(
+							[
+								$elm$svg$Svg$Attributes$id('catDesc')
+							]),
+						_List_fromArray(
+							[
+								$elm$svg$Svg$text('xxx1')
+							]))
+					]),
+				listSvg));
+	});
+var $author$project$Utils$Utils$wrapperWithViewbox = F3(
+	function (viewbox, size, listSvg) {
+		return $mdgriffith$elm_ui$Element$html(
+			A3($author$project$Utils$Utils$wrapperWithViewbox_, viewbox, size, listSvg));
+	});
+var $author$project$Utils$Utils$logoDev = function (size) {
+	return A3(
+		$author$project$Utils$Utils$wrapperWithViewbox,
+		'0 0 132 65',
+		size,
+		_List_fromArray(
+			[
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$d('M0 33v32h11.3c12.5 0 17.7-1.6 21.5-6.5 3.8-4.8 4.4-9 4-28-.3-16.8-.5-18.2-2.7-21.8C30.3 2.5 26.1 1 12 1H0v32zm23.1-19.1c2.3 1.9 2.4 2.3 2.4 18.5 0 15.7-.1 16.7-2.2 18.8-1.7 1.6-3.5 2.2-7 2.2l-4.8.1-.3-20.8L11 12h4.9c3.3 0 5.6.6 7.2 1.9zm23-10.3c-2 2.6-2.1 3.9-2.1 29.6v26.9l2.5 2.4c2.3 2.4 2.9 2.5 16 2.5H76V54.1l-10.2-.3-10.3-.3v-15l6.3-.3 6.2-.3V27H55V12h21V1H62.1c-13.9 0-14 0-16 2.6zM87 15.2L94.6 44c3.2 12.3 4.3 15 7 17.7 1.9 2 4.2 3.3 5.7 3.3 3.1 0 7.1-3.1 8.5-6.7 1-2.6 15.2-55.6 15.2-56.8 0-.3-2.8-.5-6.2-.3l-6.3.3-5.6 21.5c-3.5 13.6-5.8 20.8-6.2 19.5C105.9 40 96 1.9 96 1.4c0-.2-2.9-.4-6.4-.4h-6.4L87 15.2z')
+					]),
+				_List_Nil)
+			]));
+};
+var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var $author$project$Utils$Utils$logoGithub = function (size) {
+	return A3(
+		$author$project$Utils$Utils$wrapperWithViewbox,
+		'0 0 256 250',
+		size,
+		_List_fromArray(
+			[
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('#161614'),
+						$elm$svg$Svg$Attributes$d('M128 0a128 128 0 00-40.5 249.5c6.4 1.1 8.8-2.8 8.8-6.2l-.2-23.8C60.5 227.2 53 204.4 53 204.4c-5.8-14.8-14.2-18.8-14.2-18.8-11.6-7.9.8-7.7.8-7.7 12.9.9 19.7 13.1 19.7 13.1 11.4 19.6 30 14 37.2 10.7 1.2-8.3 4.5-14 8.1-17.1-28.4-3.3-58.3-14.2-58.3-63.3 0-14 5-25.4 13.2-34.3a46 46 0 011.3-34S71.5 49.7 96 66.3a122.7 122.7 0 0164 0c24.5-16.6 35.2-13.1 35.2-13.1a46 46 0 011.3 33.9c8.2 9 13.2 20.3 13.2 34.3 0 49.2-30 60-58.5 63.2 4.6 4 8.7 11.7 8.7 23.7l-.2 35.1c0 3.4 2.4 7.4 8.8 6.1A128 128 0 00128 0zM48 182.3c-.3.7-1.3.9-2.3.4-.9-.4-1.4-1.3-1.1-1.9.3-.6 1.3-.8 2.2-.4 1 .4 1.5 1.3 1.1 2zm6.2 5.7c-.6.5-1.8.3-2.6-.6-.8-1-1-2.1-.4-2.7.7-.6 1.8-.3 2.7.6.8.9 1 2 .3 2.7zm4.4 7.1c-.8.6-2.1 0-2.9-1-.8-1.2-.8-2.6 0-3.1.8-.6 2 0 2.9 1 .8 1.2.8 2.6 0 3.1zm7.3 8.4c-.7.7-2.2.5-3.3-.5-1.1-1-1.5-2.5-.8-3.3.8-.8 2.3-.5 3.4.5 1 1 1.4 2.5.7 3.3zm9.4 2.8c-.3 1-1.7 1.4-3.2 1-1.4-.4-2.4-1.6-2.1-2.6.3-1 1.7-1.5 3.2-1 1.5.4 2.4 1.6 2.1 2.6zm10.7 1.2c0 1-1.1 1.9-2.7 2-1.5 0-2.7-.9-2.8-2 0-1 1.2-1.9 2.8-1.9 1.5 0 2.7.8 2.7 1.9zm10.6-.4c.2 1-.9 2-2.4 2.3-1.5.3-2.8-.3-3-1.3-.2-1.1.9-2.2 2.3-2.4 1.6-.3 3 .3 3.1 1.4z')
+					]),
+				_List_Nil)
+			]));
+};
+var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
+var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
+var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
+var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var $author$project$Utils$Utils$logoLucamug = function (size) {
+	return A3(
+		$author$project$Utils$Utils$wrapperWithViewbox,
+		'0 0 100 100',
+		size,
+		_List_fromArray(
+			[
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('none'),
+						$elm$svg$Svg$Attributes$d('M0 0h100v100H0z')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$circle,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('tomato'),
+						$elm$svg$Svg$Attributes$cx('50'),
+						$elm$svg$Svg$Attributes$cy('50'),
+						$elm$svg$Svg$Attributes$r('50')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('#1e90ff'),
+						$elm$svg$Svg$Attributes$d('M7.08 75.56c15.99 26.67 48.3 29.6 67.15 18.12-26.07-5.25-35.78-28.79-38.08-45.75-3.78.16-10.83-.05-15.76.13-3.08 17.08-7.86 21.09-13.3 27.5z')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('#fff'),
+						$elm$svg$Svg$Attributes$d('M3 43h15c4 0 4-5 0-5h-5c-1 0-1-1 0-1h22c4 0 4-5 0-5H7c-3 0-3 5 0 5h3c1 0 1 1 0 1l-8.55-.01C1.17 39.25.75 41.02.48 43zM93.84 60.95l-15-.05c-4-.01-4.01 4.99-.01 5l5 .02c1 0 1 1 0 1l-22-.07c-4 0-4.02 5-.02 5l28 .08c3 .01 3.02-4.99.02-5h-3c-1 0-1-1 0-1s5 0 10.6.07c.57-1.86.9-3 1.38-5zM20.21 47.62c-1.18 9.56-3.53 14.69-7.65 21.43 4.4 3.03 8.93-15.48 10.16-14.95 1.68.08-1.97 12.74-.52 12.88 1.58-.1 2.82-8.28 4.8-8.31 1.78.29 2.3 9.16 4.12 8.7 1.85-.31-.07-12.13 2.05-13.07 1.87-.2 5.07 16.32 9.59 14.85-3.63-7.02-5.7-14.78-6.7-21.47-4.54.05-11.69-.04-15.85-.06z')
+					]),
+				_List_Nil)
+			]));
+};
+var $author$project$Utils$Utils$logoMedium = function (size) {
+	return A3(
+		$author$project$Utils$Utils$wrapperWithViewbox,
+		'0 0 256 256',
+		size,
+		_List_fromArray(
+			[
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('#12100E'),
+						$elm$svg$Svg$Attributes$d('M0 0h256v256H0z')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('#ffffff'),
+						$elm$svg$Svg$Attributes$d('M61 86l-2-6-16-19v-3h50l38 84 34-84h48v3l-14 13-2 4v96l2 4 13 13v3h-67v-3l14-13 1-4V96l-38 98h-6L71 96v66c0 2 1 5 3 7l18 22v3H41v-3l18-22c2-2 3-5 2-7V86z')
+					]),
+				_List_Nil)
+			]));
+};
+var $author$project$Utils$Utils$logoTwitter = function (size) {
+	return A3(
+		$author$project$Utils$Utils$wrapperWithViewbox,
+		'0 0 24 24',
+		size,
+		_List_fromArray(
+			[
+				A2(
+				$elm$svg$Svg$path,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill('#000000'),
+						$elm$svg$Svg$Attributes$d('M24 5h-3l2-2-3 1a5 5 0 00-8 4C8 8 4 6 2 3c-2 2-1 5 1 7L1 9c0 2 2 5 4 5H3c0 2 2 3 4 3-2 2-4 3-7 3l8 2c9 0 14-8 14-15l2-2z')
+					]),
+				_List_Nil)
+			]));
+};
+var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
+var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
+var $mdgriffith$elm_ui$Element$row = F2(
+	function (attrs, children) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asRow,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.contentCenterY)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+						attrs))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+	});
 var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
-var $author$project$Book$Book$viewTitle = A2(
+var $author$project$Projects$Project$viewTitle = A2(
 	$mdgriffith$elm_ui$Element$column,
 	_List_Nil,
 	_List_fromArray(
 		[
 			A2(
-			$mdgriffith$elm_ui$Element$paragraph,
+			$mdgriffith$elm_ui$Element$el,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$Font$size(60),
+					$mdgriffith$elm_ui$Element$Font$size(80),
 					$mdgriffith$elm_ui$Element$Font$family(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$Font$typeface('Bad Script')
 						]))
 				]),
+			$mdgriffith$elm_ui$Element$text($author$project$Projects$Project$conf.title)),
+			A2(
+			$mdgriffith$elm_ui$Element$row,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$text($author$project$Book$Book$conf.title)
+					$mdgriffith$elm_ui$Element$spacing(20)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_Nil,
+					$author$project$Utils$Utils$logoLucamug(30)),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_Nil,
+					$author$project$Utils$Utils$logoTwitter(30)),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_Nil,
+					$author$project$Utils$Utils$logoMedium(30)),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_Nil,
+					$author$project$Utils$Utils$logoGithub(30)),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_Nil,
+					$author$project$Utils$Utils$logoDev(30))
 				]))
 		]));
-var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
-var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
 var $mdgriffith$elm_ui$Internal$Model$Padding = F5(
 	function (a, b, c, d, e) {
 		return {$: 'Padding', a: a, b: b, c: c, d: d, e: e};
@@ -19260,10 +18125,10 @@ var $author$project$Main$viewMainPage = function (model) {
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$padding($author$project$Book$Book$conf.spacingSize),
-				$mdgriffith$elm_ui$Element$spacing($author$project$Book$Book$conf.spacingSize),
-				$mdgriffith$elm_ui$Element$Background$color($author$project$Book$Book$conf.backgroundColor),
-				$mdgriffith$elm_ui$Element$Font$color($author$project$Book$Book$conf.fontColor),
+				$mdgriffith$elm_ui$Element$padding($author$project$Projects$Project$conf.spacingSize),
+				$mdgriffith$elm_ui$Element$spacing($author$project$Projects$Project$conf.spacingSize),
+				$mdgriffith$elm_ui$Element$Background$color($author$project$Projects$Project$conf.backgroundColor),
+				$mdgriffith$elm_ui$Element$Font$color($author$project$Projects$Project$conf.fontColor),
 				$mdgriffith$elm_ui$Element$htmlAttribute(
 				$elm$html$Html$Attributes$id('main'))
 			]),
@@ -19283,28 +18148,28 @@ var $author$project$Main$viewMainPage = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$author$project$Book$Book$viewTitle,
+						$author$project$Projects$Project$viewTitle,
 						$mdgriffith$elm_ui$Element$text('v.0.4')
 					])),
 				A2(
 				$mdgriffith$elm_ui$Element$wrappedRow,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing($author$project$Book$Book$conf.spacingSize)
+						$mdgriffith$elm_ui$Element$spacing($author$project$Projects$Project$conf.spacingSize)
 					]),
 				A2(
 					$elm$core$List$indexedMap,
 					F2(
 						function (index, item) {
 							return A4(
-								$author$project$Book$Book$cardWrapper,
+								$author$project$Projects$Project$cardWrapper,
 								$author$project$Main$linkInternal($author$project$Main$InternalLinkClicked),
 								index,
 								item,
 								$author$project$Main$urlBuilder(
-									$author$project$Book$Book$id(item)));
+									$author$project$Projects$Project$id(item)));
 						}),
-					$author$project$Book$Book$items))
+					$author$project$Projects$Project$items))
 			]));
 };
 var $mdgriffith$elm_ui$Internal$Model$Left = {$: 'Left'};
@@ -19315,65 +18180,6 @@ var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
 var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
 var $mdgriffith$elm_ui$Internal$Model$CenterY = {$: 'CenterY'};
 var $mdgriffith$elm_ui$Element$centerY = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$CenterY);
-var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
-var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
-var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
-var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
-var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
-var $elm$svg$Svg$desc = $elm$svg$Svg$trustedNode('desc');
-var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
-var $elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
-var $elm$svg$Svg$Attributes$preserveAspectRatio = _VirtualDom_attribute('preserveAspectRatio');
-var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
-var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$svg$Svg$title = $elm$svg$Svg$trustedNode('title');
-var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
-var $elm$svg$Svg$Attributes$xmlSpace = A2(_VirtualDom_attributeNS, 'http://www.w3.org/XML/1998/namespace', 'xml:space');
-var $author$project$Utils$Utils$wrapperWithViewbox_ = F3(
-	function (viewbox, size, listSvg) {
-		return A2(
-			$elm$svg$Svg$svg,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$xmlSpace('http://www.w3.org/2000/svg'),
-					$elm$svg$Svg$Attributes$preserveAspectRatio('xMinYMin slice'),
-					$elm$svg$Svg$Attributes$viewBox(viewbox),
-					$elm$svg$Svg$Attributes$height(
-					$elm$core$String$fromInt(size)),
-					A2($elm$html$Html$Attributes$attribute, 'role', 'img'),
-					A2($elm$html$Html$Attributes$attribute, 'aria-labelledby', 'catTitle catDesc')
-				]),
-			_Utils_ap(
-				_List_fromArray(
-					[
-						A2(
-						$elm$svg$Svg$title,
-						_List_fromArray(
-							[
-								$elm$svg$Svg$Attributes$id('catTitle')
-							]),
-						_List_fromArray(
-							[
-								$elm$svg$Svg$text('xxx1')
-							])),
-						A2(
-						$elm$svg$Svg$desc,
-						_List_fromArray(
-							[
-								$elm$svg$Svg$Attributes$id('catDesc')
-							]),
-						_List_fromArray(
-							[
-								$elm$svg$Svg$text('xxx1')
-							]))
-					]),
-				listSvg));
-	});
-var $author$project$Utils$Utils$wrapperWithViewbox = F3(
-	function (viewbox, size, listSvg) {
-		return $mdgriffith$elm_ui$Element$html(
-			A3($author$project$Utils$Utils$wrapperWithViewbox_, viewbox, size, listSvg));
-	});
 var $author$project$Utils$Utils$iconLeft = F2(
 	function (cl, size) {
 		return A3(
@@ -19484,175 +18290,507 @@ var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
 			'border-radius',
 			$elm$core$String$fromInt(radius) + 'px'));
 };
+var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
 var $mdgriffith$elm_ui$Element$scrollbarY = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsY);
-var $author$project$Book$View$detail = function (book) {
+var $elm$svg$Svg$Attributes$fillRule = _VirtualDom_attribute('fill-rule');
+var $author$project$Utils$Utils$iconOpenNewWindow = F2(
+	function (cl, size) {
+		return A3(
+			$author$project$Utils$Utils$wrapperWithViewbox,
+			'0 0 100 100',
+			size,
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill(cl),
+							$elm$svg$Svg$Attributes$fillRule('evenodd'),
+							$elm$svg$Svg$Attributes$d('M76 18L47 47a4 4 0 006 6l29-29v10a4 4 0 008 0V14a4 4 0 00-4-4H66a4 4 0 000 8h10zm14 40V39v41c0 6-4 10-9 10H19c-5 0-9-4-9-10V20c0-6 4-10 9-10h43-20a4 4 0 110 8H20c-1 0-2 1-2 3v58c0 2 1 3 2 3h60c1 0 2-1 2-3V58a4 4 0 118 0z')
+						]),
+					_List_Nil)
+				]));
+	});
+var $mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
+	function (a, b, c, d, e) {
+		return {$: 'BorderWidth', a: a, b: b, c: c, d: d, e: e};
+	});
+var $mdgriffith$elm_ui$Element$Border$width = function (v) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderWidth,
+		A5(
+			$mdgriffith$elm_ui$Internal$Model$BorderWidth,
+			'b-' + $elm$core$String$fromInt(v),
+			v,
+			v,
+			v,
+			v));
+};
+var $author$project$Projects$Project$linkAttrs = _List_fromArray(
+	[
+		$mdgriffith$elm_ui$Element$Font$color(
+		A3($mdgriffith$elm_ui$Element$rgb, 0, 0.2, 0.8)),
+		$mdgriffith$elm_ui$Element$Border$width(1),
+		$mdgriffith$elm_ui$Element$Border$rounded(10),
+		$mdgriffith$elm_ui$Element$padding(10)
+	]);
+var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
+var $mdgriffith$elm_ui$Element$newTabLink = F2(
+	function (attrs, _v0) {
+		var url = _v0.url;
+		var label = _v0.label;
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$NodeName('a'),
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Attr(
+					$elm$html$Html$Attributes$href(url)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Internal$Model$Attr(
+						$elm$html$Html$Attributes$rel('noopener noreferrer')),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Internal$Model$Attr(
+							$elm$html$Html$Attributes$target('_blank')),
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+							A2(
+								$elm$core$List$cons,
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+								A2(
+									$elm$core$List$cons,
+									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
+									attrs)))))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[label])));
+	});
+var $author$project$Projects$Project$createLinkIfNotEmpty = F2(
+	function (url, label) {
+		return $elm$core$String$isEmpty(url) ? _List_Nil : _List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$newTabLink,
+				$author$project$Projects$Project$linkAttrs,
+				{
+					label: A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$spacing(10)
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text(label),
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_Nil,
+								A2($author$project$Utils$Utils$iconOpenNewWindow, '#0030d0', 16))
+							])),
+					url: url
+				})
+			]);
+	});
+var $elm$html$Html$br = _VirtualDom_node('br');
+var $author$project$Utils$SimpleMarkdown$elementBoldGenerator = function (string) {
+	return A2(
+		$mdgriffith$elm_ui$Element$el,
+		_List_fromArray(
+			[$mdgriffith$elm_ui$Element$Font$bold]),
+		$mdgriffith$elm_ui$Element$text(string));
+};
+var $author$project$Utils$SimpleMarkdown$elementLabelGenerator = function (string) {
+	return A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$text(string + ' '),
+				A2($author$project$Utils$Utils$iconOpenNewWindow, '#0030d0', 13)
+			]));
+};
+var $author$project$Utils$SimpleMarkdown$elementLinkGeneratorAdvanced = F3(
+	function (attrs, linkLabel, url) {
+		return A2(
+			$mdgriffith$elm_ui$Element$newTabLink,
+			attrs.link,
+			{
+				label: $author$project$Utils$SimpleMarkdown$elementLabelGenerator(linkLabel),
+				url: url
+			});
+	});
+var $author$project$Utils$SimpleMarkdown$elementTextGenerator = function (string) {
+	return $mdgriffith$elm_ui$Element$text(string);
+};
+var $author$project$Utils$SimpleMarkdown$MarkDownText = function (a) {
+	return {$: 'MarkDownText', a: a};
+};
+var $elm$regex$Regex$Match = F4(
+	function (match, index, number, submatches) {
+		return {index: index, match: match, number: number, submatches: submatches};
+	});
+var $elm$regex$Regex$find = _Regex_findAtMost(_Regex_infinity);
+var $author$project$Utils$SimpleMarkdown$MarkDownBold = function (a) {
+	return {$: 'MarkDownBold', a: a};
+};
+var $author$project$Utils$SimpleMarkdown$markDownParseBoldData = function (data) {
+	var text1 = A2(
+		$elm$core$Maybe$withDefault,
+		'',
+		$elm$core$List$head(data));
+	return $author$project$Utils$SimpleMarkdown$MarkDownBold(text1);
+};
+var $elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
+var $elm$regex$Regex$fromString = function (string) {
+	return A2(
+		$elm$regex$Regex$fromStringWith,
+		{caseInsensitive: false, multiline: false},
+		string);
+};
+var $author$project$Utils$SimpleMarkdown$maybeRegexForBold = $elm$regex$Regex$fromString('\\*([^*]+)\\*');
+var $elm$regex$Regex$split = _Regex_splitAtMost(_Regex_infinity);
+var $author$project$Utils$SimpleMarkdown$parseTextForBold = function (text) {
+	var _v0 = function () {
+		var _v1 = $author$project$Utils$SimpleMarkdown$maybeRegexForBold;
+		if (_v1.$ === 'Just') {
+			var regex = _v1.a;
+			return _Utils_Tuple2(
+				A2($elm$regex$Regex$find, regex, text),
+				A2($elm$regex$Regex$split, regex, text));
+		} else {
+			return _Utils_Tuple2(_List_Nil, _List_Nil);
+		}
+	}();
+	var find = _v0.a;
+	var split = _v0.b;
+	return $elm$core$List$concat(
+		A2(
+			$elm$core$List$indexedMap,
+			F2(
+				function (index, splitted) {
+					var maybeGetFinding = function () {
+						var _v3 = A2(
+							$elm$core$Array$get,
+							index,
+							$elm$core$Array$fromList(find));
+						if (_v3.$ === 'Just') {
+							var match = _v3.a;
+							return $elm$core$Maybe$Just(
+								A2(
+									$elm$core$List$map,
+									function (item_) {
+										if (item_.$ === 'Just') {
+											var i = item_.a;
+											return i;
+										} else {
+											return '';
+										}
+									},
+									match.submatches));
+						} else {
+							return $elm$core$Maybe$Nothing;
+						}
+					}();
+					if (maybeGetFinding.$ === 'Just') {
+						var getFinding = maybeGetFinding.a;
+						return _List_fromArray(
+							[
+								$author$project$Utils$SimpleMarkdown$MarkDownText(splitted),
+								$author$project$Utils$SimpleMarkdown$markDownParseBoldData(getFinding)
+							]);
+					} else {
+						return _List_fromArray(
+							[
+								$author$project$Utils$SimpleMarkdown$MarkDownText(splitted)
+							]);
+					}
+				}),
+			split));
+};
+var $author$project$Utils$SimpleMarkdown$MarkDownLink = F2(
+	function (a, b) {
+		return {$: 'MarkDownLink', a: a, b: b};
+	});
+var $elm$core$List$tail = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(xs);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $author$project$Utils$SimpleMarkdown$markDownParseLinkData = function (data) {
+	var text2 = A2(
+		$elm$core$Maybe$withDefault,
+		'',
+		$elm$core$List$head(
+			A2(
+				$elm$core$Maybe$withDefault,
+				_List_Nil,
+				$elm$core$List$tail(data))));
+	var text1 = A2(
+		$elm$core$Maybe$withDefault,
+		'',
+		$elm$core$List$head(data));
+	return A2($author$project$Utils$SimpleMarkdown$MarkDownLink, text1, text2);
+};
+var $author$project$Utils$SimpleMarkdown$maybeRegexForLinks = $elm$regex$Regex$fromString('\\[([^\\[\\]]+)\\]\\(([^()]+)\\)');
+var $author$project$Utils$SimpleMarkdown$parseTextForLinks = function (text) {
+	var _v0 = function () {
+		var _v1 = $author$project$Utils$SimpleMarkdown$maybeRegexForLinks;
+		if (_v1.$ === 'Just') {
+			var regex = _v1.a;
+			return _Utils_Tuple2(
+				A2($elm$regex$Regex$find, regex, text),
+				A2($elm$regex$Regex$split, regex, text));
+		} else {
+			return _Utils_Tuple2(_List_Nil, _List_Nil);
+		}
+	}();
+	var find = _v0.a;
+	var split = _v0.b;
+	return $elm$core$List$concat(
+		A2(
+			$elm$core$List$indexedMap,
+			F2(
+				function (index, splitted) {
+					var maybeGetFinding = function () {
+						var _v3 = A2(
+							$elm$core$Array$get,
+							index,
+							$elm$core$Array$fromList(find));
+						if (_v3.$ === 'Just') {
+							var match = _v3.a;
+							return $elm$core$Maybe$Just(
+								A2(
+									$elm$core$List$map,
+									function (item_) {
+										if (item_.$ === 'Just') {
+											var i = item_.a;
+											return i;
+										} else {
+											return '';
+										}
+									},
+									match.submatches));
+						} else {
+							return $elm$core$Maybe$Nothing;
+						}
+					}();
+					if (maybeGetFinding.$ === 'Just') {
+						var getFinding = maybeGetFinding.a;
+						return _List_fromArray(
+							[
+								$author$project$Utils$SimpleMarkdown$MarkDownText(splitted),
+								$author$project$Utils$SimpleMarkdown$markDownParseLinkData(getFinding)
+							]);
+					} else {
+						return _List_fromArray(
+							[
+								$author$project$Utils$SimpleMarkdown$MarkDownText(splitted)
+							]);
+					}
+				}),
+			split));
+};
+var $author$project$Utils$SimpleMarkdown$markdown = F4(
+	function (boldGenerator, textGenerator, linkGenerator, string) {
+		var step1 = $author$project$Utils$SimpleMarkdown$parseTextForLinks(string);
+		var step2 = $elm$core$List$concat(
+			A2(
+				$elm$core$List$map,
+				function (item) {
+					if (item.$ === 'MarkDownText') {
+						var string_ = item.a;
+						return $author$project$Utils$SimpleMarkdown$parseTextForBold(string_);
+					} else {
+						return _List_fromArray(
+							[item]);
+					}
+				},
+				step1));
+		return A2(
+			$elm$core$List$map,
+			function (item) {
+				switch (item.$) {
+					case 'MarkDownText':
+						var text = item.a;
+						return textGenerator(text);
+					case 'MarkDownBold':
+						var text = item.a;
+						return boldGenerator(text);
+					default:
+						var linkLabel = item.a;
+						var url = item.b;
+						return A2(linkGenerator, linkLabel, url);
+				}
+			},
+			step2);
+	});
+var $author$project$Utils$SimpleMarkdown$elementMarkdownAdvanced = F2(
+	function (attrs, string) {
+		var parts = A2($elm$core$String$split, '\n', string);
+		return $elm$core$List$concat(
+			A2(
+				$elm$core$List$map,
+				function (part) {
+					return _Utils_ap(
+						A4(
+							$author$project$Utils$SimpleMarkdown$markdown,
+							$author$project$Utils$SimpleMarkdown$elementBoldGenerator,
+							$author$project$Utils$SimpleMarkdown$elementTextGenerator,
+							$author$project$Utils$SimpleMarkdown$elementLinkGeneratorAdvanced(attrs),
+							part),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$html(
+								A2($elm$html$Html$br, _List_Nil, _List_Nil))
+							]));
+				},
+				parts));
+	});
+var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
+var $elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
+};
+var $mdgriffith$elm_ui$Element$image = F2(
+	function (attrs, _v0) {
+		var src = _v0.src;
+		var description = _v0.description;
+		var imageAttributes = A2(
+			$elm$core$List$filter,
+			function (a) {
+				switch (a.$) {
+					case 'Width':
+						return true;
+					case 'Height':
+						return true;
+					default:
+						return false;
+				}
+			},
+			attrs);
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.imageContainer),
+				attrs),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[
+						A4(
+						$mdgriffith$elm_ui$Internal$Model$element,
+						$mdgriffith$elm_ui$Internal$Model$asEl,
+						$mdgriffith$elm_ui$Internal$Model$NodeName('img'),
+						_Utils_ap(
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Internal$Model$Attr(
+									$elm$html$Html$Attributes$src(src)),
+									$mdgriffith$elm_ui$Internal$Model$Attr(
+									$elm$html$Html$Attributes$alt(description))
+								]),
+							imageAttributes),
+						$mdgriffith$elm_ui$Internal$Model$Unkeyed(_List_Nil))
+					])));
+	});
+var $mdgriffith$elm_ui$Internal$Model$Max = F2(
+	function (a, b) {
+		return {$: 'Max', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$maximum = F2(
+	function (i, l) {
+		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
+	});
+var $author$project$Projects$Project$viewDetails = function (project) {
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$spacing(14),
-				$mdgriffith$elm_ui$Element$padding(40),
-				$mdgriffith$elm_ui$Element$Background$color(
-				A3($mdgriffith$elm_ui$Element$rgb, 0.8, 1, 0.8))
+				$mdgriffith$elm_ui$Element$width(
+				A2($mdgriffith$elm_ui$Element$maximum, 600, $mdgriffith$elm_ui$Element$fill))
 			]),
 		_List_fromArray(
 			[
-				A2(
+				$elm$core$String$isEmpty(project.image) ? $mdgriffith$elm_ui$Element$none : A2(
 				$mdgriffith$elm_ui$Element$image,
-				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					]),
 				{
-					description: book.title,
-					src: $author$project$Book$View$imageSrc(book)
+					description: project.title,
+					src: _Utils_ap($author$project$Projects$Project$imagesLocation, project.image)
 				}),
 				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
+				$mdgriffith$elm_ui$Element$column,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$size(30),
-						$mdgriffith$elm_ui$Element$Font$color($author$project$Book$View$primaryColor)
+						$mdgriffith$elm_ui$Element$padding(20),
+						$mdgriffith$elm_ui$Element$spacing(20)
 					]),
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(book.title)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Subtitle: ' + book.subtitle)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('ISBN: ' + book.isbn)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Adult Reading Time Minutes: ' + $elm$core$String$fromInt(book.adultReadingTimeMinutes))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Adult Reading Time Seconds: ' + $elm$core$String$fromInt(book.adultReadingTimeSeconds))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Awards : ' + A2($elm$core$String$join, ', ', book.awards))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Categories: ' + A2($elm$core$String$join, ', ', book.categories))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'First Time Published Month: ' + $elm$core$String$fromInt(book.firstTimePublishedMonth))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'First TimePublishedYear: ' + $elm$core$String$fromInt(book.firstTimePublishedYear))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Illustrator: ' + book.illustrator)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Note: ' + book.note)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Official Page: ' + book.officialPage)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Pages: ' + $elm$core$String$fromInt(book.pages))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Publisher: ' + book.publisher)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'SimilarBooks: ' + A2($elm$core$String$join, ', ', book.similarBooks))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Subtitle: ' + book.subtitle)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Title: ' + book.title)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Writer: ' + book.writer)
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Review: '),
-						$mdgriffith$elm_ui$Element$text(book.review)
-					]))
+				_Utils_ap(
+					_List_Nil,
+					_Utils_ap(
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$Font$size(30),
+										$mdgriffith$elm_ui$Element$Font$bold
+									]),
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text(project.title)
+									]))
+							]),
+						_Utils_ap(
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$wrappedRow,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$spacing(20)
+										]),
+									_Utils_ap(
+										_List_Nil,
+										_Utils_ap(
+											A2($author$project$Projects$Project$createLinkIfNotEmpty, project.url, 'Link'),
+											_Utils_ap(
+												A2($author$project$Projects$Project$createLinkIfNotEmpty, project.code, 'Code'),
+												A2($author$project$Projects$Project$createLinkIfNotEmpty, project.demo, 'Demo')))))
+								]),
+							$elm$core$String$isEmpty(project.desc) ? _List_Nil : _List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$spacing(7)
+										]),
+									A2(
+										$author$project$Utils$SimpleMarkdown$elementMarkdownAdvanced,
+										{link: $author$project$Projects$Project$linkAttrs},
+										project.desc))
+								])))))
 			]));
 };
-var $author$project$Book$Book$viewDetails = $author$project$Book$View$detail;
 var $author$project$Main$viewOverlay = function (id) {
 	var item = $author$project$Main$idToItem(id);
 	var _v0 = $author$project$Main$previousNext(id);
@@ -19735,7 +18873,7 @@ var $author$project$Main$viewOverlay = function (id) {
 						$mdgriffith$elm_ui$Element$Background$color(
 						A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1))
 					]),
-				$author$project$Book$Book$viewDetails(item))),
+				$author$project$Projects$Project$viewDetails(item))),
 			$mdgriffith$elm_ui$Element$inFront(previous),
 			$mdgriffith$elm_ui$Element$inFront(next),
 			$mdgriffith$elm_ui$Element$inFront(
@@ -19802,7 +18940,7 @@ var $author$project$Main$view = function (model) {
 											]))
 									]));
 						}),
-					$author$project$Book$Book$items);
+					$author$project$Projects$Project$items);
 			} else {
 				return _List_fromArray(
 					[

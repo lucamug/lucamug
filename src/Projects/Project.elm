@@ -202,7 +202,25 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Elm eCommerce"
+    [ { title = "From dynamic to static typing in three steps"
+      , review = "From dynamic to static typing in three steps"
+      , desc = "A simple goal, three different experiences. What happen when we try to leverage the type systems of JavaScript, TypeScript, and Elm?"
+      , url = "https://dev.to/lucamug/three-steps-4n7"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "dynamic_to_static_three_steps.png"
+      }
+    , { title = "Elm Exercises"
+      , review = "Elm Exercises"
+      , desc = "A system to create Elm exercises leveraging the Ellie platform."
+      , url = "https://ellie-app.com/dZLQZGDGgNsa1"
+      , code = "https://github.com/lucamug/elm-exercises"
+      , demo = ""
+      , date = ""
+      , image = "elm_exercises.png"
+      }
+    , { title = "Elm eCommerce"
       , review = "Elm eCommerce"
       , desc = "A simple eCommerce demo application in 2,500 lines of Elm code, all shrank into 40KB of JavaScript, including styling and icons."
       , url = "https://elm-ecommerce.guupa.com/"
