@@ -202,7 +202,34 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "From dynamic to static typing in three steps"
+    [ { title = "Elm 2021, a year in review"
+      , review = "Elm 2021, a year in review"
+      , desc = "2021 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
+      , url = "https://dev.to/lucamug/elm-2021-a-year-in-review-4pho"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "2021_in_review"
+      }
+    , { title = "Elm's guarantees"
+      , review = "Elm's guarantees"
+      , desc = "A short reminder about the guarantees of the Elm language"
+      , url = "https://dev.to/lucamug/elms-guarantees-13e4"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "guarantees.jpeg"
+      }
+    , { title = "🍩 The Functional Donut 🍩"
+      , review = "🍩 The Functional Donut 🍩"
+      , desc = "A conversion of the C donut in a functional language."
+      , url = "https://dev.to/lucamug/the-functional-donut-19pp"
+      , code = "https://github.com/lucamug/elm-donut/blob/master/src/Main.elm"
+      , demo = "https://donut.guupa.com/"
+      , date = ""
+      , image = "the_functional_donut"
+      }
+    , { title = "From dynamic to static typing in three steps"
       , review = "From dynamic to static typing in three steps"
       , desc = "A simple goal, three different experiences. What happen when we try to leverage the type systems of JavaScript, TypeScript, and Elm?"
       , url = "https://dev.to/lucamug/three-steps-4n7"
@@ -952,6 +979,15 @@ items =
       , demo = ""
       , date = "on May 15, 2017"
       , image = "self_documenting_api.jpg"
+      }
+    , { title = "Response to “Why I am leaving Elm” (A.k.a. Why I didn’t leave Elm)"
+      , review = "Response to “Why I am leaving Elm” (A.k.a. Why I didn’t leave Elm)"
+      , desc = "This is a response to the post titled \"Why I'm leaving Elm\" written by Luke Plant that regularly came out in Google searches related to the Elm language."
+      , url = "https://blog.guupa.com/post/response-to-why-i-am-leaving-elm.html"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "response.png"
       }
     , { title = "A tool to generate and maintain a blog using Google spreadsheets"
       , review = "A tool to generate and maintain a blog using Google spreadsheets"
