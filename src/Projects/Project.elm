@@ -209,7 +209,7 @@ items =
       , code = ""
       , demo = ""
       , date = ""
-      , image = "2021_in_review"
+      , image = "2021_in_review.gif"
       }
     , { title = "Elm's guarantees"
       , review = "Elm's guarantees"
@@ -227,7 +227,7 @@ items =
       , code = "https://github.com/lucamug/elm-donut/blob/master/src/Main.elm"
       , demo = "https://donut.guupa.com/"
       , date = ""
-      , image = "the_functional_donut"
+      , image = "the_functional_donut.png"
       }
     , { title = "From dynamic to static typing in three steps"
       , review = "From dynamic to static typing in three steps"
