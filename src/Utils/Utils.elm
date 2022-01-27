@@ -29,8 +29,8 @@ wrapperWithViewbox_ viewbox size listSvg =
         , Html.Attributes.attribute "role" "img"
         , Html.Attributes.attribute "aria-labelledby" "catTitle catDesc"
         ]
-        ([ Svg.title [ SA.id "catTitle" ] [ Svg.text "xxx1" ]
-         , Svg.desc [ SA.id "catDesc" ] [ Svg.text "xxx1" ]
+        ([ Svg.title [ SA.id "catTitle" ] [ Svg.text "" ]
+         , Svg.desc [ SA.id "catDesc" ] [ Svg.text "" ]
          ]
             ++ listSvg
         )
