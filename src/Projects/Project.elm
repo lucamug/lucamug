@@ -108,10 +108,10 @@ viewTitle =
         [ el [ Font.size 80, Font.family [ Font.typeface "Bad Script" ] ] <| text conf.title
         , row [ spacing 20 ]
             [ el [] <| Utils.Utils.logoLucamug 30
-            , el [] <| Utils.Utils.logoTwitter 30
-            , el [] <| Utils.Utils.logoMedium 30
-            , el [] <| Utils.Utils.logoGithub 30
-            , el [] <| Utils.Utils.logoDev 30
+            , newTabLink [] { label = Utils.Utils.logoTwitter 30, url = "https://github.com/lucamug" }
+            , newTabLink [] { label = Utils.Utils.logoMedium 30, url = "https://lucamug.medium.com/" }
+            , newTabLink [] { label = Utils.Utils.logoGithub 30, url = "https://github.com/lucamug" }
+            , newTabLink [] { label = Utils.Utils.logoDev 30, url = "https://dev.to/lucamug" }
             ]
         ]
 
