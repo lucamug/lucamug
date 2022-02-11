@@ -202,7 +202,25 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Elm 2021, a year in review"
+    [ { title = "Differences between TypeScript and Elm"
+      , review = "Differences between TypeScript and Elm"
+      , desc = "Several times I have been asked about the differences between TypeScript and Elm. This is an attempt at listing down these differences."
+      , url = "https://dev.to/lucamug/typescript-and-elm-3g38"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "typescript-and-elm.jpeg"
+      }
+    , { title = "Elm vs HyperScript - A Wordle implemetation"
+      , review = "Elm vs HyperScript - A Wordle implemetation"
+      , desc = "A comparison between the Elm language and the HyperScript through a simple implementation of the Wordle game."
+      , url = "https://dev.to/lucamug/elm-vs-hyperscript-2m3m"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "elm-vs-hyperscript.jpeg"
+      }
+    , { title = "Elm 2021, a year in review"
       , review = "Elm 2021, a year in review"
       , desc = "2021 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
       , url = "https://dev.to/lucamug/elm-2021-a-year-in-review-4pho"
@@ -1177,5 +1195,14 @@ items =
       , date = ""
       , demo = ""
       , image = "perl_e_internet.jpg"
+      }
+    , { title = "PISA.WAD - PiAZZA DEi MiRACOLi"
+      , review = "PISA.WAD - PiAZZA DEi MiRACOLi"
+      , url = "https://www.wad-archive.com/wad/PiAZZA-DEi-MiRACOLi"
+      , code = ""
+      , desc = "A reconstruction of Pisa's Piazza dei Miracoli as a Doom level"
+      , date = ""
+      , demo = "https://www.youtube.com/watch?v=8dZ1CzfloRc"
+      , image = "pisa.jpeg"
       }
     ]

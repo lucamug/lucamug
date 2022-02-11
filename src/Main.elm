@@ -467,10 +467,7 @@ viewMainPage model =
                 , htmlAttribute <| Html.Attributes.id "main"
                 ]
                 [ html <| Html.node "style" [] [ Html.text css ]
-                , column []
-                    [ Item.viewTitle
-                    , text "v.0.4"
-                    ]
+                , column [] [ Item.viewTitle ]
                 , wrappedRow [ spacing Item.conf.spacingSize ] <|
                     List.indexedMap
                         (\index item ->
