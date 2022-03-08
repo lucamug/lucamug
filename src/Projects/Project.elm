@@ -202,7 +202,25 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Differences between TypeScript and Elm"
+    [ { title = "elm-map"
+      , review = "elm-map"
+      , desc = "A proof of concept for a \"slippy\" geographic map in 100% #elmlang 🗺️ 🧭. Made with 380 lines of Elm and 1 line of JavaScript."
+      , url = "https://elm-map.guupa.com/"
+      , code = "https://github.com/lucamug/elm-map"
+      , demo = "https://elm-map.guupa.com/"
+      , date = ""
+      , image = "elm-map.jpg"
+      }
+    , { title = "Functionl Conf 2022 Speaker"
+      , review = "Functionl Conf 2022 Speaker"
+      , desc = "In the front-end world, we finally can take an important decision: Familiarity or Guarantees?"
+      , url = "https://confengine.com/conferences/functional-conf-2022/proposal/16260/familiarity-or-guarantees-functional-programming-for-the-front-end"
+      , code = ""
+      , demo = ""
+      , date = ""
+      , image = "lucamug16260.png"
+      }
+    , { title = "Differences between TypeScript and Elm"
       , review = "Differences between TypeScript and Elm"
       , desc = "Several times I have been asked about the differences between TypeScript and Elm. This is an attempt at listing down these differences."
       , url = "https://dev.to/lucamug/typescript-and-elm-3g38"
