@@ -202,7 +202,16 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "elm-map"
+    [ { title = "The String Transformer"
+      , review = "The String Transformer"
+      , desc = "A collection of functions that transform strings to QR codes, CSS colors, hexadecimal numbers, dates, base64-encoded data, encrypted text, etc."
+      , url = "https://the-string-transformer.guupa.com/"
+      , code = "https://github.com/lucamug/the-string-transformer"
+      , demo = "https://the-string-transformer.guupa.com/"
+      , date = ""
+      , image = "the-string-transformer.png"
+      }
+    , { title = "elm-map"
       , review = "elm-map"
       , desc = "A proof of concept for a \"slippy\" geographic map in 100% #elmlang 🗺️ 🧭. Made with 380 lines of Elm and 1 line of JavaScript."
       , url = "https://elm-map.guupa.com/"
