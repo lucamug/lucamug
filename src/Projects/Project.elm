@@ -202,12 +202,12 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "The String Transformer"
-      , review = "The String Transformer"
+    [ { title = "Stringy - The String Transformer"
+      , review = "Stringy - The String Transformer"
       , desc = "A collection of functions that transform strings to QR codes, CSS colors, hexadecimal numbers, dates, base64-encoded data, encrypted text, etc."
-      , url = "https://the-string-transformer.guupa.com/"
-      , code = "https://github.com/lucamug/the-string-transformer"
-      , demo = "https://the-string-transformer.guupa.com/"
+      , url = "https://stringy.guupa.com/"
+      , code = "https://github.com/lucamug/stringy"
+      , demo = "https://stringy.guupa.com/"
       , date = ""
       , image = "the-string-transformer.png"
       }
