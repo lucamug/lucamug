@@ -205,9 +205,9 @@ items =
     [ { title = "Functional Programming for Kids in Elm"
       , review = "Functional Programming for Kids in Elm"
       , desc = "A collection of resources for teaching and learning Functional Programming, for begineers."
-      , url = "https://lucamug.github.io/functional-programming-for-kids-in-elm/"
+      , url = "https://lucamug.github.io/functional-programming-for-kids-in-elm/#/robot"
       , code = "https://github.com/lucamug/functional-programming-for-kids-in-elm"
-      , demo = "https://lucamug.github.io/functional-programming-for-kids-in-elm/"
+      , demo = "https://lucamug.github.io/functional-programming-for-kids-in-elm/#/robot"
       , date = ""
       , image = "functional-programming-for-kids.png"
       }
