@@ -202,7 +202,16 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Stringy - The String Transformer"
+    [ { title = "Functional Programming for Kids in Elm"
+      , review = "Functional Programming for Kids in Elm"
+      , desc = "A collection of resources for teaching and learning Functional Programming, for begineers."
+      , url = "https://lucamug.github.io/functional-programming-for-kids-in-elm/"
+      , code = "https://github.com/lucamug/functional-programming-for-kids-in-elm"
+      , demo = "https://lucamug.github.io/functional-programming-for-kids-in-elm/"
+      , date = ""
+      , image = "functional-programming-for-kids.png"
+      }
+    , { title = "Stringy - The String Transformer"
       , review = "Stringy - The String Transformer"
       , desc = "A collection of functions that transform strings to QR codes, CSS colors, hexadecimal numbers, dates, base64-encoded data, encrypted text, etc."
       , url = "https://stringy.guupa.com/"
