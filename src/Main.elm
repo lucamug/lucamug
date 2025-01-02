@@ -252,7 +252,7 @@ closeModal model =
     case model.route of
         RouteItem itemItem ->
             ( model
-            , pushUrl "/"
+            , pushUrl "/lucamug/"
             )
 
         _ ->

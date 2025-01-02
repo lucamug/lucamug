@@ -34,8 +34,11 @@ conf :
     }
 conf =
     { title = "lucamug"
-    , urlLabel = "project"
+    , urlLabel = "lucamug"
     , description = "Lucamug's Projects"
+
+    -- , backgroundColor = rgb255 10 10 10
+    -- , fontColor = rgb 200 200 200
     , backgroundColor = rgb255 255 255 255
     , fontColor = rgb 0 0 0
     , spacingSize = 50
@@ -60,7 +63,7 @@ type alias Project =
 
 imagesLocation : String
 imagesLocation =
-    "/images/"
+    "/lucamug/images/"
 
 
 linkAttrs : List (Attr () msg)
@@ -214,9 +217,9 @@ items =
     , { title = "Stringy - The String Transformer"
       , review = "Stringy - The String Transformer"
       , desc = "A collection of functions that transform strings to QR codes, CSS colors, hexadecimal numbers, dates, base64-encoded data, encrypted text, etc."
-      , url = "https://stringy.guupa.com/"
+      , url = "https://lucamug.github.io/stringy/"
       , code = "https://github.com/lucamug/stringy"
-      , demo = "https://stringy.guupa.com/"
+      , demo = "https://lucamug.github.io/stringy/"
       , date = ""
       , image = "the-string-transformer.png"
       }

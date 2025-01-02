@@ -37,6 +37,13 @@
         }
     });
 
+    app.ports.pushUrl.subscribe(function (url) {
+        history.pushState({}, null, url);
+        app.ports.onUrlChange.send(window.location.href);
+    })
+    window.addEventListener("popstate", (event) => {
+        app.ports.onUrlChange.send(window.location.href);
+    });
     app.ports.modalOpen.subscribe(function (modalOpen) {
         if (modalOpen) {
             document.body.classList.add('modal-open');

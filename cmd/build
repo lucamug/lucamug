@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+npx elm make src/Main.elm --optimize --output=docs/elm.js
