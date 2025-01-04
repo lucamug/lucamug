@@ -1237,11 +1237,11 @@ items =
       }
     , { title = "PISA.WAD - PiAZZA DEi MiRACOLi"
       , review = "PISA.WAD - PiAZZA DEi MiRACOLi"
-      , url = "https://www.wad-archive.com/wad/PiAZZA-DEi-MiRACOLi"
+      , url = "https://www.youtube.com/watch?v=8dZ1CzfloRc"
       , code = ""
       , desc = "A reconstruction of Pisa's Piazza dei Miracoli as a Doom level"
       , date = ""
-      , demo = "https://www.youtube.com/watch?v=8dZ1CzfloRc"
+      , demo = "https://www.doomworld.com/files/file/12048-piazza-dei-miracoli/"
       , image = "pisa.jpeg"
       }
     ]

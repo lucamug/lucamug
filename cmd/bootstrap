@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+//
+// WHEN EVERYTHING STARTED
+//
+console.log();
+const fs = require("fs");
+// To be safe, we remove this folder ASAP, so if something goes wrong, 
+// we stop the process
+try {fs.rmSync(`./cmd-generated`, { recursive: true })} catch(e) {}
+const path = require('path');
+const child_process = require("child_process");
+const package = require('../package.json');
+
+let COMMIT;
+try {
+    COMMIT = child_process.execSync('git rev-parse --short HEAD').toString().trim();
+} catch (err) {
+  console.error('Error getting commit hash:', err);
+}
+const ENV = process.env.BUILD_ENVIRONMENT || 'localhost';
+const VER = package.version;
+const CWD = process.cwd();
+const output = "temp/temp.js";
+
+function log(message) {
+    console.log("\x1b[34m[bootstrap]\x1b[0m\x1b[94m " + message + "\x1b[0m");
+}
+
+
+log(`✨⭐✨⭐✨ BOOTSTRAPPING ✨⭐✨⭐✨...`);
+log(`env: ${ENV}, version: ${VER}, commit: ${COMMIT}`);
+
+const elmFile = "./src/Bootstrap.elm";
+const commandToCompileElm = `elm make ${elmFile} --output=${output} --optimize`;
+
+const flags =         
+    { version              : package.version
+    , env                  : ENV
+    , commit               : COMMIT
+    };
+
+log(`Compiling ${elmFile}`);
+
+child_process.exec(commandToCompileElm, (error, out) => {
+    if (error) {
+        throw error
+    }
+    const elm = require(`${CWD}/${output}`);
+    log(`Initializing ${elmFile} with flags:\n${JSON.stringify(flags, null, 4)}`);
+    var app = elm.Elm.Bootstrap.init({ flags : flags });
+    app.ports.dataFromElmToJavascript.subscribe(function(obj) {
+        returnedValue = obj;
+        if (! obj.removeFolders) {
+            throw obj;
+        }
+        obj.removeFolders.map((folder) => {
+            log(`Removing folder ${folder}`);
+            try {fs.rmSync(`./${folder}`, { recursive: true })} catch(e) {}
+        })
+        for (var key in obj.addFiles) {
+            log(`Creating file ${key}`);
+            fs.mkdirSync(path.dirname(key), { recursive: true });
+            fs.writeFileSync(`./${key}`, obj.addFiles[key]);
+        }
+        console.log(``);
+    });
+});
