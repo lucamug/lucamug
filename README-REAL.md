@@ -12,14 +12,8 @@ Now
 
 Published as [https://lucamug.github.io/lucamug/](https://lucamug.github.io/lucamug/).
 
-
 ## TO ADD
 
-
-* Pacman
-* Tester
-* Elm 1 year review 2023
-* Hope is a... https://github.com/lucamug/hope
 * elm-spelling: https://github.com/lucamug/elm-spelling
 
 ## TO MOVE OUT OF NETLIFY AND GUUPA.COM

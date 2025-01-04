@@ -205,7 +205,43 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Functional Programming for Kids in Elm"
+    [ { title = "Functional Pac-Man, an interpretation of the game, written in purely functional code"
+      , review = "Functional Pac-Man, an interpretation of the game, written in purely functional code"
+      , desc = "An interpretation of the Pac-Man game, written in approximately 1K lines of purely functional code. It runs both in the browser and in the terminal."
+      , url = "https://lucamug.github.io/functional-pacman/"
+      , code = "https://github.com/lucamug/functional-pacman"
+      , demo = ""
+      , date = "January 2025"
+      , image = "pacman.gif"
+      }
+    , { title = "API Tester"
+      , review = "API Tester"
+      , desc = "A simple interface to test API requests and responses"
+      , url = "https://lucamug.github.io/tester/"
+      , code = "https://lucamug.github.io/tester/"
+      , demo = ""
+      , date = "November 2024"
+      , image = "tester.png"
+      }
+    , { title = "Elm 2023, a year in review"
+      , review = "Elm 2023, a year in review"
+      , desc = "2023 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
+      , url = "https://dev.to/lucamug/elm-2023-a-year-in-review-23d6"
+      , code = "https://github.com/lucamug/elm-a-year-in-review"
+      , demo = ""
+      , date = ""
+      , image = "2023_in_review.png"
+      }
+    , { title = "Talk \"Hope Is Postponed Disappointment\" @ JSConf Japan"
+      , review = "Talk \"Hope Is Postponed Disappointment\" @ JSConf Japan"
+      , desc = "The solution for the exception problem is not having exceptions. Throwing exceptions and hoping that someone will take care of them may lead to disappointment. A sound type system can help us build resilient web applications. In Rakuten, we use Elm to prevent runtime exceptions in the authentication system used by millions of users every day. A similar technique can be implemented in TypeScript too."
+      , url = "https://jsconf.jp/2023/talk/luca-mugnaini-1/"
+      , code = "https://github.com/lucamug/hope"
+      , demo = "https://www.youtube.com/watch?v=l_-5jsJrR2o"
+      , date = "Nov 19, 2023"
+      , image = "hope_cover.jpg"
+      }
+    , { title = "Functional Programming for Kids in Elm"
       , review = "Functional Programming for Kids in Elm"
       , desc = "A collection of resources for teaching and learning Functional Programming, for begineers."
       , url = "https://lucamug.github.io/functional-programming-for-kids-in-elm/#/robot"
@@ -213,6 +249,15 @@ items =
       , demo = "https://lucamug.github.io/functional-programming-for-kids-in-elm/#/robot"
       , date = ""
       , image = "functional-programming-for-kids.png"
+      }
+    , { title = "Elm 2022, a year in review"
+      , review = "Elm 2022, a year in review"
+      , desc = "2022 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
+      , url = "https://dev.to/lucamug/elm-2022-a-year-in-review-33pp"
+      , code = "https://github.com/lucamug/elm-a-year-in-review"
+      , demo = ""
+      , date = ""
+      , image = "2022_in_review.png"
       }
     , { title = "Stringy - The String Transformer"
       , review = "Stringy - The String Transformer"
@@ -223,7 +268,7 @@ items =
       , date = ""
       , image = "the-string-transformer.png"
       }
-    , { title = "elm-map"
+    , { title = "elm-map - A  \"slippy\" geographic map implementation using only Elm code"
       , review = "elm-map"
       , desc = "A proof of concept for a \"slippy\" geographic map in 100% #elmlang 🗺️ 🧭. Made with 380 lines of Elm and 1 line of JavaScript."
       , url = "https://elm-map.guupa.com/"
@@ -232,8 +277,8 @@ items =
       , date = ""
       , image = "elm-map.jpg"
       }
-    , { title = "Functionl Conf 2022 Speaker"
-      , review = "Functionl Conf 2022 Speaker"
+    , { title = "Talk \"Familiarity or Guarantees? Functional Programming for the front-end\" @ Functionl Conf"
+      , review = "Talk \"Familiarity or Guarantees? Functional Programming for the front-end\" @ Functionl Conf"
       , desc = "In the front-end world, we finally can take an important decision: Familiarity or Guarantees?"
       , url = "https://confengine.com/conferences/functional-conf-2022/proposal/16260/familiarity-or-guarantees-functional-programming-for-the-front-end"
       , code = ""
@@ -565,13 +610,13 @@ items =
       , date = ""
       , image = "masonry.jpg"
       }
-    , { title = "\"Elm at large (companies)\", Oslo Elm Day 2019"
-      , review = "Oslo Elm Day"
+    , { title = "Talk \"Elm at large (companies)\" @ Oslo Elm Day"
+      , review = "Talk \"Elm at large (companies)\" @ Oslo Elm Day"
       , desc = ""
       , url = "https://www.youtube.com/watch?v=yH6o322S8XQ"
       , code = ""
       , demo = ""
-      , date = ""
+      , date = "2019"
       , image = "elm_at_large_companies.jpg"
       }
     , { title = "Elm Resources"
@@ -583,7 +628,7 @@ items =
       , date = ""
       , image = "elm_resources.jpg"
       }
-    , { title = "Events"
+    , { title = "Talks and Events"
       , review = "Events and Workshops"
       , desc = """Talking about Front-end and Elm is always fun. Some of the most recent events:
 

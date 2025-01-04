@@ -77,6 +77,7 @@ readme =
     Projects.Project.items
         |> List.map itemToString
         |> String.join " ⟡ "
+        |> (++) "# Projects, Talks and Articles\n\n[Complete list](https://lucamug.github.io/lucamug/)\n\n"
 
 
 itemToString : Projects.Project.Item -> String
