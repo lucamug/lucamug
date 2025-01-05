@@ -18,12 +18,12 @@ Published as [https://lucamug.github.io/lucamug/](https://lucamug.github.io/luca
 
 ## TO MOVE OUT OF NETLIFY AND GUUPA.COM
 
-https://lucamug.guupa.com/
+DONE https://lucamug.guupa.com/
+DONE https://elmjapan.guupa.com/
 https://elm-map.guupa.com/
 https://donut.guupa.com/
 https://elm-ecommerce.guupa.com/
 https://elm-physics-example.guupa.com/
-https://elmjapan.guupa.com/
 https://elm-resources.guupa.com/
 https://blog.guupa.com/post/response-to-why-i-am-leaving-elm.html
 https://mekke.guupa.com/
