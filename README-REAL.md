@@ -20,8 +20,8 @@ Published as [https://lucamug.github.io/lucamug/](https://lucamug.github.io/luca
 
 DONE https://lucamug.guupa.com/
 DONE https://elmjapan.guupa.com/
+DONE https://donut.guupa.com/
 https://elm-map.guupa.com/
-https://donut.guupa.com/
 https://elm-ecommerce.guupa.com/
 https://elm-physics-example.guupa.com/
 https://elm-resources.guupa.com/

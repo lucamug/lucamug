@@ -326,8 +326,8 @@ items =
       , review = "🍩 The Functional Donut 🍩"
       , desc = "A conversion of the C donut in a functional language."
       , url = "https://dev.to/lucamug/the-functional-donut-19pp"
-      , code = "https://github.com/lucamug/elm-donut/blob/master/src/Main.elm"
-      , demo = "https://donut.guupa.com/"
+      , code = "https://github.com/lucamug/elm-donut/blob/master/src-donut-with-donut-shape/Main.elm"
+      , demo = "https://lucamug.github.io/elm-donut/"
       , date = ""
       , image = "the_functional_donut.png"
       }
