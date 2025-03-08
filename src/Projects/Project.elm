@@ -205,7 +205,7 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "Functional Pac-Man, an interpretation of the game, written in purely functional code"
+    [ { title = "🍒 Functional Pac-Man, an interpretation of the game, written in purely functional code"
       , review = "Functional Pac-Man, an interpretation of the game, written in purely functional code"
       , desc = "An interpretation of the Pac-Man game, written in approximately 1K lines of purely functional code. It runs both in the browser and in the terminal."
       , url = "https://lucamug.github.io/functional-pacman/"
@@ -214,7 +214,7 @@ items =
       , date = "January 2025"
       , image = "pacman.gif"
       }
-    , { title = "API Tester"
+    , { title = "⚙️ API Tester"
       , review = "API Tester"
       , desc = "A simple interface to test API requests and responses"
       , url = "https://lucamug.github.io/tester/"
@@ -223,7 +223,7 @@ items =
       , date = "November 2024"
       , image = "tester.png"
       }
-    , { title = "Elm 2023, a year in review"
+    , { title = "📅 Elm 2023, a year in review"
       , review = "Elm 2023, a year in review"
       , desc = "2023 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
       , url = "https://dev.to/lucamug/elm-2023-a-year-in-review-23d6"
@@ -232,7 +232,7 @@ items =
       , date = ""
       , image = "2023_in_review.png"
       }
-    , { title = "Talk \"Hope Is Postponed Disappointment\" @ JSConf Japan"
+    , { title = "🚂️🚃🚃🚃 Talk \"Hope Is Postponed Disappointment\" @ JSConf Japan"
       , review = "Talk \"Hope Is Postponed Disappointment\" @ JSConf Japan"
       , desc = "The solution for the exception problem is not having exceptions. Throwing exceptions and hoping that someone will take care of them may lead to disappointment. A sound type system can help us build resilient web applications. In Rakuten, we use Elm to prevent runtime exceptions in the authentication system used by millions of users every day. A similar technique can be implemented in TypeScript too."
       , url = "https://jsconf.jp/2023/talk/luca-mugnaini-1/"
@@ -241,7 +241,16 @@ items =
       , date = "Nov 19, 2023"
       , image = "hope_cover.jpg"
       }
-    , { title = "Functional Programming for Kids in Elm"
+    , { title = "➰👟 Shoelace X Elm - Web Components in Elm"
+      , review = "Shoelace X Elm - Web Components in Elm"
+      , desc = "A random collection of interactive web components from the Shoelace library glued together using Elm."
+      , url = "https://lucamug.github.io/elm-web-components/"
+      , code = "https://github.com/lucamug/elm-web-components/blob/master/src/Main.elm"
+      , demo = "https://ellie-app.com/nNbgNpbfKHZa1"
+      , date = "August, 2023"
+      , image = "shoelace_x_elm.png"
+      }
+    , { title = "🤖 Functional Programming for Kids in Elm"
       , review = "Functional Programming for Kids in Elm"
       , desc = "A collection of resources for teaching and learning Functional Programming, for begineers."
       , url = "https://lucamug.github.io/functional-programming-for-kids-in-elm/#/robot"
@@ -250,7 +259,7 @@ items =
       , date = ""
       , image = "functional-programming-for-kids.png"
       }
-    , { title = "Elm 2022, a year in review"
+    , { title = "📅 Elm 2022, a year in review"
       , review = "Elm 2022, a year in review"
       , desc = "2022 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
       , url = "https://dev.to/lucamug/elm-2022-a-year-in-review-33pp"
@@ -259,7 +268,7 @@ items =
       , date = ""
       , image = "2022_in_review.png"
       }
-    , { title = "Stringy - The String Transformer"
+    , { title = "🧵 Stringy - The String Transformer"
       , review = "Stringy - The String Transformer"
       , desc = "A collection of functions that transform strings to QR codes, CSS colors, hexadecimal numbers, dates, base64-encoded data, encrypted text, etc."
       , url = "https://lucamug.github.io/stringy/"
@@ -268,7 +277,7 @@ items =
       , date = ""
       , image = "the-string-transformer.png"
       }
-    , { title = "elm-map - A  \"slippy\" geographic map implementation using only Elm code"
+    , { title = "🗺️ elm-map - A  \"slippy\" geographic map implementation using only Elm code"
       , review = "elm-map"
       , desc = "A proof of concept for a \"slippy\" geographic map in 100% #elmlang 🗺️ 🧭. Made with 380 lines of Elm and 1 line of JavaScript."
       , url = "https://elm-map.guupa.com/"
@@ -277,7 +286,7 @@ items =
       , date = ""
       , image = "elm-map.jpg"
       }
-    , { title = "Talk \"Familiarity or Guarantees? Functional Programming for the front-end\" @ Functionl Conf"
+    , { title = "🎤 Talk \"Familiarity or Guarantees? Functional Programming for the front-end\" @ Functionl Conf"
       , review = "Talk \"Familiarity or Guarantees? Functional Programming for the front-end\" @ Functionl Conf"
       , desc = "In the front-end world, we finally can take an important decision: Familiarity or Guarantees?"
       , url = "https://confengine.com/conferences/functional-conf-2022/proposal/16260/familiarity-or-guarantees-functional-programming-for-the-front-end"
@@ -286,7 +295,7 @@ items =
       , date = ""
       , image = "lucamug16260.png"
       }
-    , { title = "Differences between TypeScript and Elm"
+    , { title = "🔷 Differences between TypeScript and Elm"
       , review = "Differences between TypeScript and Elm"
       , desc = "Several times I have been asked about the differences between TypeScript and Elm. This is an attempt at listing down these differences."
       , url = "https://dev.to/lucamug/typescript-and-elm-3g38"
@@ -295,7 +304,7 @@ items =
       , date = ""
       , image = "typescript-and-elm.jpeg"
       }
-    , { title = "Elm vs HyperScript - A Wordle implemetation"
+    , { title = "🔷 Elm vs HyperScript - A Wordle implemetation"
       , review = "Elm vs HyperScript - A Wordle implemetation"
       , desc = "A comparison between the Elm language and the HyperScript through a simple implementation of the Wordle game."
       , url = "https://dev.to/lucamug/elm-vs-hyperscript-2m3m"
@@ -304,7 +313,7 @@ items =
       , date = ""
       , image = "elm-vs-hyperscript.jpeg"
       }
-    , { title = "Elm 2021, a year in review"
+    , { title = "📅 Elm 2021, a year in review"
       , review = "Elm 2021, a year in review"
       , desc = "2021 has been an exciting year for Elm, with many interesting packages, blog posts, videos, podcasts, demos, tutorials, applications, and so on."
       , url = "https://dev.to/lucamug/elm-2021-a-year-in-review-4pho"
@@ -313,7 +322,7 @@ items =
       , date = ""
       , image = "2021_in_review.gif"
       }
-    , { title = "Elm's guarantees"
+    , { title = "📦 Elm's guarantees"
       , review = "Elm's guarantees"
       , desc = "A short reminder about the guarantees of the Elm language"
       , url = "https://dev.to/lucamug/elms-guarantees-13e4"
@@ -322,8 +331,8 @@ items =
       , date = ""
       , image = "guarantees.jpeg"
       }
-    , { title = "🍩 The Functional Donut 🍩"
-      , review = "🍩 The Functional Donut 🍩"
+    , { title = "🍩 The Functional Donut"
+      , review = "The Functional Donut"
       , desc = "A conversion of the C donut in a functional language."
       , url = "https://dev.to/lucamug/the-functional-donut-19pp"
       , code = "https://github.com/lucamug/elm-donut/blob/master/src-donut-with-donut-shape/Main.elm"
@@ -331,7 +340,7 @@ items =
       , date = ""
       , image = "the_functional_donut.png"
       }
-    , { title = "From dynamic to static typing in three steps"
+    , { title = "\u{1FA9C} From dynamic to static typing in three steps"
       , review = "From dynamic to static typing in three steps"
       , desc = "A simple goal, three different experiences. What happen when we try to leverage the type systems of JavaScript, TypeScript, and Elm?"
       , url = "https://dev.to/lucamug/three-steps-4n7"
@@ -340,7 +349,7 @@ items =
       , date = ""
       , image = "dynamic_to_static_three_steps.png"
       }
-    , { title = "Elm Exercises"
+    , { title = "🏋️ Elm Exercises"
       , review = "Elm Exercises"
       , desc = "A system to create Elm exercises leveraging the Ellie platform."
       , url = "https://ellie-app.com/dZLQZGDGgNsa1"
@@ -349,7 +358,7 @@ items =
       , date = ""
       , image = "elm_exercises.png"
       }
-    , { title = "Elm eCommerce"
+    , { title = "🛍️ Elm eCommerce"
       , review = "Elm eCommerce"
       , desc = "A simple eCommerce demo application in 2,500 lines of Elm code, all shrank into 40KB of JavaScript, including styling and icons."
       , url = "https://elm-ecommerce.guupa.com/"
@@ -358,7 +367,7 @@ items =
       , date = ""
       , image = "elm-ecommerce.jpg"
       }
-    , { title = "Elm at Rakuten"
+    , { title = "🧩 Elm at Rakuten"
       , review = "Elm at Rakuten"
       , desc = "The story of the adoption of Elm at rakuten, with likes and dislikes."
       , url = "https://dev.to/lucamug/elm-6m8"
@@ -367,7 +376,7 @@ items =
       , date = ""
       , image = "elm_at_rakuten.jpg"
       }
-    , { title = "Elm Cheat Sheet"
+    , { title = "📄 Elm Cheat Sheet"
       , review = "Elm Cheat Sheet"
       , desc = "Learning Elm? Download the Elm Cheat Sheet to support your learning process."
       , url = "https://twitter.com/luca_mug/status/1366200906606252037"
@@ -376,7 +385,7 @@ items =
       , date = ""
       , image = "elm_cheat_sheet.jpg"
       }
-    , { title = "Elm physics Example"
+    , { title = "🧲 Elm physics Example"
       , review = "Elm physics Example"
       , url = "https://elm-physics-example.guupa.com/"
       , code = "https://github.com/lucamug/elm-physics-example"
@@ -385,7 +394,7 @@ items =
       , demo = ""
       , image = "elm-physics-example.gif"
       }
-    , { title = "Penrose Triangle"
+    , { title = "🔺 Penrose Triangle"
       , review = "Penrose Triangle"
       , url = "https://ellie-app.com/bZVgZf8GJvja1"
       , code = ""
@@ -394,7 +403,7 @@ items =
       , demo = ""
       , image = "penrose_triangle.jpg"
       }
-    , { title = "Mario demo"
+    , { title = "🍄 Mario demo"
       , review = "Mario demo"
       , url = "https://lucamug.github.io/mario/"
       , code = "https://github.com/lucamug/mario/blob/master/src/Main.elm"
@@ -403,7 +412,7 @@ items =
       , demo = ""
       , image = "mario.gif"
       }
-    , { title = "Appeal to popularity"
+    , { title = "📈 Appeal to popularity"
       , review = "Appeal to popularity"
       , url = "https://ellie-app.com/bY2R6xF5mWda1"
       , code = ""
@@ -412,7 +421,7 @@ items =
       , demo = ""
       , image = "appeal_to_popularity.jpg"
       }
-    , { title = "Safe, Stress Free and Repeatable Releases"
+    , { title = "🛡️🧘♻️ Safe, Stress Free and Repeatable Releases"
       , review = "Safe, Stress Free and Repeatable Releases"
       , url = "https://elm-release.surge.sh"
       , code = "https://github.com/lucamug/elm-release"
@@ -421,7 +430,7 @@ items =
       , demo = ""
       , image = "elm-release.jpg"
       }
-    , { title = "R10"
+    , { title = "🎨 R10"
       , review = "R10"
       , url = "https://r10.netlify.app/"
       , code = ""
@@ -430,7 +439,7 @@ items =
       , demo = ""
       , image = "r10.jpg"
       }
-    , { title = "3D Graphics in the Browser with Elm"
+    , { title = "🧊 3D Graphics in the Browser with Elm"
       , review = "3D Graphics in the Browser with Elm"
       , url = "https://dev.to/lucamug/3d-graphics-in-the-browser-with-elm-4oh3"
       , code = ""

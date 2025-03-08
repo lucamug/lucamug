@@ -1,5 +1,11 @@
 # lucamug
 
+Note: To refresh the website and the README.md file, execute
+
+```
+cmd/build
+```
+
 ## URL
 
 Before
