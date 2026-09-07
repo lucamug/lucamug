@@ -31,7 +31,7 @@ log(`✨⭐✨⭐✨ BOOTSTRAPPING ✨⭐✨⭐✨...`);
 log(`env: ${ENV}, version: ${VER}, commit: ${COMMIT}`);
 
 const elmFile = "./src/Bootstrap.elm";
-const commandToCompileElm = `elm make ${elmFile} --output=${output} --optimize`;
+const commandToCompileElm = `node_modules/elm/bin/elm make ${elmFile} --output=${output} --optimize`;
 
 const flags =         
     { version              : package.version

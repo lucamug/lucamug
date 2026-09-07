@@ -205,7 +205,43 @@ itemNotFound =
 
 items : List Item
 items =
-    [ { title = "🍒 Functional Pac-Man, an interpretation of the game, written in purely functional code"
+    [ { title = "🔄 The Elm Architecture (TEA) animation"
+      , review = "elm-tea"
+      , desc = "An animation that explains how TEA (The Elm Architecture) works, visually."
+      , url = "https://lucamug.github.io/elm-tea/"
+      , code = "https://github.com/lucamug/elm-tea"
+      , demo = "https://lucamug.github.io/elm-tea/"
+      , date = ""
+      , image = "tea.jpg"
+      }
+    , { title = "🔧 elm-transformer - View and edit any Elm data structure in real time"
+      , review = "elm-transformer"
+      , desc = "A library that can be used to easily view and edit any data structure of Elm code. Want to edit the Model of your running Elm app in real time directly from the browser? With this library you can do that easily. It supports all major data structures including Char, Bytes, Tuples, Array, Set, Dict, Maybe, Result, Custom types, and Records."
+      , url = "https://lucamug.github.io/elm-transformer/"
+      , code = "https://github.com/lucamug/elm-transformer"
+      , demo = "https://lucamug.github.io/elm-transformer/"
+      , date = ""
+      , image = "elm-transformer.jpg"
+      }
+    , { title = "🎤 Talk \"Beyond console.log: Developing and Debugging with Observable Side Effects\" @ JSConf Japan 2025"
+      , review = "Talk \"Beyond console.log\" @ JSConf Japan 2025"
+      , desc = "A lightning talk examining how making side effects explicit and transparent can improve code clarity, cut debugging time, and boost reliability. Includes a live web app demo."
+      , url = "https://jsconf.jp/2025/en/talks/beyond-console-log"
+      , code = ""
+      , demo = ""
+      , date = "2025"
+      , image = "beyond-console.jpg"
+      }
+    , { title = "🗺️ Elm Test Map - a simple map navigation system"
+      , review = "mor"
+      , desc = "A simple map navigation system implemented in Elm, from scratch. This is a vibe coded project."
+      , url = "https://lucamug.github.io/mor/"
+      , code = "https://github.com/lucamug/mor"
+      , demo = "https://lucamug.github.io/mor/"
+      , date = ""
+      , image = "elm-test-map.jpg"
+      }
+    , { title = "🍒 Functional Pac-Man, an interpretation of the game, written in purely functional code"
       , review = "Functional Pac-Man, an interpretation of the game, written in purely functional code"
       , desc = "An interpretation of the Pac-Man game, written in approximately 1K lines of purely functional code. It runs both in the browser and in the terminal."
       , url = "https://lucamug.github.io/functional-pacman/"
@@ -216,10 +252,10 @@ items =
       }
     , { title = "⚙️ API Tester"
       , review = "API Tester"
-      , desc = "A simple interface to test API requests and responses"
+      , desc = "A tool to easily test any endpoint with a simple and generic UI. It also generates a `curl` command and a URL to easily share all the data typed in the form."
       , url = "https://lucamug.github.io/tester/"
-      , code = "https://lucamug.github.io/tester/"
-      , demo = ""
+      , code = "https://github.com/lucamug/tester"
+      , demo = "https://lucamug.github.io/tester/"
       , date = "November 2024"
       , image = "tester.png"
       }
@@ -448,7 +484,7 @@ items =
       , demo = ""
       , image = "3d_graphics.gif"
       }
-    , { title = "\"elm-starter\", a tool for the Modern Web"
+    , { title = "🚀 \"elm-starter\", a tool for the Modern Web"
       , review = "\"elm-starter\", a tool for the Modern Web"
       , url = "https://dev.to/lucamug/elm-starter-a-tool-for-the-modern-web-53b1"
       , code = ""
@@ -457,7 +493,7 @@ items =
       , demo = ""
       , image = "elm_starter.jpg"
       }
-    , { title = "Resilience to errors in front-end frameworks"
+    , { title = "💪 Resilience to errors in front-end frameworks"
       , review = "Resilience to errors in front-end frameworks"
       , url = "https://dev.to/lucamug/resilience-to-errors-of-front-end-frameworks-3hej"
       , code = ""
@@ -475,7 +511,7 @@ items =
       , demo = ""
       , image = "kaiten_sushi.jpg"
       }
-    , { title = "Ro-BOX"
+    , { title = "📦 Ro-BOX"
       , review = "Ro-BOX"
       , url = "https://ro-box.netlify.app/"
       , code = ""
@@ -484,7 +520,7 @@ items =
       , demo = ""
       , image = "ro-box.gif"
       }
-    , { title = "Elm-Playground-3D Examples"
+    , { title = "🎲 Elm-Playground-3D Examples"
       , review = "Elm-Playground-3D Examples"
       , url = "https://elm-playground-3d.netlify.app/"
       , code = "https://github.com/lucamug/elm-playground-3d"
@@ -493,7 +529,7 @@ items =
       , demo = ""
       , image = "3d_examples.gif"
       }
-    , { title = "Elm Japan 2020"
+    , { title = "🌸 Elm Japan 2020"
       , review = "Elm Japan"
       , desc = "Lead organizer of the first Elm conference in the Asia-Pacific region"
       , url = "https://lucamug.github.io/elm-japan/"
@@ -502,7 +538,7 @@ items =
       , date = ""
       , image = "elm_japan.jpg"
       }
-    , { title = "Elm Pages editor"
+    , { title = "📝 Elm Pages editor"
       , review = "Elm Pages editor"
       , url = "https://lucamug.github.io/elm-pages-editor/withEditorAndDebugger.html"
       , code = "https://github.com/lucamug/elm-pages-editor"
@@ -511,7 +547,7 @@ items =
       , demo = ""
       , image = "page_editor.jpg"
       }
-    , { title = "Doodle Weather"
+    , { title = "☁️ Doodle Weather"
       , review = "Doodle Weather"
       , url = "https://www.youtube.com/watch?v=oxVYKm47DNE"
       , code = "https://github.com/lucamug/coach-a-test"
@@ -520,7 +556,7 @@ items =
       , demo = ""
       , image = "doodle_weather.jpg"
       }
-    , { title = "Elm Beginners Tutorial: How to make animated snackbars with zero CSS"
+    , { title = "🍫 Elm Beginners Tutorial: How to make animated snackbars with zero CSS"
       , review = "Elm Beginners Tutorial: How to make animated snackbars with zero CSS"
       , url = "https://dev.to/lucamug/elm-beginners-tutorial-how-to-make-animated-snackbars-with-zero-css-12g1"
       , code = ""
@@ -529,7 +565,7 @@ items =
       , demo = ""
       , image = "snackbar.jpg"
       }
-    , { title = "Type Driven Development: Simple masonry layout in 50 lines of Elm code"
+    , { title = "🧱 Type Driven Development: Simple masonry layout in 50 lines of Elm code"
       , review = "Type Driven Development: Simple masonry layout in 50 lines of Elm code"
       , url = "https://dev.to/lucamug/type-driven-development-simple-masonry-layout-in-50-lines-of-elm-code-44n0"
       , code = ""
@@ -538,7 +574,7 @@ items =
       , demo = ""
       , image = "masonry2.gif"
       }
-    , { title = "Parallax"
+    , { title = "🏔️ Parallax"
       , review = "Parallax"
       , desc = "A static page made in Elm for errors, such as 404 Page not Found."
       , url = "https://login.account.rakuten.com/"
@@ -547,7 +583,7 @@ items =
       , date = ""
       , image = "404_page.jpg"
       }
-    , { title = "Elm vs. Svelte"
+    , { title = "⚔️ Elm vs. Svelte"
       , review = "Elm vs. Svelte"
       , desc = "A biased and superficial comparison between two frameworks that compile to Javascript"
       , url = "https://medium.com/@l.mugnaini/elm-vs-svelte-d8e6f0abf667"
@@ -556,7 +592,7 @@ items =
       , date = ""
       , image = "elm_vs_svelte-80.jpg"
       }
-    , { title = "Elm vs. Vue"
+    , { title = "⚔️ Elm vs. Vue"
       , review = "Elm vs. Vue"
       , url = "https://dev.to/lucamug/elm-vs-vue-2jok"
       , code = ""
@@ -565,7 +601,7 @@ items =
       , demo = ""
       , image = "elm_vs_vue.png"
       }
-    , { title = "Elm vs. Javascript: Side by Side Code Comparison"
+    , { title = "⚔️ Elm vs. Javascript: Side by Side Code Comparison"
       , review = "Elm vs. Javascript: Side by Side Code Comparison"
       , url = "https://dev.to/lucamug/javascript-elm-side-by-side-code-comparison-4372"
       , code = ""
@@ -574,16 +610,16 @@ items =
       , demo = ""
       , image = "elm_vs_js.png"
       }
-    , { title = "Elm vs. React"
+    , { title = "⚔️ Elm vs. React"
       , review = "Elm vs. React"
-      , desc = "Things that can go wrong without a strictly typed language\u{200A}—\u{200A}Part II, a.k.a. “Los tipos son buena gente”"
+      , desc = """Things that can go wrong without a strictly typed language\u{200A}—\u{200A}Part II, a.k.a. "Los tipos son buena gente\""""
       , url = "https://medium.com/@l.mugnaini/things-that-can-go-wrong-without-a-strictly-typed-language-part-ii-8b239a85f35a"
       , code = ""
       , demo = ""
       , date = ""
       , image = "elm_vs_react.jpg"
       }
-    , { title = "Rakuten Security"
+    , { title = "🔐 Rakuten Security"
       , review = "Rakuten Security"
       , desc = "A single Elm page that works also without Javascript and is SEO friendly."
       , url = "https://static.id.rakuten.co.jp/static/about_security/jpn/"
@@ -592,7 +628,7 @@ items =
       , date = ""
       , image = "rakuten_security.jpg"
       }
-    , { title = "Rakuten Sign In"
+    , { title = "🔑 Rakuten Sign In"
       , review = "Rakuten Sign In"
       , desc = "The entire Front-end part of Rakuten Taiwan Sign In and Registration system. I talked about this system at the [2019 Oslo Elm Day conference](https://www.youtube.com/watch?v=yH6o322S8XQ)."
       , url = "https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email#/registration/1"
@@ -601,7 +637,7 @@ items =
       , date = ""
       , image = "rakuten_signin.jpg"
       }
-    , { title = "Rakuten Open Source"
+    , { title = "🌐 Rakuten Open Source"
       , review = "Rakuten Open Source"
       , desc = "The Open Source page of Rakuten got a new re-write in March 2019. It is now completely written in Elm. It combines Rakuten Open Source project coming from 11 different Github accounts. The structure of the app is not an usual Elm structure. It is organized in a way that also engineer that are now familiar with Elm can maitain the website. The main `src` folder contain the configuration and the main views. The website logic (The Elm Architecture) is \"hidden\" in the `internal` folder."
       , url = "https://rakutentech.github.io/"
@@ -610,7 +646,7 @@ items =
       , date = ""
       , image = "rakuten_open_source.jpg"
       }
-    , { title = "Simple masonry layout in 50 lines of Elm code"
+    , { title = "🧱 Simple masonry layout in 50 lines of Elm code"
       , review = "Masonry Layout"
       , desc = "A Masonry layout is a way to fit together elements of possibly different sizes without gaps."
       , url = "https://medium.com/@l.mugnaini/simple-masonry-layout-in-50-lines-of-elm-code-304ea9e9475c"
@@ -619,7 +655,7 @@ items =
       , date = ""
       , image = "masonry.jpg"
       }
-    , { title = "Talk \"Elm at large (companies)\" @ Oslo Elm Day"
+    , { title = "🎤 Talk \"Elm at large (companies)\" @ Oslo Elm Day"
       , review = "Talk \"Elm at large (companies)\" @ Oslo Elm Day"
       , desc = ""
       , url = "https://www.youtube.com/watch?v=yH6o322S8XQ"
@@ -628,7 +664,7 @@ items =
       , date = "2019"
       , image = "elm_at_large_companies.jpg"
       }
-    , { title = "Elm Resources"
+    , { title = "📚 Elm Resources"
       , review = "Elm Resources"
       , desc = "Resources about Elm"
       , url = "https://elm-resources.guupa.com/"
@@ -637,7 +673,7 @@ items =
       , date = ""
       , image = "elm_resources.jpg"
       }
-    , { title = "Talks and Events"
+    , { title = "🎙️ Talks and Events"
       , review = "Events and Workshops"
       , desc = """Talking about Front-end and Elm is always fun. Some of the most recent events:
 
@@ -652,7 +688,7 @@ items =
       , date = ""
       , image = "events.jpg"
       }
-    , { title = "Basic 3D rendering in SVG: elm-playground-3d"
+    , { title = "🎲 Basic 3D rendering in SVG: elm-playground-3d"
       , review = "3D SVG"
       , desc = "An introduction to a simple Elm library to build animated three dimensional models"
       , url = "https://medium.com/@l.mugnaini/basic-3d-rendering-in-svg-elm-playground-3d-d1e8846cd06e"
@@ -661,7 +697,7 @@ items =
       , date = ""
       , image = "3d_svg.gif"
       }
-    , { title = "How to build a responsive layout without a single CSS line*"
+    , { title = "📐 How to build a responsive layout without a single CSS line*"
       , review = "How to build a responsive layout without a single CSS line*"
       , desc = "This is a tutorial on how to build a mildly complex web layout without any knowledge of CSS (and also any knowledge of Javascript and HTML…"
       , url = "https://medium.com/@l.mugnaini/how-to-build-a-responsive-layout-without-a-single-css-line-afbdfe89bb6d"
@@ -670,7 +706,7 @@ items =
       , date = ""
       , image = "layour_without_css.jpg"
       }
-    , { title = "Time in Elm"
+    , { title = "⏰ Time in Elm"
       , review = "Time in Elm"
       , desc = "Handling time in Elm seems to be a scaring thing for beginners."
       , url = "https://medium.com/@l.mugnaini/time-in-elm-42f08b8973f3"
@@ -679,7 +715,7 @@ items =
       , date = ""
       , image = "time_in_elm.jpg"
       }
-    , { title = "HTTP Trinity"
+    , { title = "🔗 HTTP Trinity"
       , review = "HTTP Trinity"
       , url = "https://rakutentech.github.io/http-trinity/"
       , code = "https://github.com/rakutentech/http-trinity"
@@ -688,7 +724,7 @@ items =
       , demo = ""
       , image = "http_trinity.jpg"
       }
-    , { title = "Beginner Tutorials: How to build a game in Elm — Part 1"
+    , { title = "🎮 Beginner Tutorials: How to build a game in Elm — Part 1"
       , review = "Beginner Tutorials: How to build a game in Elm — Part 1"
       , desc = "Part 1 of 12 — The Game Loop"
       , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-5491d6de8f25"
@@ -697,7 +733,7 @@ items =
       , date = ""
       , image = "game_in_elm.jpg"
       }
-    , { title = "Beginner Tutorials: How to build a game in Elm — Part 2"
+    , { title = "🎮 Beginner Tutorials: How to build a game in Elm — Part 2"
       , review = "Beginner Tutorials: How to build a game in Elm — Part 2"
       , desc = "Part 2 of 12 — Add Keyboard"
       , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-2-ae26eef8610b"
@@ -706,7 +742,7 @@ items =
       , date = ""
       , image = "game_in_elm.jpg"
       }
-    , { title = "Beginner Tutorials: How to build a game in Elm — Part 3"
+    , { title = "🎮 Beginner Tutorials: How to build a game in Elm — Part 3"
       , review = "Beginner Tutorials: How to build a game in Elm — Part 3"
       , desc = "Part 3 of 12 — Add the Pause"
       , url = "https://medium.com/@l.mugnaini/beginner-tutorials-how-to-build-a-game-in-elm-part-3-fe62c51f7510"
@@ -715,7 +751,7 @@ items =
       , date = ""
       , image = "game_in_elm.jpg"
       }
-    , { title = "Tutorial: Real Time Collaboration and Free Hosting with glitch.com"
+    , { title = "🤝 Tutorial: Real Time Collaboration and Free Hosting with glitch.com"
       , review = "Tutorial: Real Time Collaboration and Free Hosting with glitch.com"
       , desc = "Note: This is a step by step tutorial about hosting an Elm application on glitch.com but most of the concepts are applicable to other…"
       , url = "https://medium.com/@l.mugnaini/tutorial-real-time-collaboration-and-free-hosting-with-glitch-com-307b0c7398c6"
@@ -724,7 +760,7 @@ items =
       , date = ""
       , image = "glitch.jpg"
       }
-    , { title = "Terminal Pixel Art"
+    , { title = "🖼️ Terminal Pixel Art"
       , review = "Terminal Pixel Art"
       , desc = "If you find yourself often running scripts in the terminal, why not adding some colored pixel art to them?"
       , url = "https://medium.com/@l.mugnaini/terminal-pixel-art-ad386d186dad"
@@ -733,7 +769,7 @@ items =
       , date = ""
       , image = "pixel_art.jpg"
       }
-    , { title = "Things that can go wrong without a strictly typed language\u{200A}—\u{200A}Part I"
+    , { title = "⚠️ Things that can go wrong without a strictly typed language\u{200A}—\u{200A}Part I"
       , review = "Things that can go wrong without a strictly typed language\u{200A}—\u{200A}Part I"
       , desc = "What happen when an Elm developer write a Vue application"
       , url = "https://itnext.io/things-that-can-go-wrong-without-a-strictly-typed-language-d91d418a53a1"
@@ -742,7 +778,7 @@ items =
       , date = ""
       , image = "wrong_without_types.jpg"
       }
-    , { title = "Mocking APIs from inside Elm"
+    , { title = "🎭 Mocking APIs from inside Elm"
       , review = "Mocking APIs from inside Elm"
       , desc = "I wanted to have a simple way to test all possible scenario of an http responses. There are tools like Mountebank but it is an extra thing…"
       , url = "https://medium.com/@l.mugnaini/mocking-apis-from-inside-elm-5efda32ee9fe"
@@ -751,7 +787,7 @@ items =
       , date = ""
       , image = "mocking_api.jpg"
       }
-    , { title = "Monads without talking about Monads, in Elm"
+    , { title = "🌀 Monads without talking about Monads, in Elm"
       , review = "Monads without talking about Monads, in Elm"
       , desc = "In Functional Programming we build programs only using functions. These functions, for simplicity, can return only one value."
       , url = "https://medium.com/@l.mugnaini/monads-without-talking-about-monads-in-elm-4b9b6ffd5ad5"
@@ -760,16 +796,16 @@ items =
       , date = ""
       , image = "monads_without_monads.jpg"
       }
-    , { title = "The Elm Architecture (TEA) animation"
+    , { title = "🍵 The Elm Architecture (TEA) animation"
       , review = "The Elm Architecture (TEA) animation"
-      , desc = "The “game loop” of Elm"
+      , desc = """The "game loop" of Elm"""
       , url = "https://medium.com/@l.mugnaini/the-elm-architecture-tea-animation-3efc555e8faf"
       , code = ""
       , demo = ""
       , date = ""
       , image = "tea.gif"
       }
-    , { title = "Functors, Applicatives, And Monads In Pictures (In Elm)"
+    , { title = "📸 Functors, Applicatives, And Monads In Pictures (In Elm)"
       , review = "Functors, Applicatives, And Monads In Pictures (In Elm)"
       , desc = "Elm Version"
       , url = "https://medium.com/@l.mugnaini/functors-applicatives-and-monads-in-pictures-784c2b5786f7"
@@ -778,7 +814,7 @@ items =
       , date = ""
       , image = "monads_in_picture.jpg"
       }
-    , { title = "Proposal for a Style Framework in Elm"
+    , { title = "✏️ Proposal for a Style Framework in Elm"
       , review = "Proposal for a Style Framework in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/proposal-for-a-style-framework-in-elm-f5a1919ab425"
@@ -787,7 +823,7 @@ items =
       , date = ""
       , image = "style_framework.jpg"
       }
-    , { title = "Media queries in Elm"
+    , { title = "📱 Media queries in Elm"
       , review = "Media queries in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/media-queries-in-elm-7b8f75cabc72"
@@ -796,7 +832,7 @@ items =
       , date = ""
       , image = "media_queries_in_elm.jpg"
       }
-    , { title = "Unbreakable JSON"
+    , { title = "🔒 Unbreakable JSON"
       , review = "Unbreakable JSON"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/unbreakable-json-95637300176c"
@@ -805,7 +841,7 @@ items =
       , date = ""
       , image = "unbreakable_json.jpg"
       }
-    , { title = "Undo and Redo using browsers history - Tangram"
+    , { title = "↩️ Undo and Redo using browsers history - Tangram"
       , review = "Undo and Redo using browsers history - Tangram"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/undo-and-redo-using-browsers-history-1f1f963bf722"
@@ -814,7 +850,7 @@ items =
       , date = ""
       , image = "tangram.gif"
       }
-    , { title = "CSS Nirvana"
+    , { title = "✨ CSS Nirvana"
       , review = "CSS Nirvana"
       , desc = "Do you remember when I told you that separating layout from style was a good thing? Well, forget about it!"
       , url = "https://medium.com/front-end-weekly/css-nirvana-a92ba04cca06"
@@ -823,7 +859,7 @@ items =
       , date = ""
       , image = "man_jump_from_space.jpg"
       }
-    , { title = "Is the future of Front-end development without HTML, CSS and Javascript?"
+    , { title = "🔮 Is the future of Front-end development without HTML, CSS and Javascript?"
       , review = "Is the future of Front-end development without HTML, CSS and Javascript?"
       , desc = "Before artificial intelligence is taking over our Front-end jobs (here and here) let’s think some way to make our life less miserables."
       , url = "https://medium.com/@l.mugnaini/is-the-future-of-front-end-development-without-html-css-and-javascript-e7bb0877980e"
@@ -832,7 +868,7 @@ items =
       , date = ""
       , image = "future_frontend.gif"
       }
-    , { title = "Single Page Application Boilerplate for Elm"
+    , { title = "📋 Single Page Application Boilerplate for Elm"
       , review = "Single Page Application Boilerplate for Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/single-page-application-boilerplate-for-elm-160bb5f3eec2"
@@ -841,7 +877,7 @@ items =
       , date = ""
       , image = "spa_boilerplate.jpg"
       }
-    , { title = "Zero-maintenance Always-up-to-date Living Style Guide in Elm!"
+    , { title = "♾️ Zero-maintenance Always-up-to-date Living Style Guide in Elm!"
       , review = "Zero-maintenance Always-up-to-date Living Style Guide in Elm!"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/zero-maintenance-always-up-to-date-living-style-guide-in-elm-dbf236d07522"
@@ -850,7 +886,7 @@ items =
       , date = ""
       , image = "zero_maintenance.jpg"
       }
-    , { title = "Living Website Style Guide and Documentation in Elm"
+    , { title = "📖 Living Website Style Guide and Documentation in Elm"
       , review = "Living Website Style Guide and Documentation in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/living-website-style-guide-and-documentation-in-elm-2f99b6d61da9"
@@ -859,7 +895,7 @@ items =
       , date = ""
       , image = "living_guide.jpg"
       }
-    , { title = "Autocomplete widget in Elm"
+    , { title = "🔍 Autocomplete widget in Elm"
       , review = "Autocomplete widget in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/autocomplete-widget-in-elm-4927b8e275db"
@@ -868,7 +904,7 @@ items =
       , date = ""
       , image = "autocomplete.jpg"
       }
-    , { title = "Forms in Elm — Validation, Tutorial and Examples — Part 3"
+    , { title = "📝 Forms in Elm — Validation, Tutorial and Examples — Part 3"
       , review = "Forms in Elm — Validation, Tutorial and Examples — Part 3"
       , desc = "Part 3 — Spinner, Floating Labels, Checkboxes, Date Picker, Autocomplete"
       , url = "https://medium.com/@l.mugnaini/forms-in-elm-validation-tutorial-and-examples-part-3-5f66f9c87679"
@@ -877,7 +913,7 @@ items =
       , date = ""
       , image = "forms_in_elm.jpg"
       }
-    , { title = "Forms in Elm — Validation, Tutorial and Examples — Part 2"
+    , { title = "📝 Forms in Elm — Validation, Tutorial and Examples — Part 2"
       , review = "Forms in Elm — Validation, Tutorial and Examples — Part 2"
       , desc = "Part 2 — Removing <form>, on-the-fly validation, Focus detection, Show/Hide the password"
       , url = "https://medium.com/@l.mugnaini/forms-in-elm-validation-tutorial-and-examples-part-2-1b978437b5db"
@@ -886,7 +922,7 @@ items =
       , date = ""
       , image = "forms_in_elm.jpg"
       }
-    , { title = "Forms in Elm —Validation, Tutorial and Examples — Part 1"
+    , { title = "📝 Forms in Elm —Validation, Tutorial and Examples — Part 1"
       , review = "Forms in Elm —Validation, Tutorial and Examples — Part 1"
       , desc = "Sometime Elm’s newcomers complain about the complexity and the large amount of boilerplate needed to create forms."
       , url = "https://medium.com/@l.mugnaini/i-believe-css-is-more-about-separation-of-presentation-and-content-42bd0435005"
@@ -895,7 +931,7 @@ items =
       , date = ""
       , image = "forms_in_elm.jpg"
       }
-    , { title = "Commands and Subscriptions in Elm"
+    , { title = "📡 Commands and Subscriptions in Elm"
       , review = "Commands and Subscriptions in Elm"
       , desc = "Aggregated documentation of Elm Commands and Subscription"
       , url = "https://medium.com/@l.mugnaini/commands-and-subscriptions-in-elm-9ff506e75d2d"
@@ -904,7 +940,7 @@ items =
       , date = ""
       , image = "commands_and_subscriptions.jpg"
       }
-    , { title = "Brief beginners guide to Maybe and Result types in Elm"
+    , { title = "❓ Brief beginners guide to Maybe and Result types in Elm"
       , review = "Brief beginners guide to Maybe and Result types in Elm"
       , desc = "There are concepts in Elm, as in other Functional Languages, that are simple, fun and elegant at the same time."
       , url = "https://medium.com/@l.mugnaini/brief-beginners-guide-to-maybe-and-result-types-in-elm-7649d2c3b970"
@@ -913,7 +949,7 @@ items =
       , date = ""
       , image = "maybe_and_result.jpg"
       }
-    , { title = "Record and replay individual visitor interaction with Elm"
+    , { title = "📹 Record and replay individual visitor interaction with Elm"
       , review = "Record and replay individual visitor interaction with Elm"
       , desc = "I wanted to replay the user interaction with an Elm app, including the scrolling of the pages."
       , url = "https://medium.com/@l.mugnaini/record-and-replay-individual-visitor-interaction-with-elm-625814965508"
@@ -922,7 +958,7 @@ items =
       , date = ""
       , image = "record_and_replay.jpg"
       }
-    , { title = "Separation of Layout and Style in Elm"
+    , { title = "✂️ Separation of Layout and Style in Elm"
       , review = "Separation of Layout and Style in Elm"
       , desc = "I am intrigued with the concept of separating Layout and Style. Usually layout is defined using a mixture of html and css while style is…"
       , url = "https://medium.com/@l.mugnaini/separation-of-layout-and-style-in-elm-882a3cbe1e7f"
@@ -931,7 +967,7 @@ items =
       , date = ""
       , image = "separation_of_layout_and_style.jpg"
       }
-    , { title = "Lessons learned about Elm from Slack"
+    , { title = "💬 Lessons learned about Elm from Slack"
       , review = "Lessons learned about Elm from Slack"
       , desc = "I share here my personal notes that I took from Slack Elm https://elmlang.slack.com"
       , url = "https://medium.com/@l.mugnaini/lessons-learned-about-elm-from-slack-1d807d5d3627"
@@ -940,7 +976,7 @@ items =
       , date = ""
       , image = "elm_slack.jpg"
       }
-    , { title = "Images Zoom in Elm"
+    , { title = "🔎 Images Zoom in Elm"
       , review = "Images Zoom in Elm"
       , desc = "Simple experiment for Images Zooming"
       , url = "https://medium.com/@l.mugnaini/images-zoom-in-elm-ffb8c27b305e"
@@ -949,7 +985,7 @@ items =
       , date = ""
       , image = "images_zoom.jpg"
       }
-    , { title = "Faceted Variants in Elm"
+    , { title = "💎 Faceted Variants in Elm"
       , review = "Faceted Variants in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/faceted-variants-in-elm-c38b4d661355"
@@ -958,7 +994,7 @@ items =
       , date = ""
       , image = "faceted_variants.jpg"
       }
-    , { title = "SPA and SEO: Google (Googlebot) properly renders Single Page Application and execute Ajax calls"
+    , { title = "🕷️ SPA and SEO: Google (Googlebot) properly renders Single Page Application and execute Ajax calls"
       , review = "SPA and SEO: Google (Googlebot) properly renders Single Page Application and execute Ajax calls"
       , desc = "I run some test to understand how Google Search Engine handle a Single Page Application. I built the website for running the test in Elm…"
       , url = "https://medium.com/@l.mugnaini/spa-and-seo-is-googlebot-able-to-render-a-single-page-application-1f74e706ab11"
@@ -967,7 +1003,7 @@ items =
       , date = ""
       , image = "spa_and_seo.jpg"
       }
-    , { title = "Tutorial — Permutations and Recursions in Elm"
+    , { title = "🔃 Tutorial — Permutations and Recursions in Elm"
       , review = "Tutorial — Permutations and Recursions in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/tutorial-permutations-and-recursions-in-elm-ad15e2288567"
@@ -976,7 +1012,7 @@ items =
       , date = ""
       , image = "recursion.jpg"
       }
-    , { title = "Scroll and Resize events in Elm"
+    , { title = "📜 Scroll and Resize events in Elm"
       , review = "Scroll and Resize events in Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/scroll-and-resize-events-in-elm-ac4f0589f42"
@@ -985,7 +1021,7 @@ items =
       , date = ""
       , image = "scroll_and_resize.jpg"
       }
-    , { title = "Server Side Rendering with Elm"
+    , { title = "🖥️ Server Side Rendering with Elm"
       , review = "Server Side Rendering with Elm"
       , desc = "I know that the good Evan is going to release soon the version 0.19 that probably will implement the server side rendering."
       , url = "https://medium.com/@l.mugnaini/server-side-rendering-with-elm-9064170eb3cf"
@@ -994,7 +1030,7 @@ items =
       , date = ""
       , image = "server_side_rendering.jpg"
       }
-    , { title = "Data Structures in Elm"
+    , { title = "🗂️ Data Structures in Elm"
       , review = "Data Structures in Elm"
       , desc = "In the process of getting familiar with Data Structures in Elm I started to compile a table to compare all different types: Record, List…"
       , url = "https://medium.com/@l.mugnaini/data-structures-in-elm-3dd609be1fa3"
@@ -1003,7 +1039,7 @@ items =
       , date = ""
       , image = "data_structures.jpg"
       }
-    , { title = "Elm Events Testing"
+    , { title = "🧪 Elm Events Testing"
       , review = "Elm Events Testing"
       , desc = "A simple script to visualise some events in Elm"
       , url = "https://medium.com/@l.mugnaini/elm-events-testing-a812dfbcb21"
@@ -1012,7 +1048,7 @@ items =
       , date = "Jul 12, 2017"
       , image = "events_testing.jpg"
       }
-    , { title = "Mobile Parallax Scrolling"
+    , { title = "📱 Mobile Parallax Scrolling"
       , review = "Mobile Parallax Scrolling"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/mobile-parallax-scrolling-523c23f248c9"
@@ -1021,7 +1057,7 @@ items =
       , date = "Jul 2, 2017"
       , image = "mobile_parallax_scrolling.jpg"
       }
-    , { title = "Kana Overlapping"
+    , { title = "🈯 Kana Overlapping"
       , review = "Kana Overlapping"
       , desc = ""
       , demo = "https://lucamug.github.io/kana-overlapping/"
@@ -1030,7 +1066,7 @@ items =
       , code = "https://github.com/lucamug/kana-overlapping"
       , image = "kana_overlapping.jpg"
       }
-    , { title = "Decoding Json that contain Json using Elm"
+    , { title = "🔓 Decoding Json that contain Json using Elm"
       , review = "Decoding Json that contain Json using Elm"
       , desc = ""
       , url = "https://medium.com/@l.mugnaini/decoding-json-that-contain-json-using-elm-be66d0dec0ff?source=your_stories_page---------------------------"
@@ -1039,7 +1075,7 @@ items =
       , date = "Jun 15, 2017"
       , image = "decoding_json.jpg"
       }
-    , { title = "Elm-Live Contribution"
+    , { title = "⚡ Elm-Live Contribution"
       , review = "elm-live"
       , desc = """I enjoyed collaborating with William King to add few feature to elm-live, including
 
@@ -1055,7 +1091,7 @@ items =
       , date = ""
       , image = "elm_live.jpg"
       }
-    , { title = "Carousel plugin in Elm"
+    , { title = "🎠 Carousel plugin in Elm"
       , review = "Carousel plugin in Elm"
       , desc = "This is a simple example of how is possible to implement a third party Carousel plugin in a Single Page Application (SPA) made in Elm."
       , url = "https://medium.com/@l.mugnaini/carousel-plugin-in-elm-46e89272b185?source=your_stories_page---------------------------"
@@ -1064,7 +1100,7 @@ items =
       , date = "Jun 4, 2017"
       , image = "carousel.jpg"
       }
-    , { title = "A ready-to-use Elm Presentation to impress your colleagues"
+    , { title = "📊 A ready-to-use Elm Presentation to impress your colleagues"
       , review = "A ready-to-use Elm Presentation to impress your colleagues"
       , desc = "I need to introduce Elm to some colleague and I was looking for a presentation that I could recycle. A while ago I remember seeing and…"
       , url = "https://medium.com/@l.mugnaini/a-ready-to-use-elm-presentation-to-impress-your-colleagues-ee71cac8fe14?source=your_stories_page---------------------------"
@@ -1073,7 +1109,7 @@ items =
       , date = "May 29, 2017"
       , image = "elm_presentation.jpg"
       }
-    , { title = "A Neural Network in 11 lines of Javascript"
+    , { title = "🧠 A Neural Network in 11 lines of Javascript"
       , review = "A Neural Network in 11 lines of Javascript"
       , desc = "This is a port from Python to Javascript of the neural network implementation to describe the inner workings of backpropagation. This is…"
       , url = "https://aboveintelligent.com/a-neural-network-in-11-lines-of-javascript-d58b38330178?source=your_stories_page---------------------------"
@@ -1082,7 +1118,7 @@ items =
       , date = "May 25, 2017"
       , image = "neural_network_in_javascript.jpg"
       }
-    , { title = "Self documenting API specifications"
+    , { title = "📑 Self documenting API specifications"
       , review = "Self documenting API specifications"
       , desc = "I wanted to prepare the API specification for the backend developers in the most efficient way possible. Elm code is quite self…"
       , url = "https://medium.com/@l.mugnaini/self-documenting-api-specifications-41be58ec64a1?source=your_stories_page---------------------------"
@@ -1091,8 +1127,8 @@ items =
       , date = "on May 15, 2017"
       , image = "self_documenting_api.jpg"
       }
-    , { title = "Response to “Why I am leaving Elm” (A.k.a. Why I didn’t leave Elm)"
-      , review = "Response to “Why I am leaving Elm” (A.k.a. Why I didn’t leave Elm)"
+    , { title = """🗣️ Response to "Why I am leaving Elm" (A.k.a. Why I didn’t leave Elm)"""
+      , review = """Response to "Why I am leaving Elm" (A.k.a. Why I didn’t leave Elm)"""
       , desc = "This is a response to the post titled \"Why I'm leaving Elm\" written by Luke Plant that regularly came out in Google searches related to the Elm language."
       , url = "https://blog.guupa.com/post/response-to-why-i-am-leaving-elm.html"
       , code = ""
@@ -1100,7 +1136,7 @@ items =
       , date = ""
       , image = "response.png"
       }
-    , { title = "A tool to generate and maintain a blog using Google spreadsheets"
+    , { title = "📰 A tool to generate and maintain a blog using Google spreadsheets"
       , review = "A tool to generate and maintain a blog using Google spreadsheets"
       , url = "https://medium.com/@l.mugnaini/a-tool-to-generate-and-maintain-a-blog-using-google-spreadsheets-a38367a94323?source=your_stories_page---------------------------"
       , code = ""
@@ -1109,7 +1145,7 @@ items =
       , demo = ""
       , image = "blog_using_google_spreadsheets.jpg"
       }
-    , { title = "Old Elm Japan 2020 website"
+    , { title = "🏮 Old Elm Japan 2020 website"
       , review = "Old Elm Japan 2020 website"
       , url = "https://elm-tokyo-2020.netlify.com"
       , code = ""
@@ -1118,7 +1154,7 @@ items =
       , demo = ""
       , image = "elm_japan_2020_old.jpg"
       }
-    , { title = "Bad* Javascript vs Bad* Elm"
+    , { title = "😈 Bad* Javascript vs Bad* Elm"
       , review = "Bad* Javascript vs Bad* Elm"
       , url = "https://medium.com/@l.mugnaini/bad-javascript-vs-bad-elm-6dc9661d109?source=your_stories_page---------------------------"
       , code = ""
@@ -1127,7 +1163,7 @@ items =
       , demo = ""
       , image = "bad_javascript_vs_bad_elm.jpg"
       }
-    , { title = "Experimental reuse of code in Elm, Part III — Counters Bonanza"
+    , { title = "🔢 Experimental reuse of code in Elm, Part III — Counters Bonanza"
       , review = "Experimental reuse of code in Elm, Part III — Counters Bonanza"
       , url = "https://medium.com/@l.mugnaini/counters-bonanza-5e67855c0b83?source=your_stories_page---------------------------"
       , code = ""
@@ -1136,7 +1172,7 @@ items =
       , demo = ""
       , image = "counters_bonanza.jpg"
       }
-    , { title = "Experimental reuse of code in Elm, Part II — The counter"
+    , { title = "🔢 Experimental reuse of code in Elm, Part II — The counter"
       , review = "Experimental reuse of code in Elm, Part II — The counter"
       , url = "https://medium.com/@l.mugnaini/recycling-elm-code-transforming-it-in-a-module-4946d5ccd3cd?source=your_stories_page---------------------------"
       , code = ""
@@ -1145,7 +1181,7 @@ items =
       , demo = ""
       , image = "the_counter.jpg"
       }
-    , { title = "Simple Ecommerce Shopping Cart written in Elm"
+    , { title = "🛒 Simple Ecommerce Shopping Cart written in Elm"
       , review = "Simple Ecommerce Shopping Cart written in Elm"
       , url = "https://medium.com/@l.mugnaini/simple-e-commerce-shopping-cart-written-in-elm-7fe31c6bf13d?source=your_stories_page---------------------------"
       , code = ""
@@ -1154,7 +1190,7 @@ items =
       , demo = ""
       , image = "simple_ecommerce.jpg"
       }
-    , { title = "Experimental reuse of code in Elm, Part I — Page with list of products"
+    , { title = "🔢 Experimental reuse of code in Elm, Part I — Page with list of products"
       , review = "Experimental reuse of code in Elm, Part I — Page with list of products"
       , url = "https://medium.com/@l.mugnaini/tutorial-how-to-recycle-in-elm-89b13b6c0bab?source=your_stories_page---------------------------"
       , code = ""
@@ -1163,7 +1199,7 @@ items =
       , demo = ""
       , image = "reuse_of_code.jpg"
       }
-    , { title = "Elm flow in the console"
+    , { title = "💻 Elm flow in the console"
       , review = "Elm flow in the console"
       , url = "https://medium.com/@l.mugnaini/elm-flow-in-the-console-16e6ceb4ce90?source=your_stories_page---------------------------"
       , code = ""
@@ -1172,7 +1208,7 @@ items =
       , demo = ""
       , image = "flow_in_console.jpg"
       }
-    , { title = "10 Criteria to Judge a Good Milk Container"
+    , { title = "🥛 10 Criteria to Judge a Good Milk Container"
       , review = "10 Criteria to Judge a Good Milk Container"
       , url = "https://medium.com/@l.mugnaini/10-criteria-to-judge-a-good-milk-container-52a94d3d8202?source=your_stories_page---------------------------"
       , code = ""
@@ -1181,7 +1217,7 @@ items =
       , demo = ""
       , image = "milk_container.jpg"
       }
-    , { title = "DEC64 — Douglas Crockford’s Decimal Notation"
+    , { title = "🔣 DEC64 — Douglas Crockford’s Decimal Notation"
       , review = "DEC64 — Douglas Crockford’s Decimal Notation"
       , url = "https://medium.com/@l.mugnaini/dec64-douglas-crockfords-decimal-notation-b25f19348d63?source=your_stories_page---------------------------"
       , code = ""
@@ -1190,7 +1226,7 @@ items =
       , demo = ""
       , image = "dec64.jpg"
       }
-    , { title = "Introduction to Functional Programming"
+    , { title = "🎓 Introduction to Functional Programming"
       , review = "Introduction to Functional Programming"
       , url = "https://medium.com/@l.mugnaini/introduction-to-functional-programming-49c9e5c31df4?source=your_stories_page---------------------------"
       , code = ""
@@ -1199,7 +1235,7 @@ items =
       , demo = ""
       , image = "itroduction_fp.jpg"
       }
-    , { title = "Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON"
+    , { title = "📊 Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON"
       , review = "Javascript snippet to download a multi-sheets-Google-Spreadsheet in JSON"
       , url = "https://medium.com/@l.mugnaini/a-small-script-to-download-a-google-spreadsheet-with-multiple-worksheet-in-javascript-dafb14c65bae?source=your_stories_page---------------------------"
       , code = ""
@@ -1208,7 +1244,7 @@ items =
       , demo = ""
       , image = "download_spreadsheet.jpg"
       }
-    , { title = "Mekke"
+    , { title = "📚 Mekke"
       , review = "Mekke"
       , url = "https://mekke.guupa.com/"
       , code = ""
@@ -1217,7 +1253,7 @@ items =
       , demo = ""
       , image = "mekke.jpg"
       }
-    , { title = "Elm Starter Example"
+    , { title = "🌱 Elm Starter Example"
       , review = "Elm Starter Example"
       , url = "https://elm-starter.guupa.com/"
       , code = ""
@@ -1226,7 +1262,7 @@ items =
       , demo = ""
       , image = "elm_starter_demo.jpg"
       }
-    , { title = "Elm Todos Example"
+    , { title = "✅ Elm Todos Example"
       , review = "Elm Todos Example"
       , url = "https://elm-todomvc.guupa.com/"
       , code = ""
@@ -1235,7 +1271,7 @@ items =
       , demo = ""
       , image = "todo.jpg"
       }
-    , { title = "Elm SPA Example"
+    , { title = "📄 Elm SPA Example"
       , review = "Elm SPA Example"
       , url = "https://elm-spa-example.guupa.com/"
       , code = ""
@@ -1244,7 +1280,7 @@ items =
       , demo = ""
       , image = "spa_example.jpg"
       }
-    , { title = "Nyoro-Nyoro Game"
+    , { title = "🐍 Nyoro-Nyoro Game"
       , review = "Nyoro-Nyoro Game"
       , url = "https://nyny.surge.sh/"
       , code = ""
@@ -1253,7 +1289,7 @@ items =
       , demo = ""
       , image = "nyoro_nyoro.jpg"
       }
-    , { title = "Style Framework"
+    , { title = "🖌️ Style Framework"
       , review = "Style Framework"
       , url = "https://lucamug.github.io/style-framework/"
       , code = ""
@@ -1262,7 +1298,7 @@ items =
       , demo = ""
       , image = "style_framework2.jpg"
       }
-    , { title = "Geofencing"
+    , { title = "📍 Geofencing"
       , review = "Geofencing"
       , url = "https://romantic-tereshkova-b938b5.netlify.app/"
       , code = ""
@@ -1271,7 +1307,7 @@ items =
       , demo = ""
       , image = "geofencing.jpg"
       }
-    , { title = "Puchi Densha"
+    , { title = "🚃 Puchi Densha"
       , review = "Puchi Densha"
       , url = "https://puchi.guupa.com"
       , code = ""
@@ -1280,7 +1316,7 @@ items =
       , demo = ""
       , image = "puchi.jpg"
       }
-    , { title = "Perl e Internet"
+    , { title = "🕸️ Perl e Internet"
       , review = "Perl e Internet"
       , url = "https://www.libraccio.it/libro/9788838607783/alessandro-bellini-andrea-guidi/perl-e-internet.html"
       , code = ""
@@ -1289,7 +1325,7 @@ items =
       , demo = ""
       , image = "perl_e_internet.jpg"
       }
-    , { title = "PISA.WAD - PiAZZA DEi MiRACOLi"
+    , { title = "🏛️ PISA.WAD - PiAZZA DEi MiRACOLi"
       , review = "PISA.WAD - PiAZZA DEi MiRACOLi"
       , url = "https://www.youtube.com/watch?v=8dZ1CzfloRc"
       , code = ""
